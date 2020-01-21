@@ -1,15 +1,24 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Web\Alias;
 
+use App\Models\Alias;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
 
 class ReadController extends Controller
 {
-    public function __invoke()
+    /**
+     * @param Request $request
+     * @param Alias $alias
+     * @return Factory|View
+     */
+    public function __invoke(Request $request, Alias $alias)
     {
-
+        return view('alias.show', [
+            'alias' => $alias,
+        ]);
     }
 }

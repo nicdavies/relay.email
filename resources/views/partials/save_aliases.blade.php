@@ -101,9 +101,11 @@
             </div>
 
             <div class="col-sm-6 text-md-right">
-                <a class="btn btn-sm btn-outline-secondary btn-rounded" href="{{ route('inbox.list', $alias) }}">
-                    <i class="fa fa-globe"></i> Inbox
-                </a>
+                @if($alias->message_action === 'SAVE' || $alias->message_action === 'SAVE_AND_IGNORE')
+                    <a class="btn btn-sm btn-outline-secondary btn-rounded" href="{{ route('inbox.list', $alias) }}">
+                        <i class="fa fa-globe"></i> Inbox
+                    </a>
+                @endif
 
                 <a class="btn btn-sm btn-outline-secondary btn-rounded" href="{{ route('alias.show', $alias) }}">
                     <i class="fa fa-wrencg"></i> Settings
