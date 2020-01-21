@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "axios": "latest",
-    "font-awesome": "^4.7.0"
+    "bootstrap": "^4.4.1",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
@@ -23,6 +26,7 @@
     "lodash": "^4.17.13",
     "resolve-url-loader": "^2.3.1",
     "sass": "^1.15.2",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.6.11"
   }
 }
