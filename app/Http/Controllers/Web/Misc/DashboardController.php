@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Web\Misc;
 
 use App\Models\User;
-use App\Support\Enums\MessageActionType;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
+use App\Support\Enums\MessageActionType;
 
 class DashboardController extends Controller
 {
