@@ -15,6 +15,8 @@ class ReadController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('account.index');
+        return view('account.index', [
+            'user' => $request->user(),
+        ]);
     }
 }

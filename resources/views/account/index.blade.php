@@ -24,7 +24,7 @@
                         <div class="form-group row">
                             <div class="col-12">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ Auth::user()->name }}">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $user->name }}">
                                 @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -34,7 +34,7 @@
                         <div class="form-group row">
                             <div class="col-12">
                                 <label for="email">Email Address</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ Auth::user()->email }}">
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ $user->email }}">
                                 @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -50,7 +50,7 @@
                 </div>
             </form>
 
-            <form action="{{ route('account.update') }}" method="post">
+            <form action="{{ route('account.update.gpg') }}" method="post">
                 @csrf
                 @method('PATCH')
 
@@ -68,10 +68,14 @@
                     <div class="col-lg-7 offset-lg-1">
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="gpg_public_key">PGP Public Key</label>
-                                <textarea class="form-control @error('gpg_public_key') is-invalid @enderror" id="gpg_public_key" name="gpg_public_key" rows="4" placeholder="Begins with '-----BEGIN PGP PUBLIC KEY BLOCK-----'"></textarea>
+                                <label for="gpg_key">GPG Public Key</label>
+                                @if($user->currentGpgKey !== null)
+                                    <textarea class="form-control @error('gpg_key') is-invalid @enderror" id="gpg_key" name="gpg_key" rows="4" placeholder="Begins with '-----BEGIN PGP PUBLIC KEY BLOCK-----'">{{ $user->currentGpgKey->gpg_key }}</textarea>
+                                @else
+                                    <textarea class="form-control @error('gpg_key') is-invalid @enderror" id="gpg_key" name="gpg_key" rows="4" placeholder="Begins with '-----BEGIN PGP PUBLIC KEY BLOCK-----'"></textarea>
+                                @endif
 
-                                @error('gpg_public_key')
+                                @error('gpg_key')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>

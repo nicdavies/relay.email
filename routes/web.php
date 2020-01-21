@@ -46,6 +46,7 @@ Route::group(['auth'], function () {
     # account
     Route::get('/account', Web\Account\ReadController::class)->name('account');
     Route::patch('/account', Web\Account\UpdateController::class)->name('account.update');
+    Route::patch('/account/gpg', Web\Account\Update\GpgController::class)->name('account.update.gpg');
     Route::delete('/account', Web\Account\DeleteController::class)->name('account.destroy');
 
     # requires user to be onboarded!

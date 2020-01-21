@@ -16,13 +16,23 @@ class ReEncryptMessagesJob implements ShouldQueue
     /** @var User $user */
     private User $user;
 
+    /** @var string|null $oldKey */
+    private ?string $oldKey;
+
+    /** @var string $newKey */
+    private string $newKey;
+
     /**
      * ReEncryptMessagesJob constructor.
      * @param User $user
+     * @param string|null $oldKey
+     * @param string $newKey
      */
-    public function __construct(User $user)
+    public function __construct(User $user, ?string $oldKey, string $newKey)
     {
         $this->user = $user;
+        $this->oldKey = $oldKey;
+        $this->newKey = $newKey;
     }
 
     /**
