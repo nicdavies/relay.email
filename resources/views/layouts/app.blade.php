@@ -57,10 +57,14 @@
                         </div>
 
                         <div class="p-2">
-                            <a class="dropdown-item mb-0" href="op_auth_signin.html">
-                                <i class="fa fa-fw fa-arrow-alt-circle-left text-gray mr-1"></i> Sign Out
+                            <a class="dropdown-item mb-0" href="#" onclick="document.getElementById('logout-form').submit();">
+                                <i class="fa fa-fw fa-arrow-circle-left text-gray mr-1"></i> Sign Out
                             </a>
                         </div>
+
+                        <form action="{{ route('auth.logout') }}" method="post" style="display: none;" id="logout-form">
+                            @csrf
+                        </form>
                     </div>
                 </div>
             </div>
