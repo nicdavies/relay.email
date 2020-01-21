@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Misc;
 
 use App\Models\User;
+use App\Models\Message;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -55,9 +56,12 @@ class DashboardController extends Controller
             ->count()
         ;
 
+        $totalMessages = Message::whereIn('alias_id', $user->aliases()->pluck('id'))->count();
+
         return view('misc.home', [
             'aliases' => $aliases,
             'total'   => [
+                'messages' => $totalMessages,
                 'total' => $totalAliases,
                 'save' => $saveAliases,
                 'ignore' => $ignoreAliases,

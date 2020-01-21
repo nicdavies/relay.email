@@ -3,7 +3,7 @@
 @section('content')
     <div class="text-center mt-5 py-3">
         <h2 class="h3 font-w700 mb-2">Welcome {{ Auth::user()->name }} 👋</h2>
-        <h3 class="h5 font-w400 text-muted">lkasjdlkajslkj</h3>
+        <h3 class="h5 font-w400 text-muted">You have {{ $total['messages'] }} messages!</h3>
     </div>
 
     <h2 class="h4 font-w300 mt-6">Overview</h2>
