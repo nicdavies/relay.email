@@ -45,7 +45,7 @@ Route::group(['auth'], function () {
 
     # account
     Route::get('/account', Web\Account\ReadController::class)->name('account');
-    Route::patch('/account', Web\Account\UpdateController::class)->name('account.update');
+    Route::patch('/account/general', Web\Account\Update\GeneralController::class)->name('account.update.general');
     Route::patch('/account/gpg', Web\Account\Update\GpgController::class)->name('account.update.gpg');
     Route::patch('/account/password', Web\Account\Update\PasswordController::class)->name('account.update.password');
     Route::delete('/account', Web\Account\DeleteController::class)->name('account.destroy');

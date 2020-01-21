@@ -8,7 +8,7 @@
 
     <div class="block block-rounded block-fx-shadow">
         <div class="block-content">
-            <form action="{{ route('account.update') }}" method="post">
+            <form action="{{ route('account.update.general') }}" method="post">
                 @csrf
                 @method('PATCH')
 
@@ -16,7 +16,7 @@
                 <div class="row items-push">
                     <div class="col-lg-3">
                         <p class="text-muted">
-                            some description text shit goes here!
+                            Update your basic account details!
                         </p>
                     </div>
 
@@ -25,8 +25,9 @@
                             <div class="col-12">
                                 <label for="name">Name</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $user->name }}">
+
                                 @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -35,8 +36,9 @@
                             <div class="col-12">
                                 <label for="email">Email Address</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ $user->email }}">
+
                                 @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
