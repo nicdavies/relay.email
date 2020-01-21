@@ -90,7 +90,7 @@
                 </div>
             </form>
 
-            <form action="{{ route('account.update') }}" method="post">
+            <form action="{{ route('account.update.password') }}" method="post">
                 @csrf
                 @method('PATCH')
 
@@ -107,8 +107,9 @@
                             <div class="col-12">
                                 <label for="current_password">Current Password</label>
                                 <input type="password" class="form-control @error('current_password') is-invalid @enderror" name="current_password">
+
                                 @error('current_password')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -117,8 +118,9 @@
                             <div class="col-12">
                                 <label for="new_password">New Password</label>
                                 <input type="password" class="form-control @error('new_password') is-invalid @enderror" name="new_password">
+
                                 @error('new_password')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -127,8 +129,9 @@
                             <div class="col-12">
                                 <label for="confirm_new_password">Confirm New Password</label>
                                 <input type="password" class="form-control @error('confirm_new_password') is-invalid @enderror" name="confirm_new_password">
+
                                 @error('confirm_new_password')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
