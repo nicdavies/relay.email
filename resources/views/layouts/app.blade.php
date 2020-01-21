@@ -31,7 +31,6 @@
             </div>
 
             <div>
-                <!-- User Dropdown -->
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn btn-dual" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-avatar img-avatar32 img-avatar-thumb" src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}">
@@ -42,21 +41,15 @@
                         <div class="rounded-top font-w600 text-center p-3 border-bottom">
                             <img class="img-avatar img-avatar48" src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}">
                             <div class="pt-2"></div>
-                            <a class="font-w600 text-dark" href="javascript:void(0)">George Taylor</a>
-                            <div class="font-size-sm text-muted">g.taylor@example.com</div>
+                            <a class="font-w600 text-dark" href="javascript:void(0)">{{ Auth::user()->name }}</a>
+                            <div class="font-size-sm text-muted">{{ Auth::user()->email }}</div>
                         </div>
 
                         <div class="p-2">
-                            <a class="dropdown-item" href="javascript:void(0)">
+                            <a class="dropdown-item" href="{{ route('account') }}">
                                 <i class="fa fa-fw fa-cog text-gray mr-1"></i> Settings
                             </a>
 
-                            <a class="dropdown-item mb-0" href="javascript:void(0)">
-                                <i class="fa fa-fw fa-envelope-open text-gray mr-1"></i> Contact Support
-                            </a>
-                        </div>
-
-                        <div class="p-2">
                             <a class="dropdown-item mb-0" href="#" onclick="document.getElementById('logout-form').submit();">
                                 <i class="fa fa-fw fa-arrow-circle-left text-gray mr-1"></i> Sign Out
                             </a>
