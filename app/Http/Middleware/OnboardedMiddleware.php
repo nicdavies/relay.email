@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Closure;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OnboardedMiddleware
@@ -11,7 +11,7 @@ class OnboardedMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  Request $request
+     * @param Request $request
      * @param Closure $next
      * @return mixed
      */
