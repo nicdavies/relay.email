@@ -6,8 +6,8 @@ use App\Models\Alias;
 use App\Models\Message;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class ReadController extends Controller
