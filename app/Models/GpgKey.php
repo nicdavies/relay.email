@@ -35,4 +35,12 @@ class GpgKey extends Model
             'id'
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName() : string
+    {
+        return 'uuid';
+    }
 }
