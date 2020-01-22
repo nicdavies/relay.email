@@ -24,6 +24,6 @@ class DeleteController extends Controller
 
         $alias->delete();
 
-        return back();
+        return response()->redirectToRoute('home');
     }
 }

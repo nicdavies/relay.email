@@ -34,8 +34,6 @@ Route::group([], function () {
     Route::get('/auth/reset/{token}', 'App\Http\Controllers\Web\Auth\ResetPasswordController@showResetForm')->name('auth.reset');
     Route::post('/auth/reset/{token}', 'App\Http\Controllers\Web\Auth\ResetPasswordController@reset')->name('auth.reset.post');
 
-    Route::get()->name('');
-
 });
 
 # auth
