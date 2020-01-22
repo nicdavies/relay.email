@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Web\Misc;
 
-use App\Models\User;
-use App\Support\Enums\MessageActionType;
 use Carbon\Carbon;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Validation\ValidationException;
+use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
+use App\Support\Enums\MessageActionType;
+use Illuminate\Validation\ValidationException;
 
 class WelcomeController extends Controller
 {
