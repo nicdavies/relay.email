@@ -17,11 +17,8 @@ class AliasGates implements Contract
             'owns-alias' => function (User $user, Alias $alias) {
                 return $user->id === $alias->user_id;
             },
-            'alias-message-read' => function (User $user, Alias $alias, Message $message) {
-                return $alias->id === $message->alias_id;
-            },
-            'alias-message-delete' => function (User $user, Alias $alias, Message $message) {
-                return $alias->id === $message->alias_id;
+            'owns-message' => function (User $user, Message $message) {
+                return $user->id === $message->alias->user->id;
             },
         ];
     }
