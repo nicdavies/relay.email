@@ -20,10 +20,10 @@ use App\Notifications\Message\NewMessageNotification;
 
 class InboundEmailJob implements ShouldQueue
 {
-    use Dispatchable;
-    use InteractsWithQueue;
     use Queueable;
+    use Dispatchable;
     use SerializesModels;
+    use InteractsWithQueue;
 
     private Request $request;
 

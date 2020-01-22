@@ -20,7 +20,7 @@ Route::group([], function () {
     Route::post('/auth/forgot', Api\Auth\ForgotController::class);
     Route::post('/auth/reset', Api\Auth\ResetController::class);
 
-    Route::post('/inbound', Api\Webhook\InboundController::class);
+    Route::post('/message/inbound', Api\Webhook\InboundController::class);
 });
 
 # auth
