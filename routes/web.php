@@ -28,8 +28,11 @@ Route::group([], function () {
     Route::get('/auth/register', Web\Auth\RegisterController::class)->name('auth.register');
     Route::post('/auth/register', Web\Auth\RegisterController::class)->name('auth.register.post');
 
-    Route::post('/auth/forgot', 'App\Http\Controllers\Web\Auth\ForgotPasswordController@sendResetLinkEmail')->name('auth.forgot');
-    Route::post('/auth/reset/{token}', 'App\Http\Controllers\Web\Auth\ResetPasswordController@reset')->name('auth.reset');
+    Route::get('/auth/forgot', 'App\Http\Controllers\Web\Auth\ForgotPasswordController@showLinkRequestForm')->name('auth.forgot');
+    Route::post('/auth/forgot', 'App\Http\Controllers\Web\Auth\ForgotPasswordController@sendResetLinkEmail')->name('auth.forgot.post');
+
+    Route::get('/auth/reset/{token}', 'App\Http\Controllers\Web\Auth\ResetPasswordController@showResetForm')->name('auth.reset');
+    Route::post('/auth/reset/{token}', 'App\Http\Controllers\Web\Auth\ResetPasswordController@reset')->name('auth.reset.post');
 
 });
 

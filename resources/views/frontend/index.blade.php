@@ -18,7 +18,7 @@
                         <div class="form-group">
                             <input class="form-control" type="password" placeholder="Password" name="password" v-model="password">
                             <div class="text-right">
-                                <small><a href="#">Forgot password?</a></small>
+                                <small><a href="{{ route('auth.forgot') }}">Forgot password?</a></small>
                             </div>
                         </div>
 
