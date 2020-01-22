@@ -1,14 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Web\Alias;
 
-use App\Http\Controllers\Controller;
+use Exception;
 use App\Models\Alias;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class DeleteController extends Controller
 {
@@ -17,6 +16,7 @@ class DeleteController extends Controller
      * @param Alias $alias
      * @return RedirectResponse
      * @throws AuthorizationException
+     * @throws Exception
      */
     public function __invoke(Request $request, Alias $alias)
     {
