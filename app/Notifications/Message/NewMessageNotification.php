@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 class NewMessageNotification extends Notification
 {
     use Queueable;
-    
+
     private Message $message;
 
     /**
@@ -49,8 +49,9 @@ class NewMessageNotification extends Notification
             $this->message->alias->uuid,
             $this->message->uuid
         );
-        
+
         return (new MailMessage)
+            ->subject('New Message')
             ->greeting("Hello {$notifiable->name}")
             ->line("You've got a new message to {$this->message->alias->alias}")
             ->action('View', url($url)) // todo - call frontend_url() for the pwa app!
