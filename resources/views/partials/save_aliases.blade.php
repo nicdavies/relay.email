@@ -88,12 +88,15 @@
         <div class="row align-items-center">
             <div class="col-sm-6 py-2">
                 <h3 class="h5 font-w700">
-                    {{ $alias->completeAlias }}<span class="text-muted">@relay.com</span>
+                    {{ $alias->completeAlias }}<span class="text-muted">
+                        @ {{ config('app.app_mail_domain') }}
+                    </span>
                 </h3>
 
-                <div class="progress" style="height: 8px;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 12%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+{{--                TODO: eventually get around to displaying a properly calculated progress-bar --}}
+{{--                <div class="progress" style="height: 8px;">--}}
+{{--                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 12%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>--}}
+{{--                </div>--}}
 
                 <p class="font-size-sm font-w600 mb-0">
                     <span class="font-w700">{{ $alias->messages->count() }}</span> of <span class="font-w700">500</span> Messages

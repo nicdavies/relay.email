@@ -125,6 +125,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Mail Domain
+    |--------------------------------------------------------------------------
+    |
+    | This is the mail domain that mail is routed to for inbound email routing.
+    | Mostly used for display purposes.
+    |
+    */
+    'app_mail_domain' => env('APP_MAIL_DOMAIN', '3things.dev'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
