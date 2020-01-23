@@ -104,19 +104,22 @@
             </div>
 
             <div class="col-sm-6 text-md-right">
-                @if($alias->message_action === 'SAVE' || $alias->message_action === 'SAVE_AND_IGNORE')
-                    <a class="btn btn-sm btn-outline-secondary btn-rounded" href="{{ route('inbox.list', $alias) }}">
-                        <i class="fa fa-globe"></i> Inbox
+                <div class="dropdown">
+                    <a class="btn btn-sm btn-outline-secondary btn-rounded" href="{{ route('alias.show', $alias) }}">
+                        <i class="fa fa-eye"></i> View
                     </a>
-                @endif
 
-                <a class="btn btn-sm btn-outline-secondary btn-rounded" href="{{ route('alias.show', $alias) }}">
-                    <i class="fa fa-wrencg"></i> Settings
-                </a>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-rounded dropdown-toggle" id="dropdown-default-light" data-toggle="dropdown">
+                        Options
+                    </button>
 
-                <a class="btn btn-sm btn-outline-danger btn-rounded" href="#" onclick="document.getElementById('delete-{{ $alias->uuid }}').submit();">
-                    <i class="fa fa-times"></i> Delete
-                </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="{{ route('inbox.list', $alias) }}">Inbox</a>
+                        <a class="dropdown-item" href="{{ route('alias.settings', $alias) }}">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" onclick="document.getElementById('delete-{{ $alias->uuid }}').submit();">Delete</a>
+                    </div>
+                </div>
 
                 <form action="{{ route('alias.destroy', $alias) }}" id="delete-{{ $alias->uuid }}" method="post" style="display: none;">
                     @csrf
