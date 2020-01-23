@@ -7,4 +7,8 @@
             @include('partials.alias_nav')
         </div>
     </div>
+
+    @foreach($activity as $item)
+        {{ $item->description }}
+    @endforeach
 @endsection

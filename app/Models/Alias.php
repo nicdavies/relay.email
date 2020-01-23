@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use App\Support\Enums\MessageActionType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Alias extends Model
 {
     use Uuid;
     use SoftDeletes;
+    use LogsActivity;
 
     protected $fillable = [
 //        'id',
@@ -30,6 +32,8 @@ class Alias extends Model
     protected $enumCasts = [
         'message_action' => MessageActionType::class,
     ];
+
+    protected static $logFillable = true;
 
     /**
      * @return string
