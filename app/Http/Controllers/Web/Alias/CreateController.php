@@ -37,6 +37,11 @@ class CreateController extends Controller
         /** @var User $user */
         $user = $request->user();
 
+        // Check if the user can create more aliases
+        if (! $user->subscribed() && $user->aliases()->count() >= 5) {
+            return response()->redirectToRoute('billing.upgrade');
+        }
+
         if ($request->has('alias') && $request->get('alias') === null) {
             $alias = hash('crc32', random_bytes(8));
         } else {
@@ -50,6 +55,13 @@ class CreateController extends Controller
             $name = $request->get('name');
         }
 
+        // Set the message_limit based on the user's plan
+        if ($user->subscribed()) {
+            $messageLimit = 500;
+        } else {
+            $messageLimit = 50;
+        }
+
         /** @var Alias $alias */
         $alias = $user
             ->aliases()
@@ -57,7 +69,7 @@ class CreateController extends Controller
                 'name' => $name,
                 'alias' => $alias,
                 'message_action' => $request->get('action'),
-                'message_limit'  => 500, // todo - based on the plan, decide what the message limit is!
+                'message_limit'  => $messageLimit,
                 'message_forward_to' => $request->get('forward_to'),
             ])
         ;

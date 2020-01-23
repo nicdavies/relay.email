@@ -86,6 +86,9 @@ Route::group(['auth'], function () {
         Route::delete('/billing/subscription', Web\Billing\Subscription\DeleteController::class)->name('billing.subscription.cancel');
         Route::get('/billing/invoice/{invoice}', Web\Billing\Invoice\ReadController::class)->name('billing.invoice');
 
+        # billing upsell
+        Route::get('/billing/upgrade', Web\Billing\Upgrade\ReadController::class)->name('billing.upgrade');
+
     });
 
 });

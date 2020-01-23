@@ -29,7 +29,7 @@ class CreateController extends Controller
         }
 
         // If user has cancelled their subscription and are still on their grace period, just resume the subscription
-        if ($user->subscription('default')->onGracePeriod()) {
+        if ($user->subscription() !== null && $user->subscription()->onGracePeriod()) {
             $user
                 ->subscription('default')
                 ->resume()
