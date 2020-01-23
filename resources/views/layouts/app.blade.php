@@ -79,9 +79,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-body-color py-4 {{ Route::is('alias.create') ? 'active' : '' }}" href="{{ route('alias.create') }}">
-                            <i class="fa fa-envelope-open fa-fw text-gray"></i> <span class="d-none d-md-inline ml-1">
-                                Create Alias
+                        <a class="nav-link text-body-color py-4 {{ Route::is('alias.index') ? 'active' : '' }}" href="{{ route('alias.index') }}">
+                            <i class="fa fa-envelope fa-fw text-gray"></i> <span class="d-none d-md-inline ml-1">
+                                Aliases
                             </span>
                         </a>
                     </li>

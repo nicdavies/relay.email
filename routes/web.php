@@ -60,6 +60,7 @@ Route::group(['auth'], function () {
         Route::get('/home', Web\Misc\DashboardController::class)->name('home');
 
         # aliases
+        Route::get('/aliases', Web\Alias\ListController::class)->name('alias.index');
         Route::get('/aliases/create', Web\Alias\CreateController::class)->name('alias.create');
         Route::post('/aliases/create', Web\Alias\CreateController::class)->name('alias.store');
         Route::get('/aliases/{alias}', Web\Alias\ReadController::class)->name('alias.show');

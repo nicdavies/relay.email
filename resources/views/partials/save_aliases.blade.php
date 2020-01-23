@@ -82,7 +82,7 @@
     </div>
 </div>
 
-@foreach($aliases as $alias)
+@foreach ($aliases as $alias)
 <div class="block border-bottom mb-0 mt-1">
     <div class="block-content block-content-full border-bottom">
         <div class="row align-items-center">
