@@ -59,7 +59,7 @@ $btn-hero-padding-x-lg:     2.25rem !default;
 // Header
 
 $header-height:             4.375rem !default;           // Best values > 3rem and < 5rem
-$header-bg:                 #fff !default;
+$header-bg:                 $white !default;
 $header-dark-bg:            theme-color("primary") !default;
 
 

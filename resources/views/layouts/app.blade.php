@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 </head>
 <body>
-<div id="page-container" class="sidebar-inverse side-scroll main-content-boxed side-trans-enabled">
+<div id="page-container" class="sidebar-inverse side-scroll main-content-boxed side-trans-enabled page-header-dark">
     <header id="page-header">
         <div class="content-header">
             <div>
