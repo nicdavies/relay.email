@@ -5,6 +5,7 @@
     "license": "proprietary",
     "require": {
         "php": "^7.4",
+        "ext-json": "*",
         "bensampo/laravel-enum": "^1.29",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.5",
@@ -15,8 +16,8 @@
         "laravel/tinker": "^2.0",
         "mailgun/mailgun-php": "^3.0",
         "php-curl-class/php-curl-class": "^8.6",
-        "spatie/laravel-medialibrary": "^7.18",
-        "ext-json": "*"
+        "spatie/laravel-activitylog": "^3.9",
+        "spatie/laravel-medialibrary": "^7.18"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
