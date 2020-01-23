@@ -2,23 +2,25 @@
 
 namespace App\Models;
 
-use App\Notifications\User\ResetPasswordNotification;
-use App\Notifications\User\VerifyEmailNotification;
+use Laravel\Cashier\Billable;
 use App\Support\Traits\Uuid;
+use Laravel\Passport\HasApiTokens;
 use App\Traits\NotificationSettings;
 use Illuminate\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Relations;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
-use Spatie\Image\Exceptions\InvalidManipulation;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
+use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\Relations;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\Image\Exceptions\InvalidManipulation;
+use App\Notifications\User\VerifyEmailNotification;
+use App\Notifications\User\ResetPasswordNotification;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements HasMedia
 {
     use Uuid;
+    use Billable;
     use Notifiable;
     use HasApiTokens;
     use HasMediaTrait;

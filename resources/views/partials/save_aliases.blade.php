@@ -99,7 +99,7 @@
 {{--                </div>--}}
 
                 <p class="font-size-sm font-w600 mb-0">
-                    <span class="font-w700">{{ $alias->messages->count() }}</span> of <span class="font-w700">500</span> Messages
+                    <span class="font-w700">{{ $alias->messages->count() }}</span> of <span class="font-w700">{{ $alias->message_limit }}</span> Messages
                 </p>
             </div>
 

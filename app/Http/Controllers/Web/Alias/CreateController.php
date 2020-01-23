@@ -57,6 +57,7 @@ class CreateController extends Controller
                 'name' => $name,
                 'alias' => $alias,
                 'message_action' => $request->get('action'),
+                'message_limit'  => 500, // todo - based on the plan, decide what the message limit is!
                 'message_forward_to' => $request->get('forward_to'),
             ])
         ;
