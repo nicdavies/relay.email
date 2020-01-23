@@ -87,6 +87,14 @@
                     </li>
 
                     <li class="nav-item pull-right">
+                        <a class="nav-link text-body-color py-4 {{ Route::is('billing') ? 'active' : '' }}" href="{{ route('billing') }}">
+                            <i class="fa fa-credit-card fa-fw text-gray"></i> <span class="d-none d-md-inline ml-1">
+                                Billing
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item pull-right">
                         <a class="nav-link text-body-color py-4 {{ Route::is('account') ? 'active' : '' }}" href="{{ route('account') }}">
                             <i class="fa fa-cog fa-fw text-gray"></i> <span class="d-none d-md-inline ml-1">
                                 Settings

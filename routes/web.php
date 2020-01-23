@@ -78,6 +78,9 @@ Route::group(['auth'], function () {
         Route::post('/aliases/{alias}/inbox/message/{message}/archive', Web\Message\ArchiveController::class)->name('inbox.message.archive');
         Route::delete('/aliases/{alias}/inbox/message/{message}', Web\Message\DeleteController::class)->name('inbox.message.delete');
 
+        # billing
+        Route::get('/billing', Web\Billing\ReadController::class)->name('billing');
+
     });
 
 });
