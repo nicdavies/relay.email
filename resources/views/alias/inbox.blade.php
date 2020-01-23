@@ -68,7 +68,7 @@
                                         </div>
                                     </div>
 
-                                    <form action="{{ route('alias.destroy', $alias) }}" id="delete-{{ $alias->uuid }}" method="post" style="display: none;">
+                                    <form action="{{ route('inbox.message.delete', ['alias' => $alias, 'message' => $message]) }}" id="delete-{{ $alias->uuid }}" method="post" style="display: none;">
                                         @csrf
                                         @method('DELETE')
                                     </form>

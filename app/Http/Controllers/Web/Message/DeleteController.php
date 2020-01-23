@@ -25,6 +25,6 @@ class DeleteController extends Controller
 
         $message->forceDelete();
 
-        return back();
+        return response()->redirectToRoute('inbox.list', $alias);
     }
 }
