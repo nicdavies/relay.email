@@ -11,7 +11,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link text-white py-4 {{ Route::is('inbox.list') ? 'active' : '' }}" href="{{ route('inbox.list', $alias) }}">
+                <a class="nav-link text-white py-4 {{ Route::is('inbox.list') || Route::is('inbox.message.read') ? 'active' : '' }}" href="{{ route('inbox.list', $alias) }}">
                     <i class="fa fa-envelope-open fa-fw text-gray"></i>
                     <span class="d-none d-md-inline ml-1">
                         Inbox

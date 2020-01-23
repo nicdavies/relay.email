@@ -47,9 +47,34 @@
                                     <span class="font-size-sm text-muted">{{ $message->created_at->toFormattedDateString() }}</span>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('inbox.message.read', ['alias' => $alias, 'message' => $message]) }}">
-                                        <i class="fa fa-fw fa-eye"></i>
-                                    </a>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary btn-rounded dropdown-toggle" id="dropdown-default-light" data-toggle="dropdown">
+                                            Options
+                                        </button>
+
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="{{ route('inbox.message.read', ['alias' => $alias, 'message' => $message]) }}">
+                                                View
+                                            </a>
+
+                                            <a class="dropdown-item" href="#" onclick="document.getElementById('delete-{{ $alias->uiud }}').submit();">
+                                                Forward
+                                            </a>
+
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#" onclick="document.getElementById('delete-{{ $alias->uuid }}').submit();">
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <form action="{{ route('alias.destroy', $alias) }}" id="delete-{{ $alias->uuid }}" method="post" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                    <form action="{{ route('inbox.message.forward', ['alias' => $alias, 'message' => $message]) }}" method="post" id="forward-{{ $alias->uuid }}" style="display: none">
+                                        @csrf
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

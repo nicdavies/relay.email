@@ -74,6 +74,8 @@ Route::group(['auth'], function () {
         # alias inbox
         Route::get('/aliases/{alias}/inbox', Web\Message\ListController::class)->name('inbox.list');
         Route::get('/aliases/{alias}/inbox/message/{message}', Web\Message\ReadController::class)->name('inbox.message.read');
+        Route::post('/aliases/{alias}/inbox/message/{message}/forward', Web\Message\ForwardController::class)->name('inbox.message.forward');
+        Route::post('/aliases/{alias}/inbox/message/{message}/archive', Web\Message\ArchiveController::class)->name('inbox.message.archive');
         Route::delete('/aliases/{alias}/inbox/message/{message}', Web\Message\DeleteController::class)->name('inbox.message.delete');
 
     });
