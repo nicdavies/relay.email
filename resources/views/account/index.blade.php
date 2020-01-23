@@ -45,7 +45,7 @@
 
                         <div class="form-group row">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-shadow-primary">Save Changes</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
 
                         <div class="form-group row mb-5">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-shadow-primary">Save Changes</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
 
                         <div class="form-group row mb-5">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-shadow-primary">Save Changes</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
                         </div>
                     </div>
