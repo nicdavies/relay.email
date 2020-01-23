@@ -63,11 +63,15 @@ Route::group(['auth'], function () {
         Route::get('/aliases/create', Web\Alias\CreateController::class)->name('alias.create');
         Route::post('/aliases/create', Web\Alias\CreateController::class)->name('alias.store');
         Route::get('/aliases/{alias}', Web\Alias\ReadController::class)->name('alias.show');
-        Route::get('/aliases/{alias}/settings', Web\Alias\UpdateController::class)->name('alias.settings');
-        Route::patch('/aliases/{alias}/settings', Web\Alias\UpdateController::class)->name('alias.update');
         Route::delete('/aliases/{alias}', Web\Alias\DeleteController::class)->name('alias.destroy');
 
-        # alias messages
+        # alias settings
+        Route::get('/aliases/{alias}/settings', Web\Alias\UpdateController::class)->name('alias.settings');
+        Route::patch('/aliases/{alias}/settings/general', Web\Alias\Update\GeneralController::class)->name('alias.update.general');
+        Route::patch('/aliases/{alias}/settings/action', Web\Alias\Update\ActionController::class)->name('alias.update.action');
+        Route::get('/aliases/{alias}/settings/forward-confirm/{token}', Web\Alias\Update\ForwardConfirmController::class)->name('alias.update.forward.confirm');
+
+        # alias inbox
         Route::get('/aliases/{alias}/inbox', Web\Message\ListController::class)->name('inbox.list');
         Route::get('/aliases/{alias}/inbox/message/{message}', Web\Message\ReadController::class)->name('inbox.message.read');
         Route::delete('/aliases/{alias}/inbox/message/{message}', Web\Message\DeleteController::class)->name('inbox.message.delete');

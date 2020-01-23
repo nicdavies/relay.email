@@ -24,6 +24,8 @@ class Alias extends Model
         'name',
         'message_action',
         'message_forward_to',
+        'forward_to_confirmed_at',
+        'forward_to_confirmation_token',
 //        'created_at',
 //        'updated_at',
 //        'deleted_at',
@@ -45,6 +47,14 @@ class Alias extends Model
             $this->alias,
             $this->user->uuid
         );
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHasConfirmedForwardToAttribute() : bool
+    {
+        return $this->forward_to_confirmed_at !== null;
     }
 
     /**
