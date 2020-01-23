@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    @if($alias->message_action !== 'SAVE' && $alias->message_action !== 'SAVE_AND_FORWARD')
+    @if($alias->message_action !== 'SAVE' && $alias->message_action !== 'FORWARD_AND_SAVE')
         <div class="text-center mt-5 py-3">
             <h2 class="h3 font-w700 mb-2">Uh Oh!</h2>
             <h3 class="h5 font-w400 text-muted">This alias is not set up to receive email!</h3>
