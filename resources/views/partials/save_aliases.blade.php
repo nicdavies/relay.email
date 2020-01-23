@@ -1,48 +1,48 @@
 {{-- SAVE ALIASES --}}
 <div class="d-flex justify-content-between align-items-center mt-5 mb-3">
     <h2 class="h4 font-w300 mb-0">Aliases ({{ $total['total'] }})</h2>
-    <a href="{{ route('alias.create') }}" class="btn btn-primary btn-sm btn-alt-primary btn-rounded">
+    <button type="button" class="btn btn-primary btn-sm btn-rounded" onclick="Dashmix.block('open', '#add-alias');">
         <i class="fa fa-plus mr-1"></i> Add Alias
-    </a>
+    </button>
 </div>
 
-{{--<div id="cb-add-mailbox" class="block bg-body-light animated fadeIn d-none">--}}
-{{--    <div class="block-header">--}}
-{{--        <h3 class="block-title">Add a new Alias</h3>--}}
-{{--        <div class="block-options">--}}
-{{--            <button type="button" class="btn-block-option">--}}
-{{--                <i class="fa fa-question"></i>--}}
-{{--            </button>--}}
+<div id="add-alias" class="block bg-body-light animated fadeIn d-none">
+    <div class="block-header">
+        <h3 class="block-title">Add a new Alias</h3>
+        <div class="block-options">
+            <button type="button" class="btn-block-option" data-toggle="block-option" data-action="close">
+                <i class="fa fa-close"></i>
+            </button>
+        </div>
+    </div>
 
-{{--            <button type="button" class="btn-block-option" data-toggle="block-option" data-action="close">--}}
-{{--                <i class="fa fa-close"></i>--}}
-{{--            </button>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    <div class="block-content">
+        <form action="{{ route('alias.store') }}" method="post">
+            @csrf
 
-{{--    <div class="block-content">--}}
-{{--        <form action="">--}}
-{{--            <div class="form-group row gutters-tiny mb-0 items-push">--}}
-{{--                <div class="col-md-5">--}}
-{{--                    <input type="text" class="form-control" id="example-hosting-mailbox" name="example-hosting-mailbox" placeholder="Mailbox Name">--}}
-{{--                </div>--}}
-{{--                <div class="col-md-4">--}}
-{{--                    <select class="custom-select" id="example-hosting-domains" name="example-hosting-domains">--}}
-{{--                        <option value="0">Select a domain</option>--}}
-{{--                        <option value="1">@example.com</option>--}}
-{{--                        <option value="2">@example.co.uk</option>--}}
-{{--                        <option value="3">@example.io</option>--}}
-{{--                    </select>--}}
-{{--                </div>--}}
-{{--                <div class="col-md-3">--}}
-{{--                    <button type="submit" class="btn btn-alt-success btn-block">--}}
-{{--                        <i class="fa fa-plus mr-1"></i> Create--}}
-{{--                    </button>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </form>--}}
-{{--    </div>--}}
-{{--</div>--}}
+            <div class="form-group row gutters-tiny items-push">
+                <div class="col-md-5">
+                    <input type="text" class="form-control" id="alias" name="alias" placeholder="Alias">
+                </div>
+
+                <div class="col-md-4">
+                    <select class="custom-select" id="action" name="action">
+                        <option value="SAVE">Save</option>
+                        <option value="IGNORE">Ignore</option>
+                        <option value="FORWARD">Forward</option>
+                        <option value="FORWARD_AND_SAVE">Forward And Save</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success btn-block">
+                        <i class="fa fa-plus mr-1"></i> Create
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div id="cb-add-mailbox" class="block bg-body-light animated fadeIn d-none">
     <div class="block-header">

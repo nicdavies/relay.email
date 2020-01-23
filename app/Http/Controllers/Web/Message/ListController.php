@@ -21,8 +21,15 @@ class ListController extends Controller
     {
         $this->authorize('owns-alias', $alias);
 
+        $messages = $alias
+            ->messages()
+            ->orderByDesc('created_at')
+            ->paginate(20)
+        ;
+
         return view('alias.inbox', [
             'alias' => $alias,
+            'messages' => $messages,
         ]);
     }
 }

@@ -26,7 +26,9 @@
         <div class="content-header">
             <div>
                 <a class="link-fx font-size-lg text-dual" href="{{ route('home') }}">
-                    <span class="font-w700 text-dual">{{ config('app.name') }}</span>
+                    <span class="font-w700 text-dual">
+                        {{ config('app.name') }}
+                    </span>
                 </a>
             </div>
 
@@ -69,7 +71,7 @@
             <div class="content py-0">
                 <ul class="nav nav-tabs nav-tabs-alt border-bottom-0 justify-content-center justify-content-md-start">
                     <li class="nav-item">
-                        <a class="nav-link text-body-color py-4 active" href="{{ route('home') }}">
+                        <a class="nav-link text-body-color py-4 {{ Route::is('home') ? 'active' : '' }}" href="{{ route('home') }}">
                             <i class="fa fa-rocket fa-fw text-gray"></i> <span class="d-none d-md-inline ml-1">
                                 Home
                             </span>
@@ -77,7 +79,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-body-color py-4" href="{{ route('alias.create') }}">
+                        <a class="nav-link text-body-color py-4 {{ Route::is('alias.create') ? 'active' : '' }}" href="{{ route('alias.create') }}">
                             <i class="fa fa-envelope-open fa-fw text-gray"></i> <span class="d-none d-md-inline ml-1">
                                 Create Alias
                             </span>
@@ -85,7 +87,7 @@
                     </li>
 
                     <li class="nav-item pull-right">
-                        <a class="nav-link text-body-color py-4" href="{{ route('account') }}">
+                        <a class="nav-link text-body-color py-4 {{ Route::is('account') ? 'active' : '' }}" href="{{ route('account') }}">
                             <i class="fa fa-cog fa-fw text-gray"></i> <span class="d-none d-md-inline ml-1">
                                 Settings
                             </span>

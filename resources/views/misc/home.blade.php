@@ -9,10 +9,10 @@
     <h2 class="h4 font-w300 mt-6">Overview</h2>
     <div class="row">
         <div class="col-md-6 col-xl-3">
-            <a class="block block-link-shadow" href="javascript:void(0)">
+            <div class="block block-rounded">
                 <div class="block-content block-content-full text-center">
                     <div class="p-20 mb-5">
-                        <i class="fa fa-3x fa-globe text-primary"></i>
+                        <i class="fa fa-3x fa-save text-success"></i>
                     </div>
                     <p class="font-size-lg font-w600 mb-0">
                         {{ $total['save'] }} Save
@@ -21,14 +21,14 @@
                         Aliases
                     </p>
                 </div>
-            </a>
+            </div>
         </div>
 
         <div class="col-md-6 col-xl-3">
-            <a class="block block-link-shadow" href="javascript:void(0)">
+            <div class="block block-rounded">
                 <div class="block-content block-content-full text-center">
                     <div class="p-20 mb-5">
-                        <i class="fa fa-3x fa-server text-elegance"></i>
+                        <i class="fa fa-3x fa-eye-slash text-success"></i>
                     </div>
                     <p class="font-size-lg font-w600 mb-0">
                         {{ $total['ignore'] }} Ignore
@@ -37,14 +37,14 @@
                         Aliases
                     </p>
                 </div>
-            </a>
+            </div>
         </div>
 
         <div class="col-md-6 col-xl-3">
-            <a class="block block-link-shadow" href="javascript:void(0)">
+            <div class="block block-rounded">
                 <div class="block-content block-content-full text-center">
                     <div class="p-20 mb-5">
-                        <i class="fa fa-3x fa-dot-circle-o text-pulse"></i>
+                        <i class="fa fa-3x fa-share-square text-success"></i>
                     </div>
                     <p class="font-size-lg font-w600 mb-0">
                         {{ $total['forward'] }} Forward
@@ -53,14 +53,14 @@
                         Aliases
                     </p>
                 </div>
-            </a>
+            </div>
         </div>
 
         <div class="col-md-6 col-xl-3">
-            <a class="block block-link-shadow" href="javascript:void(0)">
+            <div class="block block-rounded">
                 <div class="block-content block-content-full text-center">
                     <div class="p-20 mb-5">
-                        <i class="fa fa-3x fa-cc-paypal text-gray-dark"></i>
+                        <i class="fa fa-3x fa-exchange text-success"></i>
                     </div>
                     <p class="font-size-lg font-w600 mb-0">
                         {{ $total['forwardAndSave'] }} Forward & Save
@@ -69,11 +69,9 @@
                         Aliases
                     </p>
                 </div>
-            </a>
+            </div>
         </div>
     </div>
 
     @include('partials.save_aliases')
-{{--    @include('partials.forward_aliases')--}}
-{{--    @include('partials.ignore_aliases')--}}
 @endsection

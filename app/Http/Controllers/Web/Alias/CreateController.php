@@ -10,6 +10,7 @@ use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -27,7 +28,7 @@ class CreateController extends Controller
         }
 
         $this->validate($request, [
-            'name'   => ['required', 'string', 'min:3', 'max:20'],
+            'name'   => ['string', 'min:3', 'max:20', Rule::requiredIf(empty($request->get('alias')))],
             'alias'  => ['sometimes', 'nullable', 'string', 'alphanum', 'min:3', 'max:20'],
             'action' => ['required', 'string', new EnumValue(MessageActionType::class)],
             'forward_to' => ['sometimes', 'nullable', 'email'],
@@ -42,11 +43,18 @@ class CreateController extends Controller
             $alias = $request->get('alias');
         }
 
+        // The name is optional on the home page create form, so we need to create it from the alias
+        if ($request->get('name') === null) {
+            $name = $alias;
+        } else {
+            $name = $request->get('name');
+        }
+
         /** @var Alias $alias */
         $alias = $user
             ->aliases()
             ->create([
-                'name' => $request->get('name'),
+                'name' => $name,
                 'alias' => $alias,
                 'message_action' => $request->get('action'),
                 'message_forward_to' => $request->get('forward_to'),

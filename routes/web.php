@@ -63,7 +63,8 @@ Route::group(['auth'], function () {
         Route::get('/aliases/create', Web\Alias\CreateController::class)->name('alias.create');
         Route::post('/aliases/create', Web\Alias\CreateController::class)->name('alias.store');
         Route::get('/aliases/{alias}', Web\Alias\ReadController::class)->name('alias.show');
-        Route::patch('/aliases/{alias}', Web\Alias\UpdateController::class)->name('alias.update');
+        Route::get('/aliases/{alias}/settings', Web\Alias\UpdateController::class)->name('alias.settings');
+        Route::patch('/aliases/{alias}/settings', Web\Alias\UpdateController::class)->name('alias.update');
         Route::delete('/aliases/{alias}', Web\Alias\DeleteController::class)->name('alias.destroy');
 
         # alias messages
