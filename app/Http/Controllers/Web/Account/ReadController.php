@@ -19,13 +19,8 @@ class ReadController extends Controller
         /** @var User $user */
         $user = $request->user();
 
-        if (! $user->hasStripeId()) {
-            $user->createAsStripeCustomer();
-        }
-
         return view('account.index', [
-            'user'   => $user,
-            'intent' => $user->createSetupIntent(),
+            'user' => $user,
         ]);
     }
 }

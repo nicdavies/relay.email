@@ -6,216 +6,175 @@
         <h3 class="h5 font-w400 text-muted">Manage your subscription!</h3>
     </div>
 
-    <div class="block block-rounded block-fx-shadow">
-        <div class="block-content">
-{{--            <form action="{{ route('account.update.general') }}" method="post">--}}
-{{--                @csrf--}}
-{{--                @method('PATCH')--}}
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 
-{{--                <h2 class="content-heading text-black">Account Details</h2>--}}
-{{--                <div class="row items-push">--}}
-{{--                    <div class="col-lg-3">--}}
-{{--                        <p class="text-muted">--}}
-{{--                            Update your basic account details!--}}
-{{--                        </p>--}}
-{{--                    </div>--}}
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
-{{--                    <div class="col-lg-7 offset-lg-1">--}}
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <label for="name">Name</label>--}}
-{{--                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $user->name }}">--}}
+    <div class="content mb-7">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
 
-{{--                                @error('name')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                <div class="block block-rounded border-top border-3x border-success">
+                    <div class="block-header">
+                        <h3 class="block-title">Overview</h3>
 
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <label for="email">Email Address</label>--}}
-{{--                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ $user->email }}">--}}
+                        <div class="block-options">
+                            @if ($user->subscribed() && !$user->subscription()->cancelled())
+                                <form action="{{ route('billing.subscription.cancel') }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-danger btn-hero-sm">
+                                        Cancel
+                                    </button>
+                                </form>
+                            @else
+                                <form action="{{ route('billing.subscription.start') }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-hero-info btn-hero-sm">
+                                        Subscribe To Premium
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
 
-{{--                                @error('email')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                    <div class="block-content border-top">
+                        <p>
+                            <strong>Current Plan:</strong>
 
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <button type="submit" class="btn btn-shadow-primary">Save Changes</button>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </form>--}}
+                            @if ($user->subscribed())
+                                <span class="badge badge-info">
+                                    {{ $user->subscription()->stripe_plan }}
+                                </span>
 
-{{--            <form action="{{ route('account.update.gpg') }}" method="post">--}}
-{{--                @csrf--}}
-{{--                @method('PATCH')--}}
+                                @if ($user->subscription()->onTrial())
+                                    <span class="badge badge-warning ml-1">
+                                        On Trial
+                                    </span>
+                                @endif
 
-{{--                <h2 class="content-heading text-black">GPG</h2>--}}
-{{--                <div class="row items-push">--}}
-{{--                    <div class="col-lg-3">--}}
-{{--                        <p class="text-muted">--}}
-{{--                            By adding your GPG key, all your messages will be encrypted.--}}
-{{--                        </p>--}}
-{{--                        <p class="text-muted">--}}
-{{--                            You can choose to encrypt <strong>forward</strong> and <strong>save</strong> messages in your alias settings.--}}
-{{--                        </p>--}}
-{{--                    </div>--}}
+                                @if ($user->subscription()->cancelled())
+                                    <span class="badge badge-danger ml-1">
+                                        Cancelled
+                                    </span>
+                                @endif
+                            @else
+                                <span>FREE / $0 <small>per month</small></span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
 
-{{--                    <div class="col-lg-7 offset-lg-1">--}}
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <label for="gpg_key">GPG Public Key</label>--}}
-{{--                                @if($user->currentGpgKey !== null)--}}
-{{--                                    <textarea class="form-control @error('gpg_key') is-invalid @enderror" id="gpg_key" name="gpg_key" rows="4" placeholder="Begins with '-----BEGIN PGP PUBLIC KEY BLOCK-----'">{{ $user->currentGpgKey->gpg_key }}</textarea>--}}
-{{--                                @else--}}
-{{--                                    <textarea class="form-control @error('gpg_key') is-invalid @enderror" id="gpg_key" name="gpg_key" rows="4" placeholder="Begins with '-----BEGIN PGP PUBLIC KEY BLOCK-----'"></textarea>--}}
-{{--                                @endif--}}
+                <div class="block block-rounded">
+                    <div class="block-header">
+                        <h3 class="block-title">Credit Card</h3>
 
-{{--                                @error('gpg_key')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        @if ($user->hasPaymentMethod())
+                            <div class="block-options">
+                                <div class="block-options-item font-italic">
+                                    {{ $user->card_brand }} ********{{ $user->card_last_four }}
+                                </div>
 
-{{--                        <div class="form-group row mb-5">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <button type="submit" class="btn btn-shadow-primary">Save Changes</button>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </form>--}}
+                                <form class="block-options-item" action="{{ route('billing.card.destroy') }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
 
-{{--            <form action="{{ route('account.update.password') }}" method="post">--}}
-{{--                @csrf--}}
-{{--                @method('PATCH')--}}
+                                    <button type="submit" class="btn btn-block-option text-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
+                    </div>
 
-{{--                <h2 class="content-heading text-black">Account Security</h2>--}}
-{{--                <div class="row items-push">--}}
-{{--                    <div class="col-lg-3">--}}
-{{--                        <p class="text-muted">--}}
-{{--                            Changing your sign in password is an easy way to keep your account secure.--}}
-{{--                        </p>--}}
-{{--                    </div>--}}
+                    @if (! $user->hasPaymentMethod())
+                        <div class="block-content">
+                            <div class="form-group row">
+                                <div class="col-lg-12 ml-auto">
+                                    <label for="example-text-input">Cardholder Name</label>
+                                    <input type="text" class="form-control" id="cardholder_name" name="cardholder_name" placeholder="Cardholder Name">
+                                </div>
+                            </div>
 
-{{--                    <div class="col-lg-7 offset-lg-1">--}}
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <label for="current_password">Current Password</label>--}}
-{{--                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" name="current_password">--}}
+                            <div class="form-group row pt-3">
+                                <div class="col-lg-12 ml-auto">
+                                    {{-- STRIPE CARD ELEMENT INSERTED HERE --}}
+                                    <div id="card-element"></div>
+                                    <div id="card-errors" class="text-danger" role="alert"></div>
+                                </div>
+                            </div>
 
-{{--                                @error('current_password')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                            <div class="form-group pt-3">
+                                <button type="submit" id="card-submit" class="btn btn-hero-success" data-secret="{{ $intent->client_secret }}">
+                                    Save
+                                </button>
+                            </div>
 
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <label for="new_password">New Password</label>--}}
-{{--                                <input type="password" class="form-control @error('new_password') is-invalid @enderror" name="new_password">--}}
+                            <form action="{{ route('billing.card.store') }}" method="post" id="card-submit-form">
+                                @csrf
+                                <input type="hidden" id="stripe_token" name="stripe_token">
+                            </form>
+                        </div>
+                    @endif
+                </div>
 
-{{--                                @error('new_password')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                <div class="block block-rounded">
+                    <div class="block-header">
+                        <h3 class="block-title">Invoices</h3>
+                    </div>
 
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <label for="confirm_new_password">Confirm New Password</label>--}}
-{{--                                <input type="password" class="form-control @error('confirm_new_password') is-invalid @enderror" name="confirm_new_password">--}}
-
-{{--                                @error('confirm_new_password')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row mb-5">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <button type="submit" class="btn btn-shadow-primary">Save Changes</button>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </form>--}}
-
-
-
-{{--            <form action="{{ route('account.update.general') }}" method="post">--}}
-{{--                @csrf--}}
-{{--                @method('PATCH')--}}
-
-{{--                <h2 class="content-heading text-black">Account Details</h2>--}}
-{{--                <div class="row items-push">--}}
-{{--                    <div class="col-lg-3">--}}
-{{--                        <p class="text-muted">--}}
-{{--                            Update your basic account details!--}}
-{{--                        </p>--}}
-{{--                    </div>--}}
-
-{{--                    <div class="col-lg-7 offset-lg-1">--}}
-{{--                        <input id="card-holder-name" type="text">--}}
-
-{{--                        <!-- Stripe Elements Placeholder -->--}}
-{{--                        <div id="card-element"></div>--}}
-
-{{--                        <button id="card-button" data-secret="{{ $intent->client_secret }}">--}}
-{{--                            Update Payment Method--}}
-{{--                        </button>--}}
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <label for="name">Name</label>--}}
-{{--                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $user->name }}">--}}
-
-{{--                                @error('name')--}}
-{{--                                <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <label for="email">Email Address</label>--}}
-{{--                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ $user->email }}">--}}
-
-{{--                                @error('email')--}}
-{{--                                <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <button type="submit" class="btn btn-shadow-primary">Save Changes</button>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </form>--}}
+                    <div class="block-content-full border-top">
+                        <table class="table table-vcenter">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+{{--                                <th class="text-center" style="width: 100px;">Actions</th>--}}
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($user->invoices() as $invoice)
+                                    <tr>
+                                        <th>{{ $invoice->date()->toFormattedDateString() }}</th>
+                                        <td>{{ $invoice->total() }}</td>
+{{--                                        <td class="text-center">--}}
+{{--                                            <div class="btn-group">--}}
+{{--                                                <a href="{{ route('billing.invoice', $invoice->id) }}" class="btn btn-rounded btn-sm btn-secondary">--}}
+{{--                                                    Download--}}
+{{--                                                </a>--}}
+{{--                                            </div>--}}
+{{--                                        </td>--}}
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="https://js.stripe.com/v3/"></script>
-
     <script>
-        const stripe = Stripe('stripe-public-key');
+        const stripe = Stripe('{{ env('STRIPE_KEY') }}');
 
         const elements = stripe.elements();
         const cardElement = elements.create('card');
 
         cardElement.mount('#card-element');
 
-        const cardHolderName = document.getElementById('card-holder-name');
-        const cardButton = document.getElementById('card-button');
+        const cardHolderName = document.getElementById('cardholder_name');
+        const cardButton = document.getElementById('card-submit');
         const clientSecret = cardButton.dataset.secret;
+        const cardSubmitForm = document.getElementById('card-submit-form');
 
         cardButton.addEventListener('click', async (e) => {
             const { setupIntent, error } = await stripe.confirmCardSetup(
@@ -230,7 +189,10 @@
             if (error) {
                 // Display "error.message" to the user...
             } else {
-                // The card has been verified successfully...
+                const inputElement = document.getElementById('stripe_token');
+                inputElement.value = setupIntent.payment_method;
+
+                cardSubmitForm.submit();
             }
         });
     </script>

@@ -80,6 +80,11 @@ Route::group(['auth'], function () {
 
         # billing
         Route::get('/billing', Web\Billing\ReadController::class)->name('billing');
+        Route::post('/billing/card', Web\Billing\Card\CreateController::class)->name('billing.card.store');
+        Route::delete('/billing/card', Web\Billing\Card\DeleteController::class)->name('billing.card.destroy');
+        Route::post('/billing/subscription', Web\Billing\Subscription\CreateController::class)->name('billing.subscription.start');
+        Route::delete('/billing/subscription', Web\Billing\Subscription\DeleteController::class)->name('billing.subscription.cancel');
+        Route::get('/billing/invoice/{invoice}', Web\Billing\Invoice\ReadController::class)->name('billing.invoice');
 
     });
 

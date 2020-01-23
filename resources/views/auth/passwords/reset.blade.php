@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="form-group pb-5">
-                            <button class="btn btn-block btn-shadow-primary" role="button" type="submit">Send!</button>
+                            <button class="btn btn-block btn-primary" role="button" type="submit">Send!</button>
                         </div>
                     </form>
                 </div>
