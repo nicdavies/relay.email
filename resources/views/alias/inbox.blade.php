@@ -13,9 +13,9 @@
             <h2 class="h3 font-w700 mb-2">Uh Oh!</h2>
             <h3 class="h5 font-w400 text-muted">This alias is not set up to receive email!</h3>
 
-            <a href="{{ route('alias.show', $alias) }}" class="btn btn-sm btn-info">
-                <i class="fa fa-arrow-left fa-fw"></i>
-                Go Back
+            <a href="{{ route('alias.settings', $alias) }}" class="btn btn-sm btn-info">
+                <i class="fa fa-arrow-right fa-fw"></i>
+                Change Settings
             </a>
         </div>
     @else
@@ -28,10 +28,9 @@
                 <table class="table table-striped table-hover table-borderless table-vcenter font-size-sm">
                     <thead>
                     <tr class="text-uppercase">
-                        <th class="font-w700">Product</th>
+                        <th class="font-w700">Subject</th>
+                        <th class="font-w700">From</th>
                         <th class="d-none d-sm-table-cell font-w700">Date</th>
-                        <th class="font-w700">State</th>
-                        <th class="d-none d-sm-table-cell font-w700 text-right" style="width: 120px;">Price</th>
                         <th class="font-w700 text-center" style="width: 60px;"></th>
                     </tr>
                     </thead>
@@ -39,20 +38,17 @@
                         @foreach($messages as $message)
                             <tr>
                                 <td>
-                                    <span class="font-w600">{{ $message->from }}</span>
+                                    <span class="font-w600">{{ $message->subject }}</span>
                                 </td>
                                 <td class="d-none d-sm-table-cell">
-                                    <span class="font-size-sm text-muted">today</span>
+                                    <span class="font-size-sm text-muted">{{ $message->from }}</span>
                                 </td>
-                                <td>
-                                    <span class="font-w600 text-warning">Pending..</span>
-                                </td>
-                                <td class="d-none d-sm-table-cell text-right">
-                                    $999,99
+                                <td class="d-none d-sm-table-cell">
+                                    <span class="font-size-sm text-muted">{{ $message->created_at }}</span>
                                 </td>
                                 <td class="text-center">
-                                    <a href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="" class="js-tooltip-enabled" data-original-title="Manage">
-                                        <i class="fa fa-fw fa-pencil-alt"></i>
+                                    <a href="{{ route('inbox.message.read', ['alias' => $alias, 'message' => $message]) }}">
+                                        <i class="fa fa-fw fa-eye"></i>
                                     </a>
                                 </td>
                             </tr>
