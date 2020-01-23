@@ -16,7 +16,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('account.update.general') }}" method="post">
+            <form action="{{ route('alias.update.general', $alias) }}" method="post">
                 @csrf
                 @method('PATCH')
 
@@ -29,27 +29,16 @@
                     </div>
 
                     <div class="col-lg-7 offset-lg-1">
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <label for="name">Name</label>--}}
-{{--                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $user->name }}">--}}
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $alias->name }}">
 
-{{--                                @error('name')--}}
-{{--                                <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <label for="email">Email Address</label>--}}
-{{--                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ $user->email }}">--}}
-
-{{--                                @error('email')--}}
-{{--                                <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <div class="col-12">

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Web\Alias\Update;
 
 use App\Models\Alias;
-use App\Support\Enums\MessageActionType;
-use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -25,15 +23,11 @@ class GeneralController extends Controller
         $this->authorize('owns-alias', $alias);
 
         $this->validate($request, [
-            'name'   => ['required', 'string', 'min:3', 'max:20'],
-            'action' => ['required', 'string', new EnumValue(MessageActionType::class)],
-            'forward_to' => ['sometimes', 'nullable', 'email'],
+            'name' => ['required', 'string', 'min:3', 'max:20'],
         ]);
 
         $alias->update([
             'name' => $request->get('name', $alias->name),
-            'message_action' => $request->get('action', $alias->message_action),
-            'message_forward_to' => $request->get('forward_to', $alias->message_forward_to),
         ]);
 
         return back();
