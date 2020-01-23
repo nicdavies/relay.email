@@ -19,8 +19,8 @@
             </a>
         </div>
     @else
-        <div class="block block-rounded block-mode-loading-refresh">
-            <div class="block-header block-header-default">
+        <div class="block block-rounded">
+            <div class="block-header border-bottom">
                 <h3 class="block-title">Messages</h3>
             </div>
 
@@ -44,7 +44,7 @@
                                     <span class="font-size-sm text-muted">{{ $message->from }}</span>
                                 </td>
                                 <td class="d-none d-sm-table-cell">
-                                    <span class="font-size-sm text-muted">{{ $message->created_at }}</span>
+                                    <span class="font-size-sm text-muted">{{ $message->created_at->toFormattedDateString() }}</span>
                                 </td>
                                 <td class="text-center">
                                     <a href="{{ route('inbox.message.read', ['alias' => $alias, 'message' => $message]) }}">
