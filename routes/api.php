@@ -26,21 +26,32 @@ Route::group([], function () {
 # auth
 Route::group(['middleware' => ['auth:api']], function () {
 
-    # account
-    Route::get('/account', Api\Account\ReadController::class);
-    Route::patch('/account', Api\Account\UpdateController::class);
-    Route::delete('/account', Api\Account\DeleteController::class);
-
-    # aliases
-    Route::get('/aliases', Api\Alias\ListController::class);
-    Route::post('/aliases', Api\Alias\CreateController::class);
-    Route::get('/aliases/{alias}', Api\Alias\ReadController::class);
-    Route::patch('/aliases/{alias}', Api\Alias\UpdateController::class);
-    Route::delete('/aliases/{alias}', Api\Alias\DeleteController::class);
-
-    # alias messages
-    Route::get('/aliases/{alias}/messages', Api\Message\ListController::class);
-    Route::get('/aliases/{alias}/messages/{message}', Api\Message\ReadController::class);
-    Route::delete('/aliases/{alias}/messages/{message}', Api\Message\DeleteController::class);
+//    # account
+//    Route::get('/account', Api\Account\ReadController::class);
+//    Route::patch('/account', Api\Account\UpdateController::class);
+//    Route::patch('/account/general', Api\Account\UpdateController::class);
+//    Route::patch('/account/gpg', Api\Account\UpdateController::class);
+//    Route::patch('/account/password', Api\Account\UpdateController::class);
+//    Route::delete('/account', Api\Account\DeleteController::class);
+//
+//    # aliases
+//    Route::get('/aliases', Api\Alias\ListController::class);
+//    Route::post('/aliases', Api\Alias\CreateController::class);
+//    Route::get('/aliases/{alias}', Api\Alias\ReadController::class);
+//    Route::patch('/aliases/{alias}', Api\Alias\UpdateController::class);
+//    Route::delete('/aliases/{alias}', Api\Alias\DeleteController::class);
+//
+//    # alias messages
+//    Route::get('/aliases/{alias}/messages', Api\Message\ListController::class);
+//    Route::get('/aliases/{alias}/messages/{message}', Api\Message\ReadController::class);
+//    Route::delete('/aliases/{alias}/messages/{message}', Api\Message\DeleteController::class);
+//
+//    # billing
+//    Route::get('/billing', Web\Billing\ReadController::class)->name('billing');
+//    Route::post('/billing/card', Web\Billing\Card\CreateController::class)->name('billing.card.store');
+//    Route::delete('/billing/card', Web\Billing\Card\DeleteController::class)->name('billing.card.destroy');
+//    Route::post('/billing/subscription', Web\Billing\Subscription\CreateController::class)->name('billing.subscription.start');
+//    Route::delete('/billing/subscription', Web\Billing\Subscription\DeleteController::class)->name('billing.subscription.cancel');
+//    Route::get('/billing/invoice/{invoice}', Web\Billing\Invoice\ReadController::class)->name('billing.invoice');
 
 });
