@@ -24,7 +24,7 @@ class ListController extends Controller
         $aliases = $user
             ->aliases()
             ->orderByDesc('created_at')
-            ->paginate(5)
+            ->paginate(15)
         ;
 
         $totalAliases = $user
