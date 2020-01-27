@@ -51,8 +51,7 @@ class InboundEmailJob implements ShouldQueue
         $name  = Str::afterLast($recipient, '.');
 
         /** @var Alias|null $alias */
-        $alias = Alias::where('alias', $recipient)
-            ->whereCompleteAlias($alias, $name)
+        $alias = Alias::whereCompleteAlias($alias, $name)
             ->first()
         ;
 
