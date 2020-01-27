@@ -25,7 +25,8 @@ class InboundEmailJob implements ShouldQueue
     use SerializesModels;
     use InteractsWithQueue;
 
-    private Request $request;
+    /** @var Request $request */
+    private $request;
 
     /**
      * Execute the job.
