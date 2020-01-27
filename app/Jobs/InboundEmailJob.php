@@ -88,9 +88,9 @@ class InboundEmailJob implements ShouldQueue
         $message = $alias
             ->messages()
             ->create([
-                'subject' => $this->request->input('Subject'),
-                'from' => $this->request->input('From'),
-                'sender' => $this->request->input('Sender'),
+                'subject' => $this->request->input('subject'),
+                'from' => $this->request->input('from'),
+                'sender' => $this->request->input('sender'),
                 'body_html' => $this->request->input('body-html'),
                 'body_plain' => $this->request->input('stripped-html'),
                 'attachment_count' => $this->request->input('attachment_count', 0),
