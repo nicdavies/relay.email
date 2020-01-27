@@ -9,6 +9,7 @@ use App\Support\Helpers\Str;
 use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
 use App\Mail\Message\ForwardMail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -37,6 +38,8 @@ class InboundEmailJob implements ShouldQueue
     public function handle(Request $request) : void
     {
         $this->request = $request;
+
+        Log::error($request->input());
 
         // the alias looks like: frontier.nic@frontier.sh
         // where "frontier" is the name of the alias, "nic" is the user's name.
