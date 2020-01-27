@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 </head>
 <body>
-<div id="page-container" class="sidebar-inverse side-scroll main-content-boxed side-trans-enabled page-header-dark">
+<div id="page-container" class="main-content-boxed page-header-dark">
     <header id="page-header">
         <div class="content-header">
             <div>
@@ -34,7 +34,7 @@
 
             <div>
                 <div class="dropdown d-inline-block">
-                    <button type="button" class="btn btn-dual" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-dual" id="page-header-user-dropdown" data-toggle="dropdown">
                         <img class="img-avatar img-avatar32 img-avatar-thumb" src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}">
                         <i class="fa fa-fw fa-angle-down ml-1"></i>
                     </button>

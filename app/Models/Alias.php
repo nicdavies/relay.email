@@ -46,7 +46,7 @@ class Alias extends Model
         return sprintf(
             '%s.%s',
             $this->alias,
-            $this->user->uuid
+            $this->user->base_alias
         );
     }
 
