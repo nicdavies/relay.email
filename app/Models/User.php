@@ -66,7 +66,7 @@ class User extends Authenticatable implements HasMedia
             return $avatar->getFullUrl();
         }
 
-        return '/static/img/avatar.jpg';
+        return '/img/avatar.jpg';
     }
 
     /**
