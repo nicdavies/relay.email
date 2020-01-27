@@ -39,7 +39,8 @@ class InboundEmailJob implements ShouldQueue
     {
         $this->request = $request;
 
-        Log::error(json_encode($request->input()));
+        Log::info($request->input('recipient'));
+        Log::info($request->input('sender'));
 
         // the alias looks like: frontier.nic@frontier.sh
         // where "frontier" is the name of the alias, "nic" is the user's name.
