@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
+use App\Notifications\User\WelcomeNotification;
 
 class RegisterController extends Controller
 {
@@ -41,6 +43,8 @@ class RegisterController extends Controller
         ]);
 
         $user->createAsStripeCustomer();
+
+        Notification::send($user, new WelcomeNotification());
 
         Auth::login($user);
         return response()->redirectToRoute('welcome');
