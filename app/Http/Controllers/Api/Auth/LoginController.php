@@ -2,44 +2,54 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\UserResource;
-use Illuminate\Validation\ValidationException;
+use GuzzleHttp\Exception\ClientException;
 
 class LoginController extends Controller
 {
     /**
      * @param Request $request
-     * @return UserResource|JsonResponse
-     * @throws ValidationException
+     * @return JsonResponse
      */
     public function __invoke(Request $request)
     {
-        $this->validate($request, [
-            'email'    => ['required', 'email'],
-            'password' => ['required', 'string'],
-        ]);
+        try {
+            $client = new Client();
+            $ip = $request->server('SERVER_ADDR');
 
-        /** @var User|null $user */
-        $user = User::where('email', $request->get('email'));
+            $endpoint = sprintf(
+                'http://%s',
+                $ip
+            );
 
-        if ($user === null) {
-            return response()->json([
-                'error'   => true,
-                'message' => 'Invalid credentials',
+            $oauthResponse = $client->post($endpoint . '/oauth/token', [
+                'form_params' => [
+                    'grant_type' => 'password',
+                    'client_id' => env('APP_CLIENT_ID'),
+                    'client_secret' => env('APP_CLIENT_SECRET'),
+                    'scope' => '',
+                    'username' => $request->get('username'),
+                    'password' => $request->get('password'),
+                ],
             ]);
-        }
 
-        if (! password_verify($request->get('password'), $user->getAuthPassword())) {
-            return response()->json([
-                'error'   => true,
-                'message' => 'Invalid credentials',
+            $oauthBody = json_decode($oauthResponse->getBody()->getContents(), true);
+
+            $meResponse = $client->get($endpoint . '/api/account', [
+                'headers' => [
+                    'Authorization' => sprintf('Bearer %s', $oauthBody['access_token']),
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'applications/json',
+                ],
             ]);
-        }
 
-        return new UserResource($user);
+            return $meResponse;
+        } catch (ClientException $e) {
+            $body = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return response()->json($body, 401);
+        }
     }
 }
