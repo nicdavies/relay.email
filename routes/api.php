@@ -33,13 +33,14 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::patch('/account/password', Api\Account\UpdatePasswordController::class);
     Route::delete('/account', Api\Account\DeleteController::class);
 
-//    # aliases
-//    Route::get('/aliases', Api\Alias\ListController::class);
-//    Route::post('/aliases', Api\Alias\CreateController::class);
-//    Route::get('/aliases/{alias}', Api\Alias\ReadController::class);
-//    Route::patch('/aliases/{alias}', Api\Alias\UpdateController::class);
-//    Route::delete('/aliases/{alias}', Api\Alias\DeleteController::class);
-//
+    # aliases
+    Route::get('/aliases', Api\Alias\ListController::class);
+    Route::post('/aliases', Api\Alias\CreateController::class);
+    Route::get('/aliases/{alias}', Api\Alias\ReadController::class);
+    Route::patch('/aliases/{alias}/general', Api\Alias\UpdateGeneralController::class);
+    Route::patch('/aliases/{alias}/action', Api\Alias\UpdateActionController::class);
+    Route::delete('/aliases/{alias}', Api\Alias\DeleteController::class);
+
 //    # alias messages
 //    Route::get('/aliases/{alias}/messages', Api\Message\ListController::class);
 //    Route::get('/aliases/{alias}/messages/{message}', Api\Message\ReadController::class);
