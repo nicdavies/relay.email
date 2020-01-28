@@ -46,7 +46,7 @@ class LoginController extends Controller
                 ],
             ]);
 
-            return $meResponse;
+            return $oauthBody;
         } catch (ClientException $e) {
             $body = json_decode($e->getResponse()->getBody()->getContents(), true);
             return response()->json($body, 401);
