@@ -26,14 +26,13 @@ Route::group([], function () {
 # auth
 Route::group(['middleware' => ['auth:api']], function () {
 
-//    # account
-//    Route::get('/account', Api\Account\ReadController::class);
-//    Route::patch('/account', Api\Account\UpdateController::class);
-//    Route::patch('/account/general', Api\Account\UpdateController::class);
-//    Route::patch('/account/gpg', Api\Account\UpdateController::class);
-//    Route::patch('/account/password', Api\Account\UpdateController::class);
-//    Route::delete('/account', Api\Account\DeleteController::class);
-//
+    # account
+    Route::get('/account', Api\Account\ReadController::class);
+    Route::patch('/account/general', Api\Account\UpdateGeneralController::class);
+    Route::patch('/account/gpg', Api\Account\UpdateGpgController::class);
+    Route::patch('/account/password', Api\Account\UpdatePasswordController::class);
+    Route::delete('/account', Api\Account\DeleteController::class);
+
 //    # aliases
 //    Route::get('/aliases', Api\Alias\ListController::class);
 //    Route::post('/aliases', Api\Alias\CreateController::class);
