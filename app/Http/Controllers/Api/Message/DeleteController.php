@@ -21,9 +21,9 @@ class DeleteController extends Controller
     public function __invoke(Request $request, Alias $alias, Message $message) : JsonResponse
     {
         $this->authorize('owns-alias', $alias);
-        $this->authorize('alias-message-delete', $message);
+        $this->authorize('owns-message', $message);
 
-        $message->delete();
+        $message->forceDelete();
 
         return response()->json([
             'success' => true,

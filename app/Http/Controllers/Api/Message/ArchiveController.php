@@ -3,30 +3,29 @@
 namespace App\Http\Controllers\Api\Message;
 
 use App\Models\Alias;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Alias\MessageResource;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class ListController extends Controller
+class ArchiveController extends Controller
 {
     /**
      * @param Request $request
      * @param Alias $alias
-     * @return AnonymousResourceCollection
+     * @param Message $message
+     * @return MessageResource
      * @throws AuthorizationException
      */
-    public function __invoke(Request $request, Alias $alias)
+    public function __invoke(Request $request, Alias $alias, Message $message) : MessageResource
     {
         $this->authorize('owns-alias', $alias);
+        $this->authorize('owns-message', $alias);
 
-        $messages = $alias
-            ->messages()
-            ->orderByDesc('created_at')
-            ->paginate(20)
-        ;
+        // Archive basically means soft-delete!
+        $message->delete();
 
-        return MessageResource::collection($messages);
+        return new MessageResource($alias);
     }
 }

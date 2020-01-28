@@ -41,11 +41,13 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::patch('/aliases/{alias}/action', Api\Alias\UpdateActionController::class);
     Route::delete('/aliases/{alias}', Api\Alias\DeleteController::class);
 
-//    # alias messages
-//    Route::get('/aliases/{alias}/messages', Api\Message\ListController::class);
-//    Route::get('/aliases/{alias}/messages/{message}', Api\Message\ReadController::class);
-//    Route::delete('/aliases/{alias}/messages/{message}', Api\Message\DeleteController::class);
-//
+    # alias messages
+    Route::get('/aliases/{alias}/messages', Api\Message\ListController::class);
+    Route::get('/aliases/{alias}/messages/{message}', Api\Message\ReadController::class);
+    Route::post('/aliases/{alias}/messages/{message}/forward', Api\Message\ForwardController::class);
+    Route::post('/aliases/{alias}/messages/{message}/archive', Api\Message\ArchiveController::class);
+    Route::delete('/aliases/{alias}/messages/{message}', Api\Message\DeleteController::class);
+
 //    # billing
 //    Route::get('/billing', Web\Billing\ReadController::class)->name('billing');
 //    Route::post('/billing/card', Web\Billing\Card\CreateController::class)->name('billing.card.store');

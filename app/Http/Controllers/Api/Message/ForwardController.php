@@ -5,24 +5,28 @@ namespace App\Http\Controllers\Api\Message;
 use App\Models\Alias;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Alias\MessageResource;
 use Illuminate\Auth\Access\AuthorizationException;
 
-class ReadController extends Controller
+class ForwardController extends Controller
 {
     /**
      * @param Request $request
      * @param Alias $alias
      * @param Message $message
-     * @return MessageResource
+     * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function __invoke(Request $request, Alias $alias, Message $message) : MessageResource
+    public function __invoke(Request $request, Alias $alias, Message $message) : JsonResponse
     {
         $this->authorize('owns-alias', $alias);
-        $this->authorize('owns-message', $message);
+        $this->authorize('owns-message', $alias);
 
-        return new MessageResource($message);
+        // todo - forward the message
+
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }

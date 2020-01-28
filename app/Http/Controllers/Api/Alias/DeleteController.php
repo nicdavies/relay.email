@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\Alias;
 
 use App\Models\Alias;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class DeleteController extends Controller
 {
