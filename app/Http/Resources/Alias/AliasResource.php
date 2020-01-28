@@ -18,9 +18,13 @@ class AliasResource extends JsonResource
             'uuid' => $this->uuid,
             'name' => $this->name,
             'alias' => $this->alias,
+            'complete_alias' => $this->completeAlias,
+
             'message_action' => $this->message_action,
             'message_forward_to' => $this->message_forward_to,
+            'has_confirmed_message_forward_to' => $this->hasConfirmedForwardTo,
             'total_messages' => $this->messages->count(),
+            'message_limit' => $this->message_limit,
 
             'owner' => new OwnerResource($this->user),
 
