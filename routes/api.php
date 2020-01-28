@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     # aliases
     Route::get('/aliases', Api\Alias\ListController::class);
     Route::post('/aliases', Api\Alias\CreateController::class);
+    Route::get('/aliases/analytics', Api\Analytics\Alias\ReadController::class);
     Route::get('/aliases/{alias}', Api\Alias\ReadController::class);
     Route::patch('/aliases/{alias}/general', Api\Alias\UpdateGeneralController::class);
     Route::patch('/aliases/{alias}/action', Api\Alias\UpdateActionController::class);
