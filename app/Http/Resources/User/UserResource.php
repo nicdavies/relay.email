@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\Billing\SubscriptionResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -24,6 +25,8 @@ class UserResource extends JsonResource
 
             'is_onboarded' => $this->isOnboarded,
             'is_verified' => $this->isVerified,
+
+            'subscription' => ($this->subscription ?? new SubscriptionResource($this->subscription)),
 
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
