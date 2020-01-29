@@ -36,7 +36,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     # aliases
     Route::get('/aliases', Api\Alias\ListController::class);
     Route::post('/aliases', Api\Alias\CreateController::class);
-    Route::get('/aliases/analytics', Api\Analytics\Alias\ReadController::class);
     Route::get('/aliases/{alias}', Api\Alias\ReadController::class);
     Route::patch('/aliases/{alias}/general', Api\Alias\UpdateGeneralController::class);
     Route::patch('/aliases/{alias}/action', Api\Alias\UpdateActionController::class);
@@ -48,6 +47,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/aliases/{alias}/messages/{message}/forward', Api\Message\ForwardController::class);
     Route::post('/aliases/{alias}/messages/{message}/archive', Api\Message\ArchiveController::class);
     Route::delete('/aliases/{alias}/messages/{message}', Api\Message\DeleteController::class);
+
+    Route::get('/statistics/aliases/total', Api\Analytics\Alias\ReadController::class);
+    Route::get('/statistics/messages/total', Api\Analytics\Message\ReadController::class);
 
 //    # billing
 //    Route::get('/billing', Web\Billing\ReadController::class)->name('billing');
