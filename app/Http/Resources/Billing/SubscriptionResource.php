@@ -13,13 +13,15 @@ class SubscriptionResource extends JsonResource
      */
     public function toArray($request) : array
     {
+        $hasSubscription = $this->subscribed();
+
         return [
             'has_trial' => $this->onTrial(),
-            'has_subscription' => $this->subscribed(),
-            'has_cancelled' => $this->subscription()->cancelled(),
+            'has_subscription' => $hasSubscription,
+            'has_cancelled' => $hasSubscription ? $this->subscription()->cancelled() : false,
             'has_payment_method' => $this->hasPaymentMethod(),
-            'has_grace_period' => $this->subscription()->onGracePeriod(),
-            'has_ended' => $this->subscription()->ended(),
+            'has_grace_period' => $hasSubscription ? $this->subscription()->onGracePeriod() : false,
+            'has_ended' => $hasSubscription ? $this->subscription()->ended() : false,
         ];
     }
 }
