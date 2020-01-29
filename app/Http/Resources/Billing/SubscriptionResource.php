@@ -14,14 +14,12 @@ class SubscriptionResource extends JsonResource
     public function toArray($request) : array
     {
         return [
-            'plan' => $this->stripe_plan,
-            'status' => $this->stripe_status,
-            'quantity' => $this->quantity,
-            'ends_at' => ($this->ends_at !== null ? $this->ends_at->toIso8601String() : null),
-            'trial_ends_at' => ($this->trial_ends_at !== null ? $this->trial_ends_at->toIso8601String() : null),
-
-            'created_at' => $this->created_at->toIso8601String(),
-            'updated_at' => $this->updated_at->toIso8601String(),
+            'has_trial' => $this->onTrial(),
+            'has_subscription' => $this->subscribed(),
+            'has_cancelled' => $this->subscription()->cancelled(),
+            'has_payment_method' => $this->hasPaymentMethod(),
+            'has_grace_period' => $this->subscription()->onGracePeriod(),
+            'has_ended' => $this->subscription()->ended(),
         ];
     }
 }

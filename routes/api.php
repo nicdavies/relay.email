@@ -48,10 +48,19 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/aliases/{alias}/messages/{message}/archive', Api\Message\ArchiveController::class);
     Route::delete('/aliases/{alias}/messages/{message}', Api\Message\DeleteController::class);
 
+    # statistics / analytics
     Route::get('/statistics/aliases/total', Api\Analytics\Alias\ReadController::class);
     Route::get('/statistics/messages/total', Api\Analytics\Message\ReadController::class);
 
-//    # billing
+    # billing
+    Route::get('/billing', Api\Billing\ReadController::class);
+    Route::post('/billing/card', Api\Billing\Card\CreateController::class);
+    Route::delete('/billing/card', Api\Billing\Card\DeleteController::class);
+    Route::post('/billing/subscription', Api\Billing\Subscription\CreateController::class);
+    Route::delete('/billing/subscription', Api\Billing\Subscription\DeleteController::class);
+
+
+
 //    Route::get('/billing', Web\Billing\ReadController::class)->name('billing');
 //    Route::post('/billing/card', Web\Billing\Card\CreateController::class)->name('billing.card.store');
 //    Route::delete('/billing/card', Web\Billing\Card\DeleteController::class)->name('billing.card.destroy');
