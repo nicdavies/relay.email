@@ -18,12 +18,7 @@ class LoginController extends Controller
     {
         try {
             $client = new Client();
-            $ip = $request->server('SERVER_ADDR');
-
-            $endpoint = sprintf(
-                'http://%s',
-                $ip
-            );
+            $endpoint = config('app.url');
 
             $oauthResponse = $client->post($endpoint . '/oauth/token', [
                 'form_params' => [
