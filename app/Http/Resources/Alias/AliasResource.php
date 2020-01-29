@@ -17,8 +17,12 @@ class AliasResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'name' => $this->name,
-            'alias' => $this->alias,
-            'complete_alias' => $this->completeAlias,
+
+            'alias' => [
+                'alias'    => $this->alias,
+                'base'     => $this->user->base_alias,
+                'complete' => $this->completeAlias,
+            ],
 
             'message_action' => $this->message_action,
             'message_forward_to' => $this->message_forward_to,
