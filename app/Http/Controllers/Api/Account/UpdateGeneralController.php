@@ -22,7 +22,7 @@ class UpdateGeneralController extends Controller
 
         $this->validate($request, [
             'name'  => ['sometimes', 'string', 'min:3', 'max:20'],
-            'email' => ['sometimes', 'email', 'unique:users,email'],
+            'email' => ['sometimes', 'email', 'unique:users,email,' . $user->id],
         ]);
 
         $user->update([
