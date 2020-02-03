@@ -22,6 +22,11 @@ class SubscriptionResource extends JsonResource
             'has_payment_method' => $this->hasPaymentMethod(),
             'has_grace_period' => $hasSubscription ? $this->subscription()->onGracePeriod() : false,
             'has_ended' => $hasSubscription ? $this->subscription()->ended() : false,
+
+            'card' => [
+                'brand' => $this->card_brand,
+                'last_four' => $this->card_last_four
+            ],
         ];
     }
 }
