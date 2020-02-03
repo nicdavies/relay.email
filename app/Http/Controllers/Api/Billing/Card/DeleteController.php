@@ -18,7 +18,9 @@ class DeleteController extends Controller
         /** @var User $user */
         $user = $request->user();
 
-        // todo ...
+        if ($user->hasPaymentMethod()) {
+            $user->deletePaymentMethods();
+        }
 
         return new SubscriptionResource($user);
     }
