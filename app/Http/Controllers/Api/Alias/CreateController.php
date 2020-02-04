@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Alias;
 use App\Models\User;
 use App\Models\Alias;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Controllers\Controller;
 use App\Support\Enums\MessageActionType;
@@ -15,13 +16,21 @@ class CreateController extends Controller
 {
     /**
      * @param Request $request
-     * @return AliasResource
+     * @return AliasResource|JsonResponse
      * @throws ValidationException
      */
-    public function __invoke(Request $request) : AliasResource
+    public function __invoke(Request $request)
     {
         /** @var User $user */
         $user = $request->user();
+
+        // If the user user is on not on premium check they haven't gone over the 3 alias limit
+        if (! $user->subscribed() && $user->aliases()->count() >= 3) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Premium plan required for more aliases, consider upgrading!',
+            ], 402);
+        }
 
         $this->validate($request, [
             'name' => ['required', 'string', 'min:3', 'max:20'],
