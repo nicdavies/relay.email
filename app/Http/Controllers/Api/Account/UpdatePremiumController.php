@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Validation\ValidationException;
 
-class UpdateAliasController extends Controller
+class UpdatePremiumController extends Controller
 {
     /**
      * @param Request $request

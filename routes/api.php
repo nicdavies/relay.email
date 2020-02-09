@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::patch('/account/general', Api\Account\UpdateGeneralController::class);
     Route::patch('/account/gpg', Api\Account\UpdateGpgController::class);
     Route::patch('/account/password', Api\Account\UpdatePasswordController::class);
-    Route::patch('/account/alias', Api\Account\UpdateAliasController::class);
+    Route::patch('/account/premium', Api\Account\UpdatePremiumController::class);
     Route::delete('/account', Api\Account\DeleteController::class);
 
     # aliases
