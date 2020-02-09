@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Pgp;
 
+use App\Models\User;
 use App\Models\PgpKey;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -21,6 +22,20 @@ class DeleteController extends Controller
         $this->authorize('owns-pgp-key', $key);
 
         $key->delete();
+
+        // If this is the the second-from-last key, then set the remaining key to default
+        /** @var User $user */
+        $user = $request->user();
+
+        if  ($user->pgpKeys()->count() === 1) {
+            $user
+                ->pgpKeys()
+                ->first()
+                ->update([
+                    'is_default' => true,
+                ])
+            ;
+        }
 
         return response()->json([
             'success' => true,
