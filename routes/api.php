@@ -34,6 +34,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::patch('/account/premium', Api\Account\UpdatePremiumController::class);
     Route::delete('/account', Api\Account\DeleteController::class);
 
+    # account verify
+    Route::post('/account/verify/resend', Api\Account\VerifyResendController::class);
+
     # aliases
     Route::get('/aliases', Api\Alias\ListController::class);
     Route::post('/aliases', Api\Alias\CreateController::class);
