@@ -38,6 +38,8 @@ class User extends Authenticatable implements HasMedia
         'onboarded_at',
         'base_alias',
         'old_aliases',
+        'custom_domain',
+        'custom_domain_verified_at',
 //        'created_at',
 //        'updated_at',
     ];
@@ -51,6 +53,7 @@ class User extends Authenticatable implements HasMedia
     protected $casts = [
         'onboarded_at' => 'datetime',
         'email_verified_at' => 'datetime',
+        'custom_domain_verified_at' => 'datetime',
         'notification_settings' => 'array',
         'old_aliases' => 'array',
     ];
@@ -95,6 +98,15 @@ class User extends Authenticatable implements HasMedia
             ->orderByDesc('created_at')
             ->first()
         ;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getCustomDomainIsVerifiedAttribute() : bool
+    {
+        return $this->custom_domain_verified_at !== null
+            && $this->custom_domain_verified_at->isPast();
     }
 
     /**

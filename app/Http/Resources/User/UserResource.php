@@ -27,6 +27,9 @@ class UserResource extends JsonResource
             'is_onboarded' => $this->isOnboarded,
             'is_verified' => $this->isVerified,
 
+            'custom_domain' => $this->custom_domain,
+            'custom_domain_is_verified' => $this->customDomainIsVerified,
+
             'subscription' => new SubscriptionResource($this),
 
             'created_at' => $this->created_at->toIso8601String(),
