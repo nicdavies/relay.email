@@ -34,6 +34,7 @@ class RegisterController extends Controller
             'base_alias' => hash('crc32', random_bytes(8)),
         ]);
 
+        $user->sendEmailVerificationNotification();
         event(new RegisterEvent($request, $user));
 
         return new UserResource($user);
