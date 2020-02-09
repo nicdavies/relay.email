@@ -29,13 +29,19 @@ Route::group(['middleware' => ['auth:api']], function () {
     # account
     Route::get('/account', Api\Account\ReadController::class);
     Route::patch('/account/general', Api\Account\UpdateGeneralController::class);
-    Route::patch('/account/gpg', Api\Account\UpdateGpgController::class);
     Route::patch('/account/password', Api\Account\UpdatePasswordController::class);
     Route::patch('/account/premium', Api\Account\UpdatePremiumController::class);
     Route::delete('/account', Api\Account\DeleteController::class);
 
     # account verify
     Route::post('/account/verify/resend', Api\Account\VerifyResendController::class);
+
+    # pgp
+    Route::get('/pgp', Api\Pgp\ListController::class);
+    Route::post('/pgp', Api\Pgp\CreateController::class);
+    Route::get('/pgp/{pgpKey}', Api\Pgp\ReadController::class);
+    Route::patch('/pgp/{pgpKey}', Api\Pgp\UpdateController::class);
+    Route::delete('/pgp/{pgpKey}', Api\Pgp\DeleteController::class);
 
     # aliases
     Route::get('/aliases', Api\Alias\ListController::class);
@@ -62,14 +68,5 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::delete('/billing/card', Api\Billing\Card\DeleteController::class);
     Route::post('/billing/subscription', Api\Billing\Subscription\CreateController::class);
     Route::delete('/billing/subscription', Api\Billing\Subscription\DeleteController::class);
-
-
-
-//    Route::get('/billing', Web\Billing\ReadController::class)->name('billing');
-//    Route::post('/billing/card', Web\Billing\Card\CreateController::class)->name('billing.card.store');
-//    Route::delete('/billing/card', Web\Billing\Card\DeleteController::class)->name('billing.card.destroy');
-//    Route::post('/billing/subscription', Web\Billing\Subscription\CreateController::class)->name('billing.subscription.start');
-//    Route::delete('/billing/subscription', Web\Billing\Subscription\DeleteController::class)->name('billing.subscription.cancel');
-//    Route::get('/billing/invoice/{invoice}', Web\Billing\Invoice\ReadController::class)->name('billing.invoice');
 
 });

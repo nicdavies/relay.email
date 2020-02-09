@@ -124,10 +124,10 @@ class User extends Authenticatable implements HasMedia
     /**
      * @return Relations\HasMany
      */
-    public function gpgKeys() : Relations\HasMany
+    public function pgpKeys() : Relations\HasMany
     {
         return $this->hasMany(
-            GpgKey::class,
+            PgpKey::class,
             'user_id',
             'id'
         );

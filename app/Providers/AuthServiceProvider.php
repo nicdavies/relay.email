@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Support\Gates\PgpGates;
 use Laravel\Passport\Passport;
 use App\Support\Gates\AliasGates;
 use Illuminate\Support\Facades\Gate;
@@ -35,6 +36,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $rules = array_merge(
             AliasGates::rules(),
+            PgpGates::rules(),
         );
 
         collect($rules)->each(function ($callback, $key) {
