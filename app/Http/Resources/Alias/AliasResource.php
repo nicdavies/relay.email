@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Alias;
 
+use App\Http\Resources\Base\PgpResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\Base\OwnerResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -31,6 +32,7 @@ class AliasResource extends JsonResource
             'message_limit' => $this->message_limit,
 
             'owner' => new OwnerResource($this->user),
+            'pgp_key' => new PgpResource($this->encryptionKey),
             'activity' => ActivityResource::collection($this->activities->sortByDesc('created_at')->take(8)),
 
             'created_at' => $this->created_at->toIso8601String(),

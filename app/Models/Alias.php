@@ -27,6 +27,7 @@ class Alias extends Model
         'message_forward_to',
         'forward_to_confirmed_at',
         'forward_to_confirmation_token',
+        'encryption_key_id',
 //        'created_at',
 //        'updated_at',
 //        'deleted_at',
@@ -78,6 +79,18 @@ class Alias extends Model
         return $this->hasMany(
             Message::class,
             'alias_id',
+            'id'
+        );
+    }
+
+    /**
+     * @return Relations\BelongsTo
+     */
+    public function encryptionKey() : Relations\BelongsTo
+    {
+        return $this->belongsTo(
+            PgpKey::class,
+            'encryption_key_id',
             'id'
         );
     }
