@@ -40,6 +40,7 @@ class User extends Authenticatable implements HasMedia
         'old_aliases',
         'custom_domain',
         'custom_domain_verified_at',
+        'referral_code',
 //        'created_at',
 //        'updated_at',
     ];

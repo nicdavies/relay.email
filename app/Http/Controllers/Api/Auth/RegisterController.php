@@ -32,6 +32,7 @@ class RegisterController extends Controller
             'email'    => $request->get('email'),
             'password' => Hash::make($request->get('password')),
             'base_alias' => hash('crc32', random_bytes(8)),
+            'referral_code' => hash('crc32', random_bytes(8)),
         ]);
 
         $user->sendEmailVerificationNotification();

@@ -23,6 +23,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'notification_settings' => $this->notification_settings,
             'base_alias' => $this->base_alias,
+            'referral_code' => $this->referral_code,
 
             'is_onboarded' => $this->isOnboarded,
             'is_verified' => $this->isVerified,
