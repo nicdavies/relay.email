@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Cashier\Billable;
 use App\Support\Traits\Uuid;
 use Laravel\Passport\HasApiTokens;
@@ -41,6 +42,7 @@ class User extends Authenticatable implements HasMedia
         'custom_domain',
         'custom_domain_verified_at',
         'referral_code',
+        'referred_by_user_id',
 //        'created_at',
 //        'updated_at',
     ];
@@ -49,6 +51,11 @@ class User extends Authenticatable implements HasMedia
         'password',
         'remember_token',
         'notification_settings',
+        'old_aliases',
+    ];
+
+    protected $dates = [
+        'trial_ends_at',
     ];
 
     protected $casts = [
@@ -90,6 +97,15 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @return bool
+     */
+    public function getWasReferredAttribute() : bool
+    {
+        return $this->referred_by_user !== null;
+    }
+
+    /**
+     * @deprecated - need to change to pgp instead of gpg
      * @return \Illuminate\Database\Eloquent\Model|Relations\HasMany|object|null
      */
     public function getCurrentGpgKeyAttribute()
@@ -132,6 +148,28 @@ class User extends Authenticatable implements HasMedia
             'user_id',
             'id'
         );
+    }
+
+    /**
+     * @return Relations\BelongsTo
+     */
+    public function referredByUser() : Relations\BelongsTo
+    {
+        return $this->belongsTo(
+            User::class,
+            'referred_by_user_id',
+            'id'
+        );
+    }
+
+    /**
+     * @param Builder $builder
+     * @param $referralCode
+     * @return Builder
+     */
+    public function scopeWhereReferralCode(Builder $builder, $referralCode) : Builder
+    {
+        return $builder->where('referral_code', $referralCode);
     }
 
     /**
