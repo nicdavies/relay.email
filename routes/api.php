@@ -36,6 +36,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     # account verify
     Route::post('/account/verify/resend', Api\Account\VerifyResendController::class);
 
+    # referrals
+    Route::get('/referrals', Api\Referral\ListController::class);
+    Route::get('/referrals/statistics', Api\Referral\Statistics\ReadController::class);
+
     # pgp
     Route::get('/pgp', Api\Pgp\ListController::class);
     Route::post('/pgp', Api\Pgp\CreateController::class);

@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Laravel\Cashier\Billable;
 use App\Support\Traits\Uuid;
+use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
 use App\Traits\NotificationSettings;
 use Illuminate\Auth\MustVerifyEmail;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\Relations;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -156,6 +156,18 @@ class User extends Authenticatable implements HasMedia
     public function referredByUser() : Relations\BelongsTo
     {
         return $this->belongsTo(
+            User::class,
+            'referred_by_user_id',
+            'id'
+        );
+    }
+
+    /**
+     * @return Relations\HasMany
+     */
+    public function referrals() : Relations\HasMany
+    {
+        return $this->hasMany(
             User::class,
             'referred_by_user_id',
             'id'
