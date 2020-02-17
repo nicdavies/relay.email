@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'notification_settings' => $this->notification_settings,
             'base_alias' => $this->base_alias,
             'referral_code' => $this->referral_code,
+            'referral_link' => $this->referralLink,
 
             'is_onboarded' => $this->isOnboarded,
             'is_verified' => $this->isVerified,

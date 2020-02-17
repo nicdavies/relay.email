@@ -105,6 +105,18 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @return string
+     */
+    public function getReferralLinkAttribute() : string
+    {
+        return sprintf(
+            '%s/auth/register?code=%s',
+            config('app.url'),
+            $this->referral_code,
+        );
+    }
+
+    /**
      * @deprecated - need to change to pgp instead of gpg
      * @return \Illuminate\Database\Eloquent\Model|Relations\HasMany|object|null
      */
