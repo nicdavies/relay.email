@@ -117,19 +117,6 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @deprecated - need to change to pgp instead of gpg
-     * @return \Illuminate\Database\Eloquent\Model|Relations\HasMany|object|null
-     */
-    public function getCurrentGpgKeyAttribute()
-    {
-        return $this
-            ->gpgKeys()
-            ->orderByDesc('created_at')
-            ->first()
-        ;
-    }
-
-    /**
      * @return bool
      */
     public function getCustomDomainIsVerifiedAttribute() : bool
@@ -153,10 +140,10 @@ class User extends Authenticatable implements HasMedia
     /**
      * @return Relations\HasMany
      */
-    public function pgpKeys() : Relations\HasMany
+    public function encryptionKeys() : Relations\HasMany
     {
         return $this->hasMany(
-            PgpKey::class,
+            EncryptionKey::class,
             'user_id',
             'id'
         );

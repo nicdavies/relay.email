@@ -3,14 +3,12 @@
 namespace App\Notifications\Message;
 
 use App\Models\Message;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\Log;
 
-class NewMessageNotification extends Notification
+class NewMessageNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 

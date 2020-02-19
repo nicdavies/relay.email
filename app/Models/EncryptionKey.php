@@ -3,31 +3,30 @@
 namespace App\Models;
 
 use App\Support\Traits\Uuid;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PgpKey extends Model
+class EncryptionKey extends Model
 {
     use Uuid;
     use SoftDeletes;
 
-    protected $table = 'pgp_keys';
+    protected $table = 'encryption_keys';
 
     protected $fillable = [
-//        'id',
-//        'uuid',
-//        'user_id',
+        'id',
+        'uuid',
         'public_key',
-        'is_default',
-//        'created_at',
-//        'updated_at',
-//        'deleted_at',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
-    protected $casts = [
-        'is_default' => 'boolean',
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     /**
@@ -40,17 +39,6 @@ class PgpKey extends Model
             'user_id',
             'id'
         );
-    }
-
-    /**
-     * @param Builder $query
-     * @return Builder
-     */
-    public function scopeWhereDefault(Builder $query) : Builder
-    {
-        return $query
-            ->where('is_default', true)
-        ;
     }
 
     /**

@@ -1,9 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Helpers;
 
+use App\Support\Helpers\Str;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\PathGenerator\PathGenerator;
 

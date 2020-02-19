@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Traits;
 
 use App\Helpers\NotificationSettings as NotificationSettingsHelper;

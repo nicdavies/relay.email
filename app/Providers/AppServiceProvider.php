@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use App\Support\Services\Api\Client;
-use Illuminate\Support\ServiceProvider;
 use Mailgun\Mailgun;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,13 +28,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(Mailgun::class, function () {
             return Mailgun::create('', '');
-        });
-
-        $this->app->bind(Client::class, function () {
-            $endpoint = config('api.endpoint');
-            $secret   = config('api.client_secret');
-
-            return new Client($endpoint, $secret);
         });
     }
 }

@@ -33,19 +33,18 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::patch('/account/premium', Api\Account\UpdatePremiumController::class);
     Route::delete('/account', Api\Account\DeleteController::class);
 
+    # account encryption keys
+    Route::get('/account/encryption-keys', Api\EncryptionKeys\ListController::class);
+    Route::post('/account/encryption-keys', Api\EncryptionKeys\CreateController::class);
+    Route::get('/account/encryption-keys/{key}', Api\EncryptionKeys\ReadController::class);
+    Route::patch('/account/encryption-keys/{key}', Api\EncryptionKeys\UpdateController::class);
+    Route::delete('/account/encryption-keys/{key}', Api\EncryptionKeys\DeleteController::class);
+
     # account verify
     Route::post('/account/verify/resend', Api\Account\VerifyResendController::class);
 
     # referrals
     Route::get('/referrals', Api\Referral\ListController::class);
-    Route::get('/referrals/statistics', Api\Referral\Statistics\ReadController::class);
-
-    # pgp
-    Route::get('/pgp', Api\Pgp\ListController::class);
-    Route::post('/pgp', Api\Pgp\CreateController::class);
-    Route::get('/pgp/{pgpKey}', Api\Pgp\ReadController::class);
-    Route::patch('/pgp/{pgpKey}', Api\Pgp\UpdateController::class);
-    Route::delete('/pgp/{pgpKey}', Api\Pgp\DeleteController::class);
 
     # aliases
     Route::get('/aliases', Api\Alias\ListController::class);
@@ -59,9 +58,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     # alias messages
     Route::get('/aliases/{alias}/messages', Api\Message\ListController::class);
     Route::get('/aliases/{alias}/messages/{message}', Api\Message\ReadController::class);
+    Route::delete('/aliases/{alias}/messages/{message}', Api\Message\DeleteController::class);
+
+    # alias message actions
     Route::post('/aliases/{alias}/messages/{message}/forward', Api\Message\ForwardController::class);
     Route::post('/aliases/{alias}/messages/{message}/archive', Api\Message\ArchiveController::class);
-    Route::delete('/aliases/{alias}/messages/{message}', Api\Message\DeleteController::class);
 
     # statistics / analytics
     Route::get('/statistics/aliases/total', Api\Analytics\Alias\ReadController::class);

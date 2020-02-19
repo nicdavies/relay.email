@@ -15,3 +15,5 @@ yarn-error.log
 /public/fonts
 /public/js
 /public/img
+.phpstorm.meta.php
+_ide_helper.php
