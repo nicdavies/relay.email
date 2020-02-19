@@ -61,8 +61,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::delete('/aliases/{alias}/messages/{message}', Api\Message\DeleteController::class);
 
     # alias message actions
-    Route::post('/aliases/{alias}/messages/{message}/forward', Api\Message\ForwardController::class);
-    Route::post('/aliases/{alias}/messages/{message}/archive', Api\Message\ArchiveController::class);
+    Route::post('/aliases/{alias}/messages/{message}/action/forward', Api\MessageAction\ForwardController::class);
+    Route::post('/aliases/{alias}/messages/{message}/action/archive', Api\MessageAction\ArchiveController::class);
 
     # statistics / analytics
     Route::get('/statistics/aliases/total', Api\Analytics\Alias\ReadController::class);
