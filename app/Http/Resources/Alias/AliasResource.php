@@ -29,7 +29,7 @@ class AliasResource extends JsonResource
             'message_forward_to' => $this->message_forward_to,
             'has_confirmed_message_forward_to' => $this->hasConfirmedForwardTo,
             'total_messages' => $this->messages->count(),
-            'message_limit' => $this->message_limit,
+            'message_history_limit' => 999, // todo - this is based on the current plan
 
             'owner' => new OwnerResource($this->user),
             'pgp_key' => new PgpResource($this->encryptionKey),

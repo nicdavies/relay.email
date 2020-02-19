@@ -23,7 +23,6 @@ class Alias extends Model
         'alias',
         'name',
         'message_action',
-        'message_limit',
         'message_forward_to',
         'forward_to_confirmed_at',
         'forward_to_confirmation_token',
