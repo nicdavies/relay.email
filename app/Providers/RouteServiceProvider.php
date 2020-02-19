@@ -16,8 +16,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot() : void
     {
         parent::boot();
-        Route::model('pgpKey', Models\PgpKey::class);
-        Route::model('pgp_key', Models\PgpKey::class);
+        Route::model('key', Models\EncryptionKey::class);
     }
 
     /**
