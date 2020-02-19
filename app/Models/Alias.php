@@ -88,7 +88,7 @@ class Alias extends Model
     public function encryptionKey() : Relations\BelongsTo
     {
         return $this->belongsTo(
-            PgpKey::class,
+            EncryptionKey::class,
             'encryption_key_id',
             'id'
         );
