@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $rules = array_merge(
             Gates\AliasGates::rules(),
-            Gates\PgpGates::rules(),
+            Gates\EncryptionKeyGates::rules(),
         );
 
         collect($rules)->each(function ($callback, $key) {
