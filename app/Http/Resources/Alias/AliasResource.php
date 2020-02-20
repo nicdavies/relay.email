@@ -18,6 +18,7 @@ class AliasResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'name' => $this->name,
+            'description' => $this->description,
 
             'alias' => [
                 'alias'    => $this->alias,

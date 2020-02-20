@@ -24,10 +24,12 @@ class UpdateGeneralController extends Controller
 
         $this->validate($request, [
             'name' => ['required', 'string', 'min:3', 'max:20'],
+            'description' => ['sometimes', 'nullable', 'max:500'],
         ]);
 
         $alias->update([
             'name' => $request->get('name', $alias->name),
+            'description' => $request->get('description', $alias->description),
         ]);
 
         return new AliasResource($alias);

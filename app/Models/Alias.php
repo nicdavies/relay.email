@@ -22,6 +22,7 @@ class Alias extends Model
         'user_id',
         'alias',
         'name',
+        'description',
         'message_action',
         'message_forward_to',
         'forward_to_confirmed_at',
