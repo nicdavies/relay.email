@@ -22,7 +22,7 @@ class ListController extends Controller
         $aliases = $user
             ->aliases()
             ->orderByDesc('created_at')
-            ->paginate(15)
+            ->paginate(8)
         ;
 
         return AliasResource::collection($aliases);
