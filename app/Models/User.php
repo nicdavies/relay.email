@@ -41,6 +41,7 @@ class User extends Authenticatable implements HasMedia
         'old_aliases',
         'custom_domain',
         'custom_domain_verified_at',
+        'custom_domain_verification_code',
         'referral_code',
         'referred_by_user_id',
 //        'created_at',
@@ -114,6 +115,14 @@ class User extends Authenticatable implements HasMedia
             config('app.url'),
             $this->referral_code,
         );
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHasCustomDomainAttribute() : bool
+    {
+        return $this->custom_domain !== null;
     }
 
     /**

@@ -28,8 +28,10 @@ class UserResource extends JsonResource
             'is_onboarded' => $this->isOnboarded,
             'is_verified' => $this->isVerified,
 
+            'has_custom_domain' => $this->hasCustomDomain,
             'custom_domain' => $this->custom_domain,
             'custom_domain_is_verified' => $this->customDomainIsVerified,
+            'custom_domain_verification_code' => $this->custom_domain_verification_code,
 
             'subscription' => new SubscriptionResource($this),
 

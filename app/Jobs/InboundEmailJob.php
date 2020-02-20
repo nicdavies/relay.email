@@ -9,7 +9,6 @@ use App\Support\Helpers\Str;
 use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
 use App\Mail\Message\ForwardMail;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -39,8 +38,7 @@ class InboundEmailJob implements ShouldQueue
     {
         $this->request = $request;
 
-        Log::info($request->input('recipient'));
-        Log::info($request->input('sender'));
+        // todo - add support for custom domains as well as aliases
 
         // the alias looks like: frontier.nic@frontier.sh
         // where "frontier" is the name of the alias, "nic" is the user's name.

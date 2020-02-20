@@ -2,6 +2,9 @@
 
 namespace App\Jobs;
 
+use Exception;
+use Carbon\Carbon;
+use Spatie\Dns\Dns;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -33,5 +36,21 @@ class VerifyDomainJob implements ShouldQueue
     public function handle()
     {
         $domain = $this->user->custom_domain;
+
+        /** @var Dns $dns */
+        $dns = new Dns($domain);
+
+        try {
+            $records = $dns->getRecords(['TXT', 'MX']);
+        } catch (Exception $e) {
+        }
+
+        // todo - check that there's a TXT record with the key "relaymail-app-code"
+        // todo - check that the value exists in the users table
+        // todo - then check the mx records are set up
+
+        $this->user->update([
+            'custom_domain_verified_at' => Carbon::now(),
+        ]);
     }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api\Account;
 
-use App\Jobs\VerifyDomainJob;
 use App\Models\User;
+use App\Support\Helpers\Str;
 use Illuminate\Http\Request;
+use App\Jobs\VerifyDomainJob;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Validation\ValidationException;
@@ -33,9 +34,10 @@ class UpdatePremiumController extends Controller
                 'custom_domain' => $request->get('custom_domain'),
             ];
 
-            // If the custom domain has changed, reset the verification timestamp
+            // If the custom domain has changed, reset the verification
             if ($request->get('custom_domain') !== $user->custom_domain) {
                 $updateData['custom_domain_verified_at'] = null;
+                $updateData['custom_domain_verification_code'] = Str::nanoId();
             }
 
             $user->update($updateData);
