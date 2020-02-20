@@ -33,7 +33,7 @@ class LoginController extends Controller
 
             $oauthBody = json_decode($oauthResponse->getBody()->getContents(), true);
 
-            $meResponse = $client->get($endpoint . '/api/account', [
+            $meResponse = $client->get($endpoint . '/account', [
                 'headers' => [
                     'Authorization' => sprintf('Bearer %s', $oauthBody['access_token']),
                     'Content-Type' => 'application/json',
