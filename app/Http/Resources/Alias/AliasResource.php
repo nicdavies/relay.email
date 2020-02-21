@@ -23,7 +23,9 @@ class AliasResource extends JsonResource
             'alias' => [
                 'alias'    => $this->alias,
                 'base'     => $this->user->base_alias,
+                'domain'   => config('app.app_mail_domain'),
                 'complete' => $this->completeAlias,
+                'complete_address' => $this->completeAliasAddress,
             ],
 
             'message_action' => $this->message_action,

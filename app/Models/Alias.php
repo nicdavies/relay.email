@@ -52,6 +52,19 @@ class Alias extends Model
     }
 
     /**
+     * @return string
+     */
+    public function getCompleteAliasAddressAttribute() : string
+    {
+        return sprintf(
+            '%s.%s@%s',
+            $this->alias,
+            $this->user->base_alias,
+            config('app.app_mail_domain')
+        );
+    }
+
+    /**
      * @return bool
      */
     public function getHasConfirmedForwardToAttribute() : bool
