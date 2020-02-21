@@ -132,7 +132,7 @@ return [
     | Mostly used for display purposes.
     |
     */
-    'app_mail_domain' => env('APP_MAIL_DOMAIN', '3things.dev'),
+    'app_mail_domain' => env('APP_MAIL_DOMAIN', 'relaymail.email'),
 
     /*
     |--------------------------------------------------------------------------
