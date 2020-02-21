@@ -17,6 +17,7 @@ class EncryptionKeyResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
+            'is_default' => $this->is_default,
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
         ];
