@@ -16,9 +16,9 @@ class Message extends Model implements HasMedia
     use Uuid;
     use SoftDeletes;
     use HasMediaTrait;
-    
+
     protected $table = 'alias_messages';
-    
+
     protected $fillable = [
 //        'id',
 //        'uuid',
@@ -33,11 +33,12 @@ class Message extends Model implements HasMedia
         'raw_payload',
         'token',
         'signature',
+        'encryption_key_id',
 //        'created_at',
 //        'updated_at',
 //        'deleted_at',
     ];
-    
+
     protected $casts = [
         'raw_payload' => 'array',
         'properties' => 'array',
@@ -47,6 +48,14 @@ class Message extends Model implements HasMedia
     ];
 
     /**
+     * @return bool
+     */
+    public function getIsEncryptedAttribute() : bool
+    {
+        return $this->encryptionKey instanceof EncryptionKey;
+    }
+
+    /**
      * @return Relations\BelongsTo
      */
     public function alias() : Relations\BelongsTo
@@ -54,6 +63,18 @@ class Message extends Model implements HasMedia
         return $this->belongsTo(
             Alias::class,
             'alias_id',
+            'id'
+        );
+    }
+
+    /**
+     * @return Relations\BelongsTo
+     */
+    public function encryptionKey() : Relations\BelongsTo
+    {
+        return $this->belongsTo(
+            EncryptionKey::class,
+            'encryption_key_id',
             'id'
         );
     }

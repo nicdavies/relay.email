@@ -4,6 +4,7 @@ namespace App\Http\Resources\Alias;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\EncryptionKey\EncryptionKeyResource;
 use App\Http\Resources\Base\AliasResource as BaseAliasResource;
 
 class MessageResource extends JsonResource
@@ -30,6 +31,9 @@ class MessageResource extends JsonResource
             'attachments' => AttachmentResource::collection($this->getMedia('attachments')),
 
             'alias' => new BaseAliasResource($this->alias),
+
+            'is_encrypted' => $this->isEncrypted,
+            'encryption_key' => new EncryptionKeyResource($this->encryptionKey),
 
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),

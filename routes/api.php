@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     # alias messages
     Route::get('/aliases/{alias}/messages', Api\Message\ListController::class);
+    Route::delete('/aliases/{alias}/messages', Api\Message\DeleteBulkController::class);
     Route::get('/aliases/{alias}/messages/{message}', Api\Message\ReadController::class);
     Route::delete('/aliases/{alias}/messages/{message}', Api\Message\DeleteController::class);
 
