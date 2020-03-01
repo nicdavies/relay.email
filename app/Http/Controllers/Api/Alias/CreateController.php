@@ -46,7 +46,13 @@ class CreateController extends Controller
             $alias = $request->get('alias');
         }
 
-        // todo - check if the alias hasn't been used for this account before
+        // Check if the alias hasn't been used for this account before
+        if ($user->aliases->pluck('alias')->contains($alias)) {
+            return response()->json([
+                'error' => true,
+                'message' => 'You\'ve already used this alias!',
+            ], 400);
+        }
 
         // Set the message limit based on the user's subscription
         $messageLimit = $user->subscribed() ? 500 : 50;
