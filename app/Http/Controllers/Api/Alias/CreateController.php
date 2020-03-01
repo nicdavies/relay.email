@@ -7,6 +7,7 @@ use App\Models\Alias;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use BenSampo\Enum\Rules\EnumValue;
+use App\Jobs\CreateSampleMessageJob;
 use App\Http\Controllers\Controller;
 use App\Support\Enums\MessageActionType;
 use App\Http\Resources\Alias\AliasResource;
@@ -61,6 +62,11 @@ class CreateController extends Controller
                 'message_forward_to' => $request->get('forward_to'),
             ])
         ;
+
+        // If the action is not IGNORE, then create sample message, which we will save and/or send.
+        if ($alias->message_action !== MessageActionType::IGNORE) {
+            CreateSampleMessageJob::dispatch($alias);
+        }
 
         return new AliasResource($alias);
     }
