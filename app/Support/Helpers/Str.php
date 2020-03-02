@@ -17,4 +17,20 @@ class Str extends LaravelStr
 
         return $client->formattedId($alphabet, 20);
     }
+
+    /**
+     * @return string
+     */
+    public static function url() : string
+    {
+        return config('app.url');
+    }
+
+    /**
+     * @return string
+     */
+    public static function frontendUrl() : string
+    {
+        return config('app.frontend_url');
+    }
 }

@@ -36,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapApiRoutes() : void
     {
         Route::middleware('api')
             ->group(base_path('routes/api.php'))

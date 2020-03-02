@@ -43,7 +43,7 @@ class UpdateActionController extends Controller
             ]);
 
             Notification::route('mail', $messageForwardTo)
-                ->notify(new ConfirmForwardAddressNotification($alias))
+                ->notify(new ConfirmForwardAddressNotification($alias, 'updated'))
             ;
         }
 
