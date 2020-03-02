@@ -39,9 +39,6 @@ class User extends Authenticatable implements HasMedia
         'onboarded_at',
         'base_alias',
         'old_aliases',
-        'custom_domain',
-        'custom_domain_verified_at',
-        'custom_domain_verification_code',
         'referral_code',
         'referred_by_user_id',
 //        'created_at',
@@ -118,23 +115,6 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @return bool
-     */
-    public function getHasCustomDomainAttribute() : bool
-    {
-        return $this->custom_domain !== null;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getCustomDomainIsVerifiedAttribute() : bool
-    {
-        return $this->custom_domain_verified_at !== null
-            && $this->custom_domain_verified_at->isPast();
-    }
-
-    /**
      * @return Relations\HasMany
      */
     public function aliases() : Relations\HasMany
@@ -166,6 +146,18 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsTo(
             User::class,
             'referred_by_user_id',
+            'id'
+        );
+    }
+
+    /**
+     * @return Relations\HasMany
+     */
+    public function customDomains() : Relations\HasMany
+    {
+        return $this->hasMany(
+            CustomDomain::class,
+            'user_id',
             'id'
         );
     }
