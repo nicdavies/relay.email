@@ -32,8 +32,8 @@ class AliasResource extends JsonResource
             'message_action' => $this->message_action,
             'message_forward_to' => $this->message_forward_to,
             'has_confirmed_message_forward_to' => $this->hasConfirmedForwardTo,
-            'total_messages' => $this->messages->count(),
-            'message_history_limit' => 999, // todo - this is based on the current plan
+            'total_messages' => $this->totalMessages,
+            'message_history_limit' => 999,
 
             'owner'  => new OwnerResource($this->user),
 

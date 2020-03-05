@@ -99,6 +99,18 @@ class Alias extends Model
     }
 
     /**
+     * @return int
+     */
+    public function getTotalMessagesAttribute() : int
+    {
+        return $this
+            ->messages()
+            ->withoutHidden()
+            ->count()
+        ;
+    }
+
+    /**
      * @return Relations\BelongsTo
      */
     public function user() : Relations\BelongsTo
