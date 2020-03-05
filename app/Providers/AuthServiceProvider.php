@@ -34,6 +34,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $rules = array_merge(
             Gates\AliasGates::rules(),
+            Gates\DomainGates::rules(),
             Gates\EncryptionKeyGates::rules(),
         );
 

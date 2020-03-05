@@ -44,6 +44,12 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::patch('/account/encryption-keys/{key}', Api\EncryptionKeys\UpdateController::class);
     Route::delete('/account/encryption-keys/{key}', Api\EncryptionKeys\DeleteController::class);
 
+    # account domains
+    Route::get('/account/domains', Api\Domain\ListController::class);
+    Route::post('/account/domains', Api\Domain\CreateController::class);
+    Route::get('/account/domains/{domain}', Api\Domain\ReadController::class);
+    Route::delete('/account/domains/{domain}', Api\Domain\DeleteController::class);
+
     # account verify
     Route::post('/account/verify/resend', Api\Account\VerifyResendController::class);
 

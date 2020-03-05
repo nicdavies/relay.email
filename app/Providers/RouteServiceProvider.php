@@ -17,6 +17,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
         Route::model('key', Models\EncryptionKey::class);
+        Route::model('domain', Models\CustomDomain::class);
     }
 
     /**
