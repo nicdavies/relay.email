@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Alias;
 
+use App\Models\CustomDomain;
 use App\Models\User;
 use App\Models\Alias;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ class CreateController extends Controller
             'alias' => ['sometimes', 'nullable', 'string', 'alphanum', 'min:3', 'max:20'],
             'action' => ['required', 'string', new EnumValue(MessageActionType::class)],
             'forward_to' => ['sometimes', 'nullable', 'email'],
+            'custom_domain' => ['sometimes', 'nullable', 'exists:custom_domains,uuid'],
         ]);
 
         if ($request->get('alias') === null) {
@@ -56,8 +58,22 @@ class CreateController extends Controller
             ], 400);
         }
 
-        // Set the message limit based on the user's subscription
-        $messageLimit = $user->subscribed() ? 500 : 50;
+        // Set the message history limit based on the user's subscription
+        $messageLimit = $user->subscribed() ? 999 : 50;
+        $domain = null;
+
+        if (! empty($request->get('custom_domain'))) {
+            /** @var CustomDomain $customDomain */
+            $customDomain = $user
+                ->customDomains()
+                ->where('uuid', $request->get('custom_domain'))
+                ->first()
+            ;
+
+            if ($customDomain instanceof CustomDomain && $customDomain->isVerified) {
+                $domain = $customDomain->id;
+            }
+        }
 
         /** @var Alias $alias */
         $alias = $user
@@ -68,6 +84,7 @@ class CreateController extends Controller
                 'message_action' => $request->get('action'),
                 'message_limit' => $messageLimit,
                 'message_forward_to' => $request->get('forward_to'),
+                'custom_domain_id' => $domain,
             ])
         ;
 
