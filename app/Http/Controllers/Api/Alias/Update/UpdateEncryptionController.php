@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Alias;
+namespace App\Http\Controllers\Api\Alias\Update;
 
 use App\Models\Alias;
-use App\Models\PgpKey;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Alias\AliasResource;

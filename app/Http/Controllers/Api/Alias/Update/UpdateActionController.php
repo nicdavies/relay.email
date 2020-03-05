@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Alias;
+namespace App\Http\Controllers\Api\Alias\Update;
 
 use App\Models\Alias;
 use App\Support\Helpers\Str;

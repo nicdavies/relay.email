@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Alias;
 
 use App\Http\Resources\Base\PgpResource;
+use App\Http\Resources\Domain\DomainResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\Base\OwnerResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,7 +24,7 @@ class AliasResource extends JsonResource
             'alias' => [
                 'alias'    => $this->alias,
                 'base'     => $this->user->base_alias,
-                'domain'   => config('app.app_mail_domain'),
+                'domain'   => $this->domain ? $this->domain->custom_domain : config('app.app_mail_domain'),
                 'complete' => $this->completeAlias,
                 'complete_address' => $this->completeAliasAddress,
             ],
@@ -34,8 +35,10 @@ class AliasResource extends JsonResource
             'total_messages' => $this->messages->count(),
             'message_history_limit' => 999, // todo - this is based on the current plan
 
-            'owner' => new OwnerResource($this->user),
-            'pgp_key' => new PgpResource($this->encryptionKey),
+            'owner'  => new OwnerResource($this->user),
+            'domain' => new DomainResource($this->domain),
+
+            'pgp_key'  => new PgpResource($this->encryptionKey),
             'activity' => ActivityResource::collection($this->activities->sortByDesc('created_at')->take(8)),
 
             'created_at' => $this->created_at->toIso8601String(),

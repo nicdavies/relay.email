@@ -20,7 +20,7 @@ class DeleteController extends Controller
     {
         $this->authorize('owns-domain', $domain);
 
-        $domain->delete();
+        $domain->forceDelete();
 
         return response()->json([
             'success' => true,

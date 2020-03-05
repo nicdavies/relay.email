@@ -28,6 +28,7 @@ class Alias extends Model
         'forward_to_confirmed_at',
         'forward_to_confirmation_token',
         'encryption_key_id',
+        'custom_domain_id',
 //        'created_at',
 //        'updated_at',
 //        'deleted_at',
@@ -44,6 +45,14 @@ class Alias extends Model
      */
     public function getCompleteAliasAttribute() : string
     {
+        // If there's a custom domain - then we don't need the base_alias!
+        if ($this->hasCustomDomain) {
+            return sprintf(
+                '%s',
+                $this->alias
+            );
+        }
+
         return sprintf(
             '%s.%s',
             $this->alias,
@@ -56,6 +65,15 @@ class Alias extends Model
      */
     public function getCompleteAliasAddressAttribute() : string
     {
+        // If there's a custom domain - then we don't need the base_alias!
+        if ($this->hasCustomDomain) {
+            return sprintf(
+                '%s@%s',
+                $this->alias,
+                $this->domain->custom_domain
+            );
+        }
+
         return sprintf(
             '%s.%s@%s',
             $this->alias,
@@ -70,6 +88,14 @@ class Alias extends Model
     public function getHasConfirmedForwardToAttribute() : bool
     {
         return $this->forward_to_confirmed_at !== null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHasCustomDomainAttribute() : bool
+    {
+        return $this->custom_domain_id !== null;
     }
 
     /**
@@ -104,6 +130,18 @@ class Alias extends Model
         return $this->belongsTo(
             EncryptionKey::class,
             'encryption_key_id',
+            'id'
+        );
+    }
+
+    /**
+     * @return Relations\BelongsTo
+     */
+    public function domain() : Relations\BelongsTo
+    {
+        return $this->belongsTo(
+            CustomDomain::class,
+            'custom_domain_id',
             'id'
         );
     }
