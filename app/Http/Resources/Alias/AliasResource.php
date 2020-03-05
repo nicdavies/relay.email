@@ -36,6 +36,8 @@ class AliasResource extends JsonResource
             'message_history_limit' => 999, // todo - this is based on the current plan
 
             'owner'  => new OwnerResource($this->user),
+
+            'has_domain' => $this->hasCustomDomain,
             'domain' => new DomainResource($this->domain),
 
             'pgp_key'  => new PgpResource($this->encryptionKey),

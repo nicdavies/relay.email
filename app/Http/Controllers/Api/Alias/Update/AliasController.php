@@ -32,6 +32,14 @@ class AliasController extends Controller
         /** @var User $user */
         $user = $request->user();
 
+        if ($request->get('custom_domain') === null) {
+            $alias->update([
+                'custom_domain_id' => null,
+            ]);
+
+            return new AliasResource($alias);
+        }
+
         /** @var CustomDomain $domain */
         $domain = $user
             ->customDomains()
@@ -55,7 +63,7 @@ class AliasController extends Controller
         }
 
         $alias->update([
-            'custom_domain' => $domain->id,
+            'custom_domain_id' => $domain->id,
         ]);
 
         return new AliasResource($alias);
