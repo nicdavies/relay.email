@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Api\Message;
+namespace App\Http\Controllers\Api\Message\Bulk;
 
 use App\Models\Alias;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 
-class DeleteBulkController extends Controller
+class ForwardController extends Controller
 {
     /**
      * @param Request $request
@@ -25,7 +25,7 @@ class DeleteBulkController extends Controller
         $this->authorize('owns-alias', $alias);
 
         $this->validate($request, [
-            'messages' => ['required', 'array'],
+            'messages'   => ['required', 'array'],
             'messages.*' => ['required', 'string', 'exists:alias_messages,uuid'],
         ]);
 
@@ -35,8 +35,10 @@ class DeleteBulkController extends Controller
         /** @var Collection $models */
         $models = Message::whereIn('uuid', $messages)
             ->where('alias_id', $alias->id)
-            ->delete()
+            ->get()
         ;
+
+        // todo - forward!
 
         return response()->json([
             'success' => true,
