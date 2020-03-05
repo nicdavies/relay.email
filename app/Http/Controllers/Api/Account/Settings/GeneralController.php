@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Account;
+namespace App\Http\Controllers\Api\Account\Settings;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Validation\ValidationException;
 
-class UpdatePremiumController extends Controller
+class GeneralController extends Controller
 {
     /**
      * @param Request $request
@@ -21,15 +21,17 @@ class UpdatePremiumController extends Controller
         $user = $request->user();
 
         $this->validate($request, [
-            'alias' => ['required', 'string', 'alpha_num', 'unique:users,base_alias,' . $user->id],
+            'name'  => ['sometimes', 'string', 'min:3', 'max:20'],
+            'email' => ['sometimes', 'email', 'unique:users,email,' . $user->id],
         ]);
 
-        if ($user->subscribed()) {
-            $user->update([
-                'base_alias' => $request->get('alias'),
-            ]);
-        }
+        $user->update([
+            'name' => $request->get('name', $user->name),
+            'email' => $request->get('email', $user->email),
+        ]);
 
-        return new UserResource($user->fresh());
+        $user->refresh();
+
+        return new UserResource($user);
     }
 }

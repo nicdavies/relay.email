@@ -32,9 +32,9 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     # account
     Route::get('/account', Api\Account\ReadController::class);
-    Route::patch('/account/general', Api\Account\UpdateGeneralController::class);
-    Route::patch('/account/password', Api\Account\UpdatePasswordController::class);
-    Route::patch('/account/premium', Api\Account\UpdatePremiumController::class);
+    Route::patch('/account/general', Api\Account\Settings\GeneralController::class);
+    Route::patch('/account/password', Api\Account\Settings\PasswordController::class);
+    Route::patch('/account/premium', Api\Account\Settings\PremiumController::class);
     Route::delete('/account', Api\Account\DeleteController::class);
 
     # account encryption keys

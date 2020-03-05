@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Account;
+namespace App\Http\Controllers\Api\Account\Settings;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 use App\Notifications\User\PasswordChangedNotification;
 
-class UpdatePasswordController extends Controller
+class PasswordController extends Controller
 {
     /**
      * @param Request $request

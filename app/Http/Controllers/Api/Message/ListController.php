@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Message;
 
+use App\Models\User;
 use App\Models\Alias;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,6 +21,12 @@ class ListController extends Controller
     public function __invoke(Request $request, Alias $alias)
     {
         $this->authorize('owns-alias', $alias);
+
+        /** @var User $user */
+        $user = $request->user();
+
+        // todo - limit pagination based on the history limit
+        $historyLimit = $user->subscribed() ? 9999 : 50;
 
         $messages = $alias
             ->messages()
