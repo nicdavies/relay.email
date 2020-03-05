@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Support\Traits\Uuid;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,6 +35,7 @@ class Message extends Model implements HasMedia
         'token',
         'signature',
         'encryption_key_id',
+        'is_hidden',
 //        'created_at',
 //        'updated_at',
 //        'deleted_at',
@@ -42,6 +44,7 @@ class Message extends Model implements HasMedia
     protected $casts = [
         'raw_payload' => 'array',
         'properties' => 'array',
+        'is_hidden' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -77,6 +80,24 @@ class Message extends Model implements HasMedia
             'encryption_key_id',
             'id'
         );
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeWithoutHidden(Builder $query) : Builder
+    {
+        return $query->where('is_hidden', false);
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeOnlyHidden(Builder $query) : Builder
+    {
+        return $query->where('is_hidden', true);
     }
 
     /**

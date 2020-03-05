@@ -59,7 +59,7 @@ class InboundEmailJob implements ShouldQueue
 
         switch ($alias->message_action) {
             case MessageActionType::IGNORE:
-                return;
+                $this->save($alias, true);
                 break;
 
             case MessageActionType::SAVE:
@@ -67,7 +67,7 @@ class InboundEmailJob implements ShouldQueue
                 break;
 
             case MessageActionType::FORWARD:
-                $this->forward($alias);
+                $this->forward($alias, true);
                 break;
 
             case MessageActionType::FORWARD_AND_SAVE:
@@ -78,9 +78,10 @@ class InboundEmailJob implements ShouldQueue
 
     /**
      * @param Alias $alias
+     * @param bool $hidden
      * @return void
      */
-    private function save(Alias $alias) : void
+    private function save(Alias $alias, bool $hidden = false) : void
     {
         /** @var Message $message */
         $message = $alias
@@ -95,6 +96,8 @@ class InboundEmailJob implements ShouldQueue
                 'raw_payload' => $this->request->toArray(),
                 'token' => $this->request->input('token'),
                 'signature' => $this->request->input('signature'),
+
+                'is_hidden' => $hidden,
 
                 'properties' => [
                     'in_reply_to' => $this->request->input('In-Reply-To'),
@@ -117,9 +120,10 @@ class InboundEmailJob implements ShouldQueue
 
     /**
      * @param Alias $alias
+     * @param bool $hidden
      * @return void
      */
-    private function forward(Alias $alias) : void
+    private function forward(Alias $alias, bool $hidden = false) : void
     {
         Mail::to($alias->message_forward_to)
             ->send(new ForwardMail($this->request))
@@ -128,9 +132,10 @@ class InboundEmailJob implements ShouldQueue
 
     /**
      * @param Alias $alias
+     * @param bool $hidden
      * @return void
      */
-    private function forwardAndSave(Alias $alias) : void
+    private function forwardAndSave(Alias $alias, bool $hidden = false) : void
     {
         $this->save($alias);
         $this->forward($alias);
