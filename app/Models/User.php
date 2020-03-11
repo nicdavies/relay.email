@@ -41,6 +41,8 @@ class User extends Authenticatable implements HasMedia
         'old_aliases',
         'referral_code',
         'referred_by_user_id',
+        'card_brand',
+        'card_last_four',
 //        'created_at',
 //        'updated_at',
     ];

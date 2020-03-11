@@ -20,6 +20,9 @@ Route::group([], function () {
     Route::post('/auth/forgot', Api\Auth\ForgotController::class);
     Route::post('/auth/reset', Api\Auth\ResetController::class);
 
+    # stripe webhook
+    Route::post('/stripe/webhook', '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook');
+
     # webhook
     Route::post('/message/inbound', Api\Webhook\InboundController::class);
 
@@ -90,5 +93,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::delete('/billing/card', Api\Billing\Card\DeleteController::class);
     Route::post('/billing/subscription', Api\Billing\Subscription\CreateController::class);
     Route::delete('/billing/subscription', Api\Billing\Subscription\DeleteController::class);
+    Route::get('/billing/setup-intent', Api\Billing\Intent\ReadController::class);
 
 });

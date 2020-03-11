@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 use App\Http\Resources\Billing\SubscriptionResource;
+use Laravel\Cashier\Exceptions\InvalidStripeCustomer;
 
 class CreateController extends Controller
 {
@@ -14,6 +15,7 @@ class CreateController extends Controller
      * @param Request $request
      * @return SubscriptionResource
      * @throws ValidationException
+     * @throws InvalidStripeCustomer
      */
     public function __invoke(Request $request) : SubscriptionResource
     {
@@ -24,12 +26,17 @@ class CreateController extends Controller
             'stripe_token' => ['required', 'string'],
         ]);
 
+        if (! $user->hasStripeId()) {
+            $user->createAsStripeCustomer();
+        }
+
+        // Remove the existing payment method
         if ($user->hasPaymentMethod()) {
-            // Remove the existing payment method
             $user->deletePaymentMethods();
         }
 
         $user->addPaymentMethod($request->get('stripe_token'));
+        $user->updateDefaultPaymentMethod($request->get('stripe_token'));
 
         return new SubscriptionResource($user);
     }
