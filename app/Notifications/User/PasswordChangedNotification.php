@@ -1,13 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Notifications\User;
 
+use App\Support\Helpers\Str;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class PasswordChangedNotification extends Notification implements ShouldQueue
 {
@@ -32,12 +31,18 @@ class PasswordChangedNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable) : MailMessage
     {
+        $url = sprintf(
+            '%s/%s',
+            Str::frontendUrl(),
+            '/account'
+        );
+
         return (new MailMessage)
             ->subject('Your password has been changed!')
             ->greeting("Hi {$notifiable->name}")
             ->line('Your password has been changed from your account settings.')
             ->line('If you didn\'t perform this action, please get in touch.')
-            ->action('Manage Account', url(route('account')))
+            ->action('Manage Account', $url)
         ;
     }
 }

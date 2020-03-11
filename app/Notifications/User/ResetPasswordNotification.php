@@ -41,7 +41,7 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
     public function toMail($notifiable) : MailMessage
     {
         $url = sprintf(
-            '%s/auth/reset?token=%s',
+            '%s/auth/reset-password/%s',
             Str::frontendUrl(),
             $this->passwordReset->token,
         );

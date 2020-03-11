@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api\Auth\Reset;
 
 use App\Models\User;
+use App\Notifications\User\PasswordChangedNotification;
 use Illuminate\Http\Request;
 use App\Models\PasswordReset;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 
 class UpdateController extends Controller
@@ -41,6 +43,8 @@ class UpdateController extends Controller
         $user->update([
             'password' => Hash::make($request->get('password')),
         ]);
+
+        Notification::send($user, new PasswordChangedNotification());
 
         return response()->json([
             'success' => true,
