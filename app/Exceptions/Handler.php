@@ -6,6 +6,7 @@ use Exception;
 use Throwable;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -46,6 +47,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof UnauthorizedException) {
+            return response()->json([
+                'error' => $exception->getCode(),
+                'message' => $exception->getMessage(),
+            ], $exception->getCode());
+        }
+
         return parent::render($request, $exception);
     }
 }
