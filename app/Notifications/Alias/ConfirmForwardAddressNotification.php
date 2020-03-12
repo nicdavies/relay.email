@@ -50,11 +50,12 @@ class ConfirmForwardAddressNotification extends Notification implements ShouldQu
     public function toMail($notifiable) : MailMessage
     {
         $url = sprintf(
-            '%s/%s/%s/%s',
+            '%s/%s/%s/%s/%s',
             Str::frontendUrl(),
             'aliases',
             $this->alias->uuid,
-            'settings'
+            'confirm',
+            $this->alias->forward_to_confirmation_token,
         );
 
         if ($this->type === 'created') {
@@ -68,7 +69,7 @@ class ConfirmForwardAddressNotification extends Notification implements ShouldQu
             ->greeting("Hello")
             ->line($messageLine)
             ->line('We just need you to verify to complete the setup!')
-            ->action('Verify', $url)
+            ->action('Verify Alias', $url)
         ;
     }
 }

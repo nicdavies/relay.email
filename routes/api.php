@@ -26,9 +26,6 @@ Route::group([], function () {
 
     # webhook
     Route::post('/message/inbound', Api\Webhook\InboundController::class);
-
-    # alias verify
-    Route::get('/aliases/{alias}/verify', Api\Alias\Verify\UpdateController::class);
 });
 
 # auth
@@ -69,6 +66,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::patch('/aliases/{alias}/action', Api\Alias\Update\UpdateActionController::class);
     Route::patch('/aliases/{alias}/encryption', Api\Alias\Update\UpdateEncryptionController::class);
     Route::patch('/aliases/{alias}/alias', Api\Alias\Update\AliasController::class);
+    Route::patch('/aliases/{alias}/verify', Api\Alias\Verify\UpdateController::class);
     Route::delete('/aliases/{alias}', Api\Alias\DeleteController::class);
 
     # alias messages

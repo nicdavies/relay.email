@@ -5,33 +5,34 @@ namespace App\Http\Controllers\Api\Alias\Verify;
 use Carbon\Carbon;
 use App\Models\Alias;
 use Illuminate\Http\Request;
-use App\Support\Helpers\Str;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Resources\Alias\AliasResource;
+use Illuminate\Validation\ValidationException;
 
 class UpdateController extends Controller
 {
     /**
      * @param Request $request
      * @param Alias $alias
-     * @return RedirectResponse
+     * @return AliasResource|JsonResponse
+     * @throws ValidationException
      */
-    public function __invoke(Request $request, Alias $alias) : RedirectResponse
+    public function __invoke(Request $request, Alias $alias)
     {
+        $this->validate($request, [
+            'token' => ['required', 'string'],
+        ]);
+
         /** @var string|null $token */
         $token = $request->get('token');
 
-        $redirectUrl = sprintf(
-            '%s/%s/%s/%s',
-            Str::frontendUrl(),
-            'aliases',
-            $alias->uuid,
-            'settings'
-        );
-
         // If the token is incorrect - redirect back to app with error
         if ($alias->forward_to_confirmation_token !== $token) {
-            return response()->redirectTo($redirectUrl);
+            return response()->json([
+                'error' => true,
+                'message' => 'Confirmation token does not match!',
+            ], 400);
         }
 
         $alias->update([
@@ -39,6 +40,6 @@ class UpdateController extends Controller
             'forward_to_confirmation_token' => null,
         ]);
 
-        return response()->redirectTo($redirectUrl);
+        return new AliasResource($alias);
     }
 }
