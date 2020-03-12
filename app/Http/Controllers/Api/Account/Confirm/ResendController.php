@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\Account;
+namespace App\Http\Controllers\Api\Account\Confirm;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 
-class VerifyResendController extends Controller
+class ResendController extends Controller
 {
     /**
      * @param Request $request
