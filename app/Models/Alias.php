@@ -31,9 +31,14 @@ class Alias extends Model
         'forward_to_confirmation_token',
         'encryption_key_id',
         'custom_domain_id',
+        'is_muted',
 //        'created_at',
 //        'updated_at',
 //        'deleted_at',
+    ];
+
+    protected $casts = [
+        'is_muted' => 'boolean',
     ];
 
     protected $enumCasts = [

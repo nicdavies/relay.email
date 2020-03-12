@@ -29,6 +29,8 @@ class AliasResource extends JsonResource
                 'complete_address' => $this->completeAliasAddress,
             ],
 
+            'is_muted' => $this->is_muted,
+
             'message_action' => $this->message_action->key,
             'message_forward_to' => $this->message_forward_to,
             'has_confirmed_message_forward_to' => $this->hasConfirmedForwardTo,
