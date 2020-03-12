@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Alias;
 use App\Models\User;
 use App\Models\Alias;
 use App\Models\CustomDomain;
+use App\Support\Helpers\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use BenSampo\Enum\Rules\EnumValue;
@@ -90,8 +91,13 @@ class CreateController extends Controller
 
         if ($alias->message_action->key === MessageActionType::FORWARD_AND_SAVE ||
             $alias->message_action->key === MessageActionType::FORWARD) {
+            // First we just need to create the token, and then send the notification
+            $alias->update([
+                'forward_to_confirmation_token' => Str::nanoId(),
+            ]);
+
             Notification::route('mail', $alias->message_forward_to)
-                ->notifyNow(new ConfirmForwardAddressNotification($alias))
+                ->notifyNow(new ConfirmForwardAddressNotification($alias->fresh()))
             ;
         }
 
