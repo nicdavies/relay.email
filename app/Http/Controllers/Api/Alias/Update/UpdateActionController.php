@@ -48,7 +48,7 @@ class UpdateActionController extends Controller
         }
 
         $alias->update([
-            'message_action' => $request->get('action', $alias->message_action),
+            'message_action' => $request->get('action', $alias->message_action->key),
         ]);
 
         return new AliasResource($alias);

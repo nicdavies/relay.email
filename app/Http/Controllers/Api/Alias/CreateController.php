@@ -84,12 +84,12 @@ class CreateController extends Controller
         ;
 
         // If the action is not IGNORE, then create sample message, which we will save and/or send.
-        if ($alias->message_action !== MessageActionType::IGNORE) {
+        if ($alias->message_action->key !== MessageActionType::IGNORE) {
             CreateSampleMessageJob::dispatch($alias);
         }
 
-        if ($alias->message_action === MessageActionType::FORWARD_AND_SAVE ||
-            $alias->message_action === MessageActionType::FORWARD) {
+        if ($alias->message_action->key === MessageActionType::FORWARD_AND_SAVE ||
+            $alias->message_action->key === MessageActionType::FORWARD) {
             Notification::route('mail', $alias->message_forward_to)
                 ->notifyNow(new ConfirmForwardAddressNotification($alias))
             ;

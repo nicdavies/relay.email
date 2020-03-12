@@ -57,7 +57,7 @@ class InboundEmailJob implements ShouldQueue
             return;
         }
 
-        switch ($alias->message_action) {
+        switch ($alias->message_action->key) {
             case MessageActionType::IGNORE:
                 $this->save($alias, true);
                 break;
