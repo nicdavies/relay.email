@@ -67,6 +67,7 @@ class InboundEmailJob implements ShouldQueue
                 break;
 
             case MessageActionType::FORWARD:
+                $this->save($alias, true);
                 $this->forward($alias, true);
                 break;
 
@@ -114,8 +115,10 @@ class InboundEmailJob implements ShouldQueue
         /** @var User $user */
         $user = $alias->user;
 
-        // Send a notification to the user about this new message
-        Notification::send($user, new NewMessageNotification($message));
+        // Only send a notification if the message is not to be hidden!
+        if (! $hidden) {
+            Notification::send($user, new NewMessageNotification($message));
+        }
     }
 
     /**

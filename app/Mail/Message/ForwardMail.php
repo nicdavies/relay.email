@@ -2,6 +2,7 @@
 
 namespace App\Mail\Message;
 
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -15,13 +16,17 @@ class ForwardMail extends Mailable implements ShouldQueue
 
     private Request $request;
 
+    private Message $message;
+
     /**
      * Create a new message instance.
      * @param Request $request
+     * @param Message $message
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, Message $message)
     {
         $this->request = $request;
+        $this->message = $message;
     }
 
     /**
@@ -31,6 +36,14 @@ class ForwardMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->view('view.name');
+        /** @var Mailable $mail */
+        $mail = $this
+            ->replyTo($this->message->from)
+            ->view('view.name')
+        ;
+
+        // todo - if there's attachments, attach those!
+
+        return $mail;
     }
 }

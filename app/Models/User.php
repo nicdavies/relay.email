@@ -43,6 +43,7 @@ class User extends Authenticatable implements HasMedia
         'referred_by_user_id',
         'card_brand',
         'card_last_four',
+//        'is_admin',
 //        'created_at',
 //        'updated_at',
     ];
@@ -64,6 +65,7 @@ class User extends Authenticatable implements HasMedia
         'custom_domain_verified_at' => 'datetime',
         'notification_settings' => 'array',
         'old_aliases' => 'array',
+        'is_admin' => 'boolean',
     ];
 
     /**
