@@ -52,7 +52,7 @@ class SampleMessageNotification extends Notification implements ShouldQueue
 
         return (new MailMessage)
             ->subject('Nice! Your alias is set up!')
-            ->line("We're sending you this email because your \"{$this->alias->name}\" has been set up as a {$this->alias->message_action->description} type!")
+            ->line("We're sending you this email because your \"{$this->alias->name}\" alias has been set up as a {$this->alias->message_action->description} type!")
             ->action('View Alias', $url)
         ;
     }
