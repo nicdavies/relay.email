@@ -66,8 +66,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::patch('/aliases/{alias}/action', Api\Alias\Update\UpdateActionController::class);
     Route::patch('/aliases/{alias}/encryption', Api\Alias\Update\UpdateEncryptionController::class);
     Route::patch('/aliases/{alias}/alias', Api\Alias\Update\AliasController::class);
-    Route::patch('/aliases/{alias}/verify', Api\Alias\Verify\UpdateController::class);
     Route::delete('/aliases/{alias}', Api\Alias\DeleteController::class);
+
+    # alias verify
+    Route::patch('/aliases/{alias}/verify', Api\Alias\Verify\UpdateController::class);
+    Route::post('/aliases/{alias}/verify/resend', Api\Alias\Verify\ResendController::class);
 
     # alias messages
     Route::get('/aliases/{alias}/messages', Api\Message\ListController::class);
