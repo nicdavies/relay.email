@@ -29,7 +29,7 @@ class CreateController extends Controller
         $user = $request->user();
 
         $this->assert($user->subscribed(), 'Premium plan required, consider upgrading!');
-        $this->assert($user->aliases()->count() >= 3, 'Premium plan required for more aliases, consider upgrading!');
+//        $this->assert($user->aliases()->count() >= 3, 'Premium plan required for more aliases, consider upgrading!');
 
         $this->validate($request, [
             'name' => ['required', 'string', 'min:2', 'max:20'],
