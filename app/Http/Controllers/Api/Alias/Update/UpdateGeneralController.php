@@ -23,7 +23,7 @@ class UpdateGeneralController extends Controller
         $this->authorize('owns-alias', $alias);
 
         $this->validate($request, [
-            'name' => ['required', 'string', 'min:3', 'max:20'],
+            'name' => ['required', 'string', 'min:2', 'max:20'],
             'description' => ['sometimes', 'nullable', 'max:500'],
         ]);
 

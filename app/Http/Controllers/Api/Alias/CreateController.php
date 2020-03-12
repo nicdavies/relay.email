@@ -32,8 +32,8 @@ class CreateController extends Controller
         $this->assert($user->aliases()->count() >= 3, 'Premium plan required for more aliases, consider upgrading!');
 
         $this->validate($request, [
-            'name' => ['required', 'string', 'min:3', 'max:20'],
-            'alias' => ['sometimes', 'nullable', 'string', 'alphanum', 'min:3', 'max:20'],
+            'name' => ['required', 'string', 'min:2', 'max:20'],
+            'alias' => ['sometimes', 'nullable', 'string', 'alphanum', 'min:2', 'max:20'],
             'action' => ['required', 'string', new EnumValue(MessageActionType::class)],
             'forward_to' => ['sometimes', 'nullable', 'email'],
             'custom_domain' => ['sometimes', 'nullable', 'exists:custom_domains,uuid'],
