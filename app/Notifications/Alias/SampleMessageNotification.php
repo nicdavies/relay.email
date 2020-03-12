@@ -3,6 +3,7 @@
 namespace App\Notifications\Alias;
 
 use App\Models\Alias;
+use App\Support\Helpers\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -44,13 +45,14 @@ class SampleMessageNotification extends Notification implements ShouldQueue
     public function toMail($notifiable) : MailMessage
     {
         $url = url(sprintf(
-            '/aliases/%s',
-            $this->alias->uuid
+            '%s/aliases/%s',
+            Str::frontendUrl(),
+            $this->alias->uuid,
         ));
 
         return (new MailMessage)
             ->subject('Nice! Your alias is set up!')
-            ->line("We're sending you this email because your {$this->alias->name} has been set up as a {$this->alias->message_action} type!")
+            ->line("We're sending you this email because your \"{$this->alias->name}\" has been set up as a {$this->alias->message_action->description} type!")
             ->action('View Alias', $url)
         ;
     }

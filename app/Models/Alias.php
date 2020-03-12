@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Support\Traits\Uuid;
+use BenSampo\Enum\Traits\CastsEnums;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\Enums\MessageActionType;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Alias extends Model
 {
     use Uuid;
+    use CastsEnums;
     use SoftDeletes;
     use LogsActivity;
 

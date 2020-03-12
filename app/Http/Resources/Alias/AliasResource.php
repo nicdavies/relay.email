@@ -29,7 +29,7 @@ class AliasResource extends JsonResource
                 'complete_address' => $this->completeAliasAddress,
             ],
 
-            'message_action' => $this->message_action,
+            'message_action' => $this->message_action->key,
             'message_forward_to' => $this->message_forward_to,
             'has_confirmed_message_forward_to' => $this->hasConfirmedForwardTo,
             'total_messages' => $this->totalMessages,

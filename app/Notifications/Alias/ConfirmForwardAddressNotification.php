@@ -33,10 +33,10 @@ class ConfirmForwardAddressNotification extends Notification implements ShouldQu
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable) : array
     {
         return ['mail'];
     }
@@ -44,7 +44,7 @@ class ConfirmForwardAddressNotification extends Notification implements ShouldQu
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return MailMessage
      */
     public function toMail($notifiable) : MailMessage
@@ -60,12 +60,12 @@ class ConfirmForwardAddressNotification extends Notification implements ShouldQu
         if ($this->type === 'created') {
             $messageLine = "Your newly created alias \"{$this->alias->name}\" has set the forwarding address to: {$this->alias->message_forward_to}";
         } else {
-            $messageLine = "The forwarding address for the {$this->alias->name} alias has been changed to: {$this->alias->message_forward_to}.";
+            $messageLine = "The forwarding address for the \"{$this->alias->name}\" alias has been changed to: {$this->alias->message_forward_to}.";
         }
 
         return (new MailMessage)
             ->subject('Confirm Your Forwarding Address')
-            ->greeting("Hi")
+            ->greeting("Hello")
             ->line($messageLine)
             ->line('We just need you to verify to complete the setup!')
             ->action('Verify', $url)
