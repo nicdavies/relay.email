@@ -17,6 +17,10 @@ class LoginController extends Controller
      */
     public function __invoke(Request $request)
     {
+        Log::error(config('app.url'));
+        Log::error(env('APP_CLIENT_ID'));
+        Log::error(env('APP_CLIENT_SECRET'));
+
         try {
             $client = new Client();
             $endpoint = config('app.url');
