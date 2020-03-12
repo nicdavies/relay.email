@@ -55,7 +55,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::delete('/account/domains/{domain}', Api\Domain\DeleteController::class);
 
     # account verify
-    Route::post('/account/verify/resend', Api\Account\VerifyResendController::class);
+    Route::post('/account/confirm/resend', Api\Account\Confirm\ResendController::class);
+    Route::post('/account/confirm/{token}', Api\Account\Confirm\ConfirmController::class);
 
     # referrals
     Route::get('/referrals', Api\Referral\ListController::class);
