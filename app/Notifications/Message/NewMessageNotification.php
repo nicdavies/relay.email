@@ -3,6 +3,7 @@
 namespace App\Notifications\Message;
 
 use App\Models\Message;
+use App\Support\Helpers\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -43,16 +44,17 @@ class NewMessageNotification extends Notification implements ShouldQueue
     public function toMail($notifiable) : MailMessage
     {
         $url = sprintf(
-            '/alias/%s/message/%s',
+            '%s/alias/%s/message/%s',
+            Str::frontendUrl(),
             $this->message->alias->uuid,
             $this->message->uuid
         );
 
         return (new MailMessage)
-            ->subject('New Message')
-            ->greeting("Hello {$notifiable->name}")
-            ->line("You've got a new message to {$this->message->alias->alias}")
-            ->action('View', url($url)) // todo - call frontend_url() for the pwa app!
+            ->subject("You've received a new message through RelayMail")
+            ->greeting("Hello")
+            ->line("You've just receieved a new message to \"{$this->message->alias->alias}\" on RelayMail.")
+            ->action('View Message', $url)
         ;
     }
 }
