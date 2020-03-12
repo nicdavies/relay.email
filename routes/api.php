@@ -18,7 +18,11 @@ Route::group([], function () {
     Route::post('/auth/login', Api\Auth\LoginController::class);
     Route::post('/auth/register', Api\Auth\RegisterController::class);
     Route::post('/auth/forgot', Api\Auth\ForgotController::class);
-    Route::post('/auth/reset', Api\Auth\ResetController::class);
+    Route::get('/auth/reset/{passwordReset}', Api\Auth\Reset\ReadController::class);
+    Route::post('/auth/reset/{passwordReset}', Api\Auth\Reset\UpdateController::class);
+
+    # stripe webhook
+    Route::post('/stripe/webhook', '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook');
 
     # webhook
     Route::post('/message/inbound', Api\Webhook\InboundController::class);
@@ -90,5 +94,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::delete('/billing/card', Api\Billing\Card\DeleteController::class);
     Route::post('/billing/subscription', Api\Billing\Subscription\CreateController::class);
     Route::delete('/billing/subscription', Api\Billing\Subscription\DeleteController::class);
+    Route::get('/billing/setup-intent', Api\Billing\Intent\ReadController::class);
 
 });

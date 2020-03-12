@@ -34,7 +34,7 @@ class CreateController extends Controller
             ;
         } else {
             $user
-                ->newSubscription('default', 'premium')
+                ->newSubscription('default', 'premium_monthly')
                 ->create()
             ;
         }

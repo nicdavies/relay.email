@@ -1,28 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Notifications\User;
 
+use App\Models\PasswordReset;
+use App\Support\Helpers\Str;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class ResetPasswordNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /** @var string $token */
-    public $token;
+    /** @var PasswordReset $passwordReset */
+    private PasswordReset $passwordReset;
 
     /**
      * ResetPasswordNotification constructor.
-     * @param string $token
+     * @param PasswordReset $passwordReset
      */
-    public function __construct(string $token)
+    public function __construct(PasswordReset $passwordReset)
     {
-        $this->token = $token;
+        $this->passwordReset = $passwordReset;
     }
 
     /**
@@ -40,10 +40,16 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable) : MailMessage
     {
+        $url = sprintf(
+            '%s/auth/reset-password/%s',
+            Str::frontendUrl(),
+            $this->passwordReset->token,
+        );
+
         return (new MailMessage)
             ->subject('Reset Password')
             ->line('You are receiving this email because we received a password reset request for your account.')
-            ->action('Reset Password', url(config('app.url').route('auth.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)))
+            ->action('Reset Password', $url)
             ->line(sprintf(
                 'This password reset link will expire in %s minutes',
                 config('auth.passwords.'.config('auth.defaults.passwords').'.expire')
