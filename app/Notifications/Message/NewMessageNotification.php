@@ -44,7 +44,7 @@ class NewMessageNotification extends Notification implements ShouldQueue
     public function toMail($notifiable) : MailMessage
     {
         $url = sprintf(
-            '%s/alias/%s/message/%s',
+            '%s/aliases/%s/message/%s',
             Str::frontendUrl(),
             $this->message->alias->uuid,
             $this->message->uuid
