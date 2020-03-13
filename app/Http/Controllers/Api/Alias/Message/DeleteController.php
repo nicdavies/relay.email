@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\MessageAction;
+namespace App\Http\Controllers\Api\Alias\Message;
 
 use App\Models\Alias;
 use App\Models\Message;
@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Access\AuthorizationException;
 
-class ForwardController extends Controller
+class DeleteController extends Controller
 {
     /**
      * @param Request $request
@@ -21,9 +21,9 @@ class ForwardController extends Controller
     public function __invoke(Request $request, Alias $alias, Message $message) : JsonResponse
     {
         $this->authorize('owns-alias', $alias);
-        $this->authorize('owns-message', $alias);
+        $this->authorize('owns-message', $message);
 
-        // todo - forward the message
+        $message->forceDelete();
 
         return response()->json([
             'success' => true,

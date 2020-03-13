@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Message;
+namespace App\Http\Controllers\Api\Alias\MessageAction;
 
 use App\Models\Alias;
 use App\Models\Message;
@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Alias\MessageResource;
 use Illuminate\Auth\Access\AuthorizationException;
 
-class ReadController extends Controller
+class ArchiveController extends Controller
 {
     /**
      * @param Request $request
@@ -21,8 +21,11 @@ class ReadController extends Controller
     public function __invoke(Request $request, Alias $alias, Message $message) : MessageResource
     {
         $this->authorize('owns-alias', $alias);
-        $this->authorize('owns-message', $message);
+        $this->authorize('owns-message', $alias);
 
-        return new MessageResource($message);
+        // Archive basically means soft-delete!
+        $message->delete();
+
+        return new MessageResource($alias);
     }
 }

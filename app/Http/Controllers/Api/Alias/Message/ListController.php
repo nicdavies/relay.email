@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Message;
+namespace App\Http\Controllers\Api\Alias\Message;
 
 use App\Models\User;
 use App\Models\Alias;
