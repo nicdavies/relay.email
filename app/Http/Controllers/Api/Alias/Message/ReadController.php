@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Message;
+namespace App\Http\Controllers\Api\Alias\Message;
 
+use Carbon\Carbon;
 use App\Models\Alias;
 use App\Models\Message;
 use Illuminate\Http\Request;
@@ -23,6 +24,13 @@ class ReadController extends Controller
         $this->authorize('owns-alias', $alias);
         $this->authorize('owns-message', $message);
 
-        return new MessageResource($message);
+        // Mark the message as read!
+        if (! $message->isRead) {
+            $message->update([
+                'read_at' => Carbon::now(),
+            ]);
+        }
+
+        return new MessageResource($message->fresh());
     }
 }

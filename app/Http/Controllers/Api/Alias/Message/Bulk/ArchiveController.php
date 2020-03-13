@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Message\Bulk;
+namespace App\Http\Controllers\Api\Alias\Message\Bulk;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

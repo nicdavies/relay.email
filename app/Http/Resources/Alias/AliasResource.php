@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\Alias;
 
-use App\Http\Resources\Base\PgpResource;
-use App\Http\Resources\Domain\DomainResource;
 use Illuminate\Http\Request;
+use App\Http\Resources\Base\PgpResource;
 use App\Http\Resources\Base\OwnerResource;
+use App\Http\Resources\Domain\DomainResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AliasResource extends JsonResource
@@ -34,8 +34,12 @@ class AliasResource extends JsonResource
             'message_action' => $this->message_action->key,
             'message_forward_to' => $this->message_forward_to,
             'has_confirmed_message_forward_to' => $this->hasConfirmedForwardTo,
-            'total_messages' => $this->totalMessages,
             'message_history_limit' => 999,
+
+            'total_messages' => $this->totalMessages,
+            'total_read_messages' => $this->totalReadMessages,
+            'total_unread_messages' => $this->totalUnreadMessages,
+            'latest_message_received_at' => $this->latestMessageReceivedTimestamp,
 
             'owner'  => new OwnerResource($this->user),
 

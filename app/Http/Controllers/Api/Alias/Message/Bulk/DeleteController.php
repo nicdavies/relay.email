@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Message\Bulk;
+namespace App\Http\Controllers\Api\Alias\Message\Bulk;
 
 use App\Models\Alias;
 use App\Models\Message;

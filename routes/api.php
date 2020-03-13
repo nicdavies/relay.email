@@ -74,18 +74,21 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/aliases/{alias}/verify/resend', Api\Alias\Verify\ResendController::class);
 
     # alias messages
-    Route::get('/aliases/{alias}/messages', Api\Message\ListController::class);
-    Route::get('/aliases/{alias}/messages/{message}', Api\Message\ReadController::class);
-    Route::delete('/aliases/{alias}/messages/{message}', Api\Message\DeleteController::class);
+    Route::get('/aliases/{alias}/messages', Api\Alias\Message\ListController::class);
+    Route::get('/aliases/{alias}/messages/{message}', Api\Alias\Message\ReadController::class);
+    Route::delete('/aliases/{alias}/messages/{message}', Api\Alias\Message\DeleteController::class);
 
     # alias message actions
-    Route::post('/aliases/{alias}/messages/{message}/action/forward', Api\MessageAction\ForwardController::class);
-    Route::post('/aliases/{alias}/messages/{message}/action/archive', Api\MessageAction\ArchiveController::class);
+    Route::post('/aliases/{alias}/messages/{message}/action/forward', Api\Alias\MessageAction\ForwardController::class);
+    Route::post('/aliases/{alias}/messages/{message}/action/archive', Api\Alias\MessageAction\ArchiveController::class);
 
     # alias message bulk actions
-    Route::post('/aliases/{alias}/messages/bulk/forward', Api\Message\Bulk\ForwardController::class);
-    Route::patch('/aliases/{alias}/messages/bulk/archive', Api\Message\Bulk\ArchiveController::class);
-    Route::delete('/aliases/{alias}/messages/bulk/delete', Api\Message\Bulk\DeleteController::class);
+    Route::post('/aliases/{alias}/messages/bulk/forward', Api\Alias\Message\Bulk\ForwardController::class);
+    Route::patch('/aliases/{alias}/messages/bulk/archive', Api\Alias\Message\Bulk\ArchiveController::class);
+    Route::delete('/aliases/{alias}/messages/bulk/delete', Api\Alias\Message\Bulk\DeleteController::class);
+
+    # messages
+    Route::get('/messages', Api\Message\ListController::class);
 
     # statistics / analytics
     Route::get('/statistics/aliases/total', Api\Analytics\Alias\ReadController::class);
