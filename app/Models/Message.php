@@ -72,6 +72,22 @@ class Message extends Model implements HasMedia
     }
 
     /**
+     * @return bool
+     */
+    public function getHasHtmlMessageAttribute() : bool
+    {
+        return $this->body_html !== null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHasPlainTextMessageAttribute() : bool
+    {
+        return $this->body_plain !== null;
+    }
+
+    /**
      * @return Relations\BelongsTo
      */
     public function alias() : Relations\BelongsTo

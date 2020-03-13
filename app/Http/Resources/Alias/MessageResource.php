@@ -27,7 +27,10 @@ class MessageResource extends JsonResource
             'read_at' => $this->read_at ? $this->read_at->toIso8601String() : null,
 
             'body' => [
+                'has_html' => $this->hasHtmlMessage,
                 'html' => $this->body_html,
+
+                'has_plain' => $this->hasPlainTextMessage,
                 'plain' => $this->body_plain,
             ],
 
