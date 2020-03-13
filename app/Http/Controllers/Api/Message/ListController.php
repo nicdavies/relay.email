@@ -23,7 +23,7 @@ class ListController extends Controller
             ->messages()
             ->withoutHidden()
             ->orderByDesc('created_at')
-            ->paginate(2)
+            ->paginate(20)
         ;
 
         return MessageResource::collection($messages);
