@@ -97,6 +97,7 @@ class InboundEmailJob implements ShouldQueue
                 'raw_payload' => $this->request->toArray(),
                 'token' => $this->request->input('token'),
                 'signature' => $this->request->input('signature'),
+                'intro_line' => Str::words($this->request->input('body-plain', ''), 20),
 
                 'is_hidden' => $hidden,
 

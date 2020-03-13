@@ -37,6 +37,7 @@ class Message extends Model implements HasMedia
         'encryption_key_id',
         'is_hidden',
         'read_at',
+        'intro_line',
 //        'created_at',
 //        'updated_at',
 //        'deleted_at',
