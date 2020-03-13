@@ -91,6 +91,12 @@ Route::group(['middleware' => ['auth:api']], function () {
     # messages
     Route::get('/messages', Api\Message\ListController::class);
 
+    # messages bulk actions
+    Route::post('/messages/bulk/forward', Api\Message\Bulk\ForwardController::class);
+    Route::patch('/messages/bulk/archive', Api\Message\Bulk\ArchiveController::class);
+    Route::patch('/messages/bulk/seen', Api\Message\Bulk\SeenController::class);
+    Route::delete('/messages/bulk/delete', Api\Message\Bulk\DeleteController::class);
+
     # statistics / analytics
     Route::get('/statistics/aliases/total', Api\Analytics\Alias\ReadController::class);
     Route::get('/statistics/messages/total', Api\Analytics\Message\ReadController::class);
