@@ -92,7 +92,7 @@ class InboundEmailJob implements ShouldQueue
                 'from' => $this->request->input('from'),
                 'sender' => $this->request->input('sender'),
                 'body_html' => $this->request->input('body-html'),
-                'body_plain' => $this->request->input('stripped-html'),
+                'body_plain' => strip_tags($this->request->input('body-plain')),
                 'attachment_count' => $this->request->input('attachment_count', 0),
                 'raw_payload' => $this->request->toArray(),
                 'token' => $this->request->input('token'),
