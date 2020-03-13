@@ -23,6 +23,9 @@ class MessageResource extends JsonResource
             'total_attachments' => $this->attachment_count,
             'properties' => $this->properties,
 
+            'is_read' => $this->isRead,
+            'read_at' => $this->read_at ? $this->read_at->toIso8601String() : null,
+
             'body' => [
                 'html' => $this->body_html,
                 'plain' => $this->body_plain,

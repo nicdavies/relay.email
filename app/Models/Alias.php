@@ -118,6 +118,51 @@ class Alias extends Model
     }
 
     /**
+     * @return int
+     */
+    public function getTotalUnreadMessagesAttribute() : int
+    {
+        return $this
+            ->messages()
+            ->withoutHidden()
+            ->whereUnread()
+            ->count()
+        ;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalReadMessagesAttribute() : int
+    {
+        return $this
+            ->messages()
+            ->withoutHidden()
+            ->whereRead()
+            ->count()
+        ;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLatestMessageReceivedTimestampAttribute() : ?string
+    {
+        $latestMessage = $this
+            ->messages()
+            ->withoutHidden()
+            ->latest()
+            ->first()
+        ;
+
+        if (! $latestMessage instanceof Message) {
+            return null;
+        }
+
+        return $latestMessage->created_at->toIso8601String();
+    }
+
+    /**
      * @return Relations\BelongsTo
      */
     public function user() : Relations\BelongsTo

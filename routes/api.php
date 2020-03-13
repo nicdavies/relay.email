@@ -87,6 +87,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::patch('/aliases/{alias}/messages/bulk/archive', Api\Alias\Message\Bulk\ArchiveController::class);
     Route::delete('/aliases/{alias}/messages/bulk/delete', Api\Alias\Message\Bulk\DeleteController::class);
 
+    # messages
+    Route::get('/messages', Api\Message\ListController::class);
+
     # statistics / analytics
     Route::get('/statistics/aliases/total', Api\Analytics\Alias\ReadController::class);
     Route::get('/statistics/messages/total', Api\Analytics\Message\ReadController::class);

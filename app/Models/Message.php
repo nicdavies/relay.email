@@ -36,7 +36,7 @@ class Message extends Model implements HasMedia
         'signature',
         'encryption_key_id',
         'is_hidden',
-        'is_read',
+        'read_at',
 //        'created_at',
 //        'updated_at',
 //        'deleted_at',
@@ -46,10 +46,13 @@ class Message extends Model implements HasMedia
         'raw_payload' => 'array',
         'properties' => 'array',
         'is_hidden' => 'boolean',
-        'is_read' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'deleted_at' => 'datetime',
+    ];
+
+    protected $dates = [
+        'read_at',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     /**
@@ -58,6 +61,14 @@ class Message extends Model implements HasMedia
     public function getIsEncryptedAttribute() : bool
     {
         return $this->encryptionKey instanceof EncryptionKey;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsReadAttribute() : bool
+    {
+        return $this->read_at !== null;
     }
 
     /**
@@ -108,7 +119,7 @@ class Message extends Model implements HasMedia
      */
     public function scopeWhereUnread(Builder $query) : Builder
     {
-        return $query->where('is_read', false);
+        return $query->where('read_at', null);
     }
 
     /**
@@ -117,7 +128,7 @@ class Message extends Model implements HasMedia
      */
     public function scopeWhereRead(Builder $query) : Builder
     {
-        return $query->where('is_read', true);
+        return $query->where('read_at', '!=', null);
     }
 
     /**

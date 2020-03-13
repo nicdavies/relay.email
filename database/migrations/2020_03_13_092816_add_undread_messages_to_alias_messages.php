@@ -14,7 +14,7 @@ class AddUndreadMessagesToAliasMessages extends Migration
     public function up()
     {
         Schema::table('alias_messages', function (Blueprint $table) {
-            $table->boolean('is_read')->default(false);
+            $table->timestamp('read_at')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddUndreadMessagesToAliasMessages extends Migration
     public function down()
     {
         Schema::table('alias_messages', function (Blueprint $table) {
-            $table->boolean('is_read')->default(false);
+            $table->dropColumn('read_at');
         });
     }
 }

@@ -131,6 +131,19 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @return Relations\HasManyThrough
+     */
+    public function messages() : Relations\HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Message::class,
+            Alias::class,
+            'user_id',
+            'alias_id',
+            );
+    }
+
+    /**
      * @return Relations\HasMany
      */
     public function encryptionKeys() : Relations\HasMany
