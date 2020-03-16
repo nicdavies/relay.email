@@ -67,11 +67,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::delete('/groups/{group}', Api\Group\DeleteController::class);
 
     # group aliases
-    Route::get('/groups/{group}/aliases', '');
+    Route::get('/groups/{group}/aliases', Api\Group\Alias\ListController::class);
 
     # group alias actions
-    Route::post('/groups/{group}/aliases/{alias}/move', '');
-    Route::delete('/groups/{group}/aliases/{alias}/remove', '');
+    Route::patch('/groups/{group}/aliases/{alias}/move', Api\Group\Alias\UpdateController::class);
+    Route::delete('/groups/{group}/aliases/{alias}/remove', Api\Group\Alias\DeleteController::class);
 
     # aliases
     Route::get('/aliases', Api\Alias\ListController::class);
