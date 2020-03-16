@@ -9,12 +9,12 @@ use App\Support\Helpers\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use BenSampo\Enum\Rules\EnumValue;
-use App\Jobs\CreateSampleMessageJob;
 use App\Http\Controllers\Controller;
 use App\Support\Enums\MessageActionType;
 use App\Http\Resources\Alias\AliasResource;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
+use App\Notifications\Alias\DefaultMessageNotification;
 use App\Notifications\Alias\ConfirmForwardAddressNotification;
 
 class CreateController extends Controller
@@ -86,7 +86,7 @@ class CreateController extends Controller
 
         // If the action is not IGNORE, then create sample message, which we will save and/or send.
         if ($alias->message_action->key !== MessageActionType::IGNORE) {
-            CreateSampleMessageJob::dispatch($alias);
+            Notification::send($user, new DefaultMessageNotification($alias));
         }
 
         if ($alias->message_action->key === MessageActionType::FORWARD_AND_SAVE ||
