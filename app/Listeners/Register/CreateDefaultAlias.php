@@ -5,8 +5,9 @@ namespace App\Listeners\Register;
 use App\Models\User;
 use App\Models\Alias;
 use App\Events\RegisterEvent;
-use App\Jobs\CreateSampleMessageJob;
 use App\Support\Enums\MessageActionType;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\Alias\DefaultMessageNotification;
 
 class CreateDefaultAlias
 {
@@ -32,6 +33,6 @@ class CreateDefaultAlias
             ])
         ;
 
-        CreateSampleMessageJob::dispatch($alias);
+        Notification::send($user, new DefaultMessageNotification($alias));
     }
 }
