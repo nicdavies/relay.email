@@ -36,6 +36,7 @@ class AuthServiceProvider extends ServiceProvider
             Gates\AliasGates::rules(),
             Gates\DomainGates::rules(),
             Gates\EncryptionKeyGates::rules(),
+            Gates\GroupGates::rules(),
         );
 
         collect($rules)->each(function ($callback, $key) {

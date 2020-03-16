@@ -59,6 +59,13 @@ Route::group(['middleware' => ['auth:api']], function () {
     # referrals
     Route::get('/referrals', Api\Referral\ListController::class);
 
+    # groups
+    Route::get('/groups', Api\Group\ListController::class);
+    Route::post('/groups', Api\Group\CreateController::class);
+    Route::get('/groups/{group}', Api\Group\ReadController::class);
+    Route::patch('/groups/{group}', Api\Group\UpdateController::class);
+    Route::delete('/groups/{group}', Api\Group\DeleteController::class);
+
     # aliases
     Route::get('/aliases', Api\Alias\ListController::class);
     Route::post('/aliases', Api\Alias\CreateController::class);

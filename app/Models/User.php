@@ -123,6 +123,18 @@ class User extends Authenticatable implements HasMedia
     /**
      * @return Relations\HasMany
      */
+    public function groups() : Relations\HasMany
+    {
+        return $this->hasMany(
+            Group::class,
+            'user_id',
+            'id'
+        );
+    }
+
+    /**
+     * @return Relations\HasMany
+     */
     public function aliases() : Relations\HasMany
     {
         return $this->hasMany(
