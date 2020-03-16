@@ -30,6 +30,14 @@ class Group extends Model
     ];
 
     /**
+     * @return int
+     */
+    public function getTotalAliasesAttribute() : int
+    {
+        return $this->aliases()->count();
+    }
+
+    /**
      * @return Relations\BelongsTo
      */
     public function user() : Relations\BelongsTo
@@ -41,6 +49,20 @@ class Group extends Model
         );
     }
 
+    /**
+     * @return Relations\BelongsToMany
+     */
+    public function aliases() : Relations\BelongsToMany
+    {
+        return $this->belongsToMany(
+            Alias::class,
+            'group_aliases',
+        );
+    }
+
+    /**
+     * @return string
+     */
     public function getRouteKeyName() : string
     {
         return 'uuid';

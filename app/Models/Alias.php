@@ -198,6 +198,17 @@ class Alias extends Model
     }
 
     /**
+     * @return Relations\BelongsToMany
+     */
+    public function groups() : Relations\BelongsToMany
+    {
+        return $this->belongsToMany(
+            Group::class,
+            'group_aliases'
+        );
+    }
+
+    /**
      * @return Relations\BelongsTo
      */
     public function encryptionKey() : Relations\BelongsTo

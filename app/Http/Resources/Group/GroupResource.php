@@ -20,7 +20,7 @@ class GroupResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
 
-//            'total_aliases' =>
+            'total_aliases' => $this->totalAliases,
 
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
