@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/account/domains', Api\Domain\ListController::class);
     Route::post('/account/domains', Api\Domain\CreateController::class);
     Route::get('/account/domains/{domain}', Api\Domain\ReadController::class);
+    Route::post('/account/domains/{domain}/verify', Api\Domain\Verify\UpdateController::class);
     Route::delete('/account/domains/{domain}', Api\Domain\DeleteController::class);
 
     # account verify
