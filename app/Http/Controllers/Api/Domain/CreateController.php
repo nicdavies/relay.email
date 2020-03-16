@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api\Domain;
 
 use App\Models\User;
-use App\Models\CustomDomain;
+use App\Rules\DomainRule;
 use App\Support\Helpers\Str;
 use Illuminate\Http\Request;
+use App\Models\CustomDomain;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Domain\DomainResource;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class CreateController extends Controller
 {
@@ -16,18 +18,16 @@ class CreateController extends Controller
      * @param Request $request
      * @return DomainResource
      * @throws ValidationException
+     * @throws AuthorizationException
      */
     public function __invoke(Request $request) : DomainResource
     {
         /** @var User $user */
         $user = $request->user();
-
-        if (! $user->subscribed()) {
-            // todo - return error?
-        }
+        $this->authorize($user->subscribed(), 'Premium plan required, consider upgrading!');
 
         $this->validate($request, [
-            'domain' => ['required', 'string'],
+            'domain' => ['required', 'string', new DomainRule],
         ]);
 
         /** @var CustomDomain $domain */
