@@ -47,7 +47,6 @@ class AliasResource extends JsonResource
             'domain' => new DomainResource($this->domain),
 
             'pgp_key'  => new PgpResource($this->encryptionKey),
-            'activity' => ActivityResource::collection($this->activities->sortByDesc('created_at')->take(8)),
 
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
