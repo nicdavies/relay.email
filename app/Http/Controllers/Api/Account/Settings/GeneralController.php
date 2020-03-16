@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Account\Settings;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Rules\EmailNotRelayRule;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Validation\ValidationException;
@@ -22,7 +23,7 @@ class GeneralController extends Controller
 
         $this->validate($request, [
             'name'  => ['sometimes', 'string', 'min:3', 'max:20'],
-            'email' => ['sometimes', 'email', 'unique:users,email,' . $user->id],
+            'email' => ['sometimes', 'email', 'unique:users,email,' . $user->id, new EmailNotRelayRule],
         ]);
 
         $user->update([
