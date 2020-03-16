@@ -7,6 +7,7 @@ use App\Models\Alias;
 use App\Models\CustomDomain;
 use App\Support\Helpers\Str;
 use Illuminate\Http\Request;
+use App\Rules\EmailNotRelayRule;
 use Illuminate\Http\JsonResponse;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Jobs\CreateSampleMessageJob;
@@ -36,7 +37,7 @@ class CreateController extends Controller
             'name' => ['required', 'string', 'min:2', 'max:20'],
             'alias' => ['sometimes', 'nullable', 'string', 'alphanum', 'min:2', 'max:20'],
             'action' => ['required', 'string', new EnumValue(MessageActionType::class)],
-            'forward_to' => ['sometimes', 'nullable', 'email'],
+            'forward_to' => ['sometimes', 'nullable', 'email', new EmailNotRelayRule],
             'custom_domain' => ['sometimes', 'nullable', 'exists:custom_domains,uuid'],
         ]);
 
