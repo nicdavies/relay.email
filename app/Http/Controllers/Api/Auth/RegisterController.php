@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\RegisterEvent;
+use App\Rules\EmailNotRelayRule;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\User\UserResource;
@@ -14,14 +17,14 @@ class RegisterController extends Controller
 {
     /**
      * @param Request $request
-     * @return UserResource
+     * @return UserResource|JsonResponse
      * @throws ValidationException
      */
-    public function __invoke(Request $request) : UserResource
+    public function __invoke(Request $request)
     {
         $this->validate($request, [
             'name'              => ['required', 'string', 'min:3', 'max:20'],
-            'email'             => ['required', 'email', 'unique:users,email'],
+            'email'             => ['required', 'email', 'unique:users,email', new EmailNotRelayRule],
             'password'          => ['required', 'string', 'min:6', 'max:100'],
             'confirm_password'  => ['required', 'string', 'same:password'],
             'referral_code'     => ['sometimes', 'nullable', 'string', 'exists:users,referral_code'],
