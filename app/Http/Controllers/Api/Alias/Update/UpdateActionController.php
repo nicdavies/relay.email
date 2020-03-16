@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Alias\Update;
 use App\Models\Alias;
 use App\Support\Helpers\Str;
 use Illuminate\Http\Request;
+use App\Rules\EmailNotRelayRule;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Controllers\Controller;
 use App\Support\Enums\MessageActionType;
@@ -29,7 +30,7 @@ class UpdateActionController extends Controller
 
         $this->validate($request, [
             'action'     => ['required', 'string', new EnumValue(MessageActionType::class)],
-            'forward_to' => ['sometimes', 'nullable', 'email'],
+            'forward_to' => ['sometimes', 'nullable', 'email', new EmailNotRelayRule],
         ]);
 
         // Check if the forwarding address has changed, if so, send confirmation notification

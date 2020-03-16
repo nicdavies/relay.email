@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Support\Enums\MessageActionType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Alias extends Model
@@ -156,6 +157,20 @@ class Alias extends Model
         }
 
         return $latestMessage->created_at->toIso8601String();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getMostFrequentSendersAttribute() : Collection
+    {
+        return $this
+            ->messages()
+            ->selectRaw('sender, COUNT(sender) as total')
+            ->groupBy('sender')
+            ->take(3)
+            ->get()
+        ;
     }
 
     /**

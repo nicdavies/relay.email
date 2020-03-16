@@ -40,6 +40,7 @@ class AliasResource extends JsonResource
             'total_read_messages' => $this->totalReadMessages,
             'total_unread_messages' => $this->totalUnreadMessages,
             'latest_message_received_at' => $this->latestMessageReceivedTimestamp,
+            'frequent_senders' => $this->mostFrequentSenders,
 
             'owner'  => new OwnerResource($this->user),
 

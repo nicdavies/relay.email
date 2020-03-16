@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\LastActionMiddleware;
 use App\Http\Middleware\OnboardedMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -42,6 +43,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+            'last.action',
         ],
     ];
 
@@ -64,6 +66,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'onboarded' => OnboardedMiddleware::class,
+        'last.action' => LastActionMiddleware::class,
     ];
 
     /**

@@ -43,6 +43,7 @@ class User extends Authenticatable implements HasMedia
         'referred_by_user_id',
         'card_brand',
         'card_last_four',
+        'last_action_at',
 //        'is_admin',
 //        'created_at',
 //        'updated_at',
@@ -57,6 +58,7 @@ class User extends Authenticatable implements HasMedia
 
     protected $dates = [
         'trial_ends_at',
+        'last_action_at',
     ];
 
     protected $casts = [
