@@ -172,6 +172,7 @@ class Alias extends Model
             ->messages()
             ->selectRaw('sender, COUNT(sender) as total')
             ->groupBy('sender')
+            ->take(3)
             ->get()
         ;
     }
