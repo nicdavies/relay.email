@@ -18,7 +18,6 @@
         "mailgun/mailgun-php": "^3.0",
         "php-curl-class/php-curl-class": "^8.6",
         "spatie/dns": "^1.4",
-        "spatie/laravel-activitylog": "^3.9",
         "spatie/laravel-medialibrary": "^7.18"
     },
     "require-dev": {
