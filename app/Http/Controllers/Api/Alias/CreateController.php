@@ -87,7 +87,9 @@ class CreateController extends Controller
 
         // If the action is not IGNORE, then create sample message, which we will save and/or send.
         if ($alias->message_action->key !== MessageActionType::IGNORE) {
-            Notification::send($user, new DefaultMessageNotification($alias));
+            Notification::route('mail', $alias->completeAliasAddress)
+                ->notify(new DefaultMessageNotification($alias))
+            ;
         }
 
         if ($alias->message_action->key === MessageActionType::FORWARD_AND_SAVE ||
