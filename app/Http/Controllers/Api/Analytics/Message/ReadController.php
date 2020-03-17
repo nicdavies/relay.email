@@ -20,9 +20,16 @@ class ReadController extends Controller
         $user = $request->user();
         $totalMessages = Message::whereIn('alias_id', $user->aliases()->pluck('id'))->count();
 
+        $totalUnreadMessages = Message::whereIn('alias_id', $user->aliases()->pluck('id'))
+            ->where('read_at', '!=', null)
+            ->withoutHidden()
+            ->count()
+        ;
+
         return response()->json([
             'data' => [
                 'total' => $totalMessages,
+                'unread' => $totalUnreadMessages,
             ],
         ]);
     }
