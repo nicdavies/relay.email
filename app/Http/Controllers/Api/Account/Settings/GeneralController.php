@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Account\Settings;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Rules\EmailNotRelayRule;
 use App\Http\Controllers\Controller;
+use App\Support\Rules\EmailNotRelayRule;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Validation\ValidationException;
 

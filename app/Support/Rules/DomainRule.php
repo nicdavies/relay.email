@@ -1,29 +1,33 @@
 <?php
 
-namespace App\Rules;
+namespace App\Support\Rules;
 
-use Illuminate\Support\Str;
 use Illuminate\Contracts\Validation\Rule;
 
-class EmailNotRelayRule implements Rule
+class DomainRule implements Rule
 {
     /**
      * Determine if the validation rule passes.
+     *
      * @param string $attribute
      * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value) : bool
     {
-        return Str::after($value, '@') !== 'relaymail.email';
+        return preg_match(
+            "/^(?!:\/\/)(?=.{1,255}$)((.{1,63}\.){1,127}(?![0-9]*$)[a-z0-9-]+\.?)$/i",
+            $value
+        );
     }
 
     /**
      * Get the validation error message.
+     *
      * @return string
      */
     public function message() : string
     {
-        return 'Email address must be from a different provider!';
+        return 'The :attribute must be a valid domain without http(s)';
     }
 }

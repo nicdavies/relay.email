@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\RegisterEvent;
-use App\Rules\EmailNotRelayRule;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Support\Rules\EmailNotRelayRule;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Validation\ValidationException;
 

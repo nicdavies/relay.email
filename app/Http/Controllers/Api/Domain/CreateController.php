@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\Domain;
 
 use App\Models\User;
-use App\Rules\DomainRule;
 use App\Support\Helpers\Str;
 use Illuminate\Http\Request;
 use App\Models\CustomDomain;
+use App\Support\Rules\DomainRule;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Domain\DomainResource;
 use Illuminate\Validation\ValidationException;
