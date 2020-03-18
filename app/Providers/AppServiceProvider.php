@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Mailgun\Mailgun;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,8 +25,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot() : void
     {
-        $this->app->bind(Mailgun::class, function () {
-            return Mailgun::create('', '');
-        });
     }
 }
