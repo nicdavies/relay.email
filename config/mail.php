@@ -82,7 +82,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@relaymail.app'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hi@relaymail.app'),
         'name' => env('MAIL_FROM_NAME', 'RelayMail'),
     ],
 

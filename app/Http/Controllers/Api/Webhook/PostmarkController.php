@@ -6,19 +6,17 @@ use Illuminate\Http\Request;
 use App\Jobs\InboundEmailJob;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Validation\ValidationException;
 
-class InboundController extends Controller
+class PostmarkController extends Controller
 {
     /**
      * @param Request $request
      * @return JsonResponse
-     * @throws ValidationException
      */
     public function __invoke(Request $request) : JsonResponse
     {
-        // Fire off a job to handle this payload so we don't keep mailgun waiting
-        InboundEmailJob::dispatch($request);
+        // Fire off a job to handle this payload so we don't keep postmark waiting
+        InboundEmailJob::dispatch();
 
         return response()->json([
             'success' => true,

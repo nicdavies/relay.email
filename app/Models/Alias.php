@@ -166,8 +166,8 @@ class Alias extends Model
     {
         return $this
             ->messages()
-            ->selectRaw('sender, COUNT(sender) as total')
-            ->groupBy('sender')
+            ->selectRaw('from_email, COUNT(from_email) as total')
+            ->groupBy('from_email')
             ->take(3)
             ->get()
         ;

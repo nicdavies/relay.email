@@ -8,8 +8,6 @@ use App\Models\Message;
 use App\Support\Helpers\Str;
 use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
-use App\Mail\Message\ForwardMail;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Support\Enums\MessageActionType;
@@ -26,7 +24,7 @@ class InboundEmailJob implements ShouldQueue
     use InteractsWithQueue;
 
     /** @var Request $request */
-    private $request;
+    private Request $request;
 
     /**
      * Execute the job.
@@ -38,20 +36,15 @@ class InboundEmailJob implements ShouldQueue
     {
         $this->request = $request;
 
-        // todo - add support for custom domains as well as aliases
-
-        // the alias looks like: frontier.nic@frontier.sh
+        // the alias looks like: abcd.nic@relaymail.email
         // where "frontier" is the name of the alias, "nic" is the user's name.
         // so, we need to get the alias before the "."
-        $recipient = Str::before($request->input('recipient'), '@');
-
-        $alias = Str::beforeLast($recipient, '.');
-        $name  = Str::afterLast($recipient, '.');
+        $recipient = Str::before($request->input('ToFull.0.Email'), '@');
+        $alias     = Str::beforeLast($recipient, '.');
+        $name      = Str::afterLast($recipient, '.');
 
         /** @var Alias|null $alias */
-        $alias = Alias::whereCompleteAlias($alias, $name)
-            ->first()
-        ;
+        $alias = Alias::whereCompleteAlias($alias, $name)->first();
 
         if (! $alias instanceof Alias) {
             return;
@@ -88,29 +81,33 @@ class InboundEmailJob implements ShouldQueue
         $message = $alias
             ->messages()
             ->create([
-                'subject' => $this->request->input('subject'),
-                'from' => $this->request->input('from'),
-                'sender' => $this->request->input('sender'),
-                'body_html' => $this->request->input('body-html'),
-                'body_plain' => strip_tags($this->request->input('body-plain')),
+                'message_id' => $this->request->input('MessageID'),
+                'subject' => $this->request->input('Subject'),
+                'from_name' => $this->request->input('FromFull.Name'),
+                'from_email' => $this->request->input('FromFull.Email'),
+                'body_html' => $this->request->input('HtmlBody'),
+                'body_plain' => $this->request->input('TextBody'),
                 'attachment_count' => $this->request->input('attachment_count', 0),
                 'raw_payload' => $this->request->toArray(),
-                'token' => $this->request->input('token'),
-                'signature' => $this->request->input('signature'),
-                'intro_line' => Str::words($this->request->input('body-plain', ''), 8),
+                'intro_line' => Str::words($this->request->input('TextBody', ''), 8),
+//                'spam_score' => $this->request->input(''),
 
                 'is_hidden' => $hidden,
-
-                'properties' => [
-                    'in_reply_to' => $this->request->input('In-Reply-To'),
-                    'message_id' => $this->request->input('Message-Id'),
-                    'references' => $this->request->input('References'),
-                ],
+                'properties' => $this->request->input('Headers'),
             ])
         ;
 
-        // todo - If there's attachments, we want to save them and attach to this message
-        if ($this->request->input('attachment_count') > 0) {
+        // If there's attachments, we want to save them and attach to this message
+        if (count($this->request->input('Attachments', [])) > 0) {
+            collect($this->request->input('Attachments'))->each(function ($item) use ($message) {
+                if (array_key_exists('Content', $item)) {
+                    $message
+                        ->addMediaFromBase64($item['Content'])
+                        ->setFileName($item['Name'])
+                        ->toMediaCollection('attachments')
+                    ;
+                }
+            });
         }
 
         /** @var User $user */
@@ -129,9 +126,7 @@ class InboundEmailJob implements ShouldQueue
      */
     private function forward(Alias $alias, bool $hidden = false) : void
     {
-        Mail::to($alias->message_forward_to)
-            ->send(new ForwardMail($this->request))
-        ;
+        // todo - implement me!
     }
 
     /**

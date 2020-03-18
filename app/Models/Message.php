@@ -24,17 +24,16 @@ class Message extends Model implements HasMedia
 //        'id',
 //        'uuid',
 //        'alias_id',
+        'message_id',
+        'from_email',
+        'from_name',
+        'spam_score',
         'subject',
-        'from',
-        'sender',
         'body_html',
         'body_plain',
         'attachment_count',
         'properties',
         'raw_payload',
-        'token',
-        'signature',
-        'encryption_key_id',
         'is_hidden',
         'read_at',
         'intro_line',
@@ -55,14 +54,6 @@ class Message extends Model implements HasMedia
         'updated_at',
         'deleted_at',
     ];
-
-    /**
-     * @return bool
-     */
-    public function getIsEncryptedAttribute() : bool
-    {
-        return $this->encryptionKey instanceof EncryptionKey;
-    }
 
     /**
      * @return bool
@@ -89,6 +80,15 @@ class Message extends Model implements HasMedia
     }
 
     /**
+     * @return bool
+     */
+    public function getIsSpamAttribute() : bool
+    {
+        return $this->spam_score !== null
+            && $this->spam_score >= 5;
+    }
+
+    /**
      * @return Relations\BelongsTo
      */
     public function alias() : Relations\BelongsTo
@@ -96,18 +96,6 @@ class Message extends Model implements HasMedia
         return $this->belongsTo(
             Alias::class,
             'alias_id',
-            'id'
-        );
-    }
-
-    /**
-     * @return Relations\BelongsTo
-     */
-    public function encryptionKey() : Relations\BelongsTo
-    {
-        return $this->belongsTo(
-            EncryptionKey::class,
-            'encryption_key_id',
             'id'
         );
     }

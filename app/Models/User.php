@@ -38,9 +38,7 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at',
         'onboarded_at',
         'base_alias',
-        'old_aliases',
         'referral_code',
-        'referred_by_user_id',
         'card_brand',
         'card_last_four',
         'last_action_at',
@@ -53,7 +51,6 @@ class User extends Authenticatable implements HasMedia
         'password',
         'remember_token',
         'notification_settings',
-        'old_aliases',
     ];
 
     protected $dates = [
@@ -66,7 +63,6 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
         'custom_domain_verified_at' => 'datetime',
         'notification_settings' => 'array',
-        'old_aliases' => 'array',
         'is_admin' => 'boolean',
     ];
 
@@ -98,14 +94,6 @@ class User extends Authenticatable implements HasMedia
     public function getIsVerifiedAttribute() : bool
     {
         return $this->hasVerifiedEmail();
-    }
-
-    /**
-     * @return bool
-     */
-    public function getWasReferredAttribute() : bool
-    {
-        return $this->referred_by_user !== null;
     }
 
     /**
@@ -158,18 +146,6 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @return Relations\BelongsTo
-     */
-    public function referredByUser() : Relations\BelongsTo
-    {
-        return $this->belongsTo(
-            User::class,
-            'referred_by_user_id',
-            'id'
-        );
-    }
-
-    /**
      * @return Relations\HasMany
      */
     public function customDomains() : Relations\HasMany
@@ -177,18 +153,6 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(
             CustomDomain::class,
             'user_id',
-            'id'
-        );
-    }
-
-    /**
-     * @return Relations\HasMany
-     */
-    public function referrals() : Relations\HasMany
-    {
-        return $this->hasMany(
-            User::class,
-            'referred_by_user_id',
             'id'
         );
     }
