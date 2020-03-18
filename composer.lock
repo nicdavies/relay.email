@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "14bcefc0d53458db48337d8f59a0c79b",
+    "content-hash": "d842f221f953c71ca5d55db8a2279ca2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2987,73 +2987,6 @@
             "description": "A library to read, parse and export to PDF SVG files.",
             "homepage": "https://github.com/PhenX/php-svg-lib",
             "time": "2019-09-11T20:02:13+00:00"
-        },
-        {
-            "name": "php-curl-class/php-curl-class",
-            "version": "8.7.0",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:php-curl-class/php-curl-class.git",
-                "reference": "73ec46ed20cdd445b57f15d9da6fcb5a42f74bb4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/73ec46ed20cdd445b57f15d9da6fcb5a42f74bb4",
-                "reference": "73ec46ed20cdd445b57f15d9da6fcb5a42f74bb4",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.3"
-            },
-            "require-dev": {
-                "ext-gd": "*",
-                "phpunit/phpunit": "*",
-                "squizlabs/php_codesniffer": "*"
-            },
-            "suggest": {
-                "ext-mbstring": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Curl\\": "src/Curl/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Unlicense"
-            ],
-            "authors": [
-                {
-                    "name": "Zach Borboa"
-                }
-            ],
-            "description": "PHP Curl Class makes it easy to send HTTP requests and integrate with web APIs.",
-            "homepage": "https://github.com/php-curl-class/php-curl-class",
-            "keywords": [
-                "API-Client",
-                "api",
-                "class",
-                "client",
-                "curl",
-                "framework",
-                "http",
-                "http-client",
-                "http-proxy",
-                "json",
-                "php",
-                "php-curl",
-                "php-curl-library",
-                "proxy",
-                "requests",
-                "restful",
-                "web-scraper",
-                "web-scraping ",
-                "web-service",
-                "xml"
-            ],
-            "time": "2020-02-29T05:02:55+00:00"
         },
         {
             "name": "php-http/message-factory",
