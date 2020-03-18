@@ -24,7 +24,7 @@ class InboundEmailJob implements ShouldQueue
     use InteractsWithQueue;
 
     /** @var Request $request */
-    private Request $request;
+    private $request;
 
     /**
      * Execute the job.
