@@ -39,7 +39,7 @@ class InboundEmailJob implements ShouldQueue
         // the alias looks like: abcd.nic@relaymail.email
         // where "frontier" is the name of the alias, "nic" is the user's name.
         // so, we need to get the alias before the "."
-        $recipient = Str::before($request->input('ToFull.0.Email'), '@');
+        $recipient = Str::before($request->input('recipient'), '@');
         $alias     = Str::beforeLast($recipient, '.');
         $name      = Str::afterLast($recipient, '.');
 
@@ -81,32 +81,30 @@ class InboundEmailJob implements ShouldQueue
         $message = $alias
             ->messages()
             ->create([
-                'message_id' => $this->request->input('MessageID'),
-                'subject' => $this->request->input('Subject'),
-                'from_name' => $this->request->input('FromFull.Name'),
-                'from_email' => $this->request->input('FromFull.Email'),
-                'body_html' => $this->request->input('HtmlBody'),
-                'body_plain' => $this->request->input('TextBody'),
+                'message_id' => $this->request->input('Message-Id'),
+                'subject' => $this->request->input('subject'),
+                'from_name' => $this->request->input('from'),
+                'from_email' => $this->request->input('sender'),
+                'body_html' => $this->request->input('body-html'),
+                'body_plain' => $this->request->input('body-plain'),
                 'attachment_count' => $this->request->input('attachment_count', 0),
-                'raw_payload' => $this->request->toArray(),
-                'intro_line' => Str::words($this->request->input('TextBody', ''), 8),
-//                'spam_score' => $this->request->input(''),
+                'intro_line' => Str::words($this->request->input('body-plain', ''), 8),
 
                 'is_hidden' => $hidden,
-                'properties' => $this->request->input('Headers'),
+                'properties' => [],
+                'raw_payload' => $this->request->toArray(),
             ])
         ;
 
         // If there's attachments, we want to save them and attach to this message
-        if (count($this->request->input('Attachments', [])) > 0) {
-            collect($this->request->input('Attachments'))->each(function ($item) use ($message) {
-                if (array_key_exists('Content', $item)) {
-                    $message
-                        ->addMediaFromBase64($item['Content'])
-                        ->setFileName($item['Name'])
-                        ->toMediaCollection('attachments')
-                    ;
-                }
+        if (count($this->request->input('attachment-count ', 0)) > 0) {
+            $attachments = json_decode($this->request->input('content-id-map', []), true);
+
+            collect($attachments)->each(function ($value, $key) use ($message) {
+                $message
+                    ->addMediaFromUrl($value)
+                    ->toMediaCollection('attachments')
+                ;
             });
         }
 

@@ -25,7 +25,7 @@ Route::group([], function () {
     Route::post('/stripe/webhook', '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook');
 
     # webhook
-    Route::post('/postmark/webhook', Api\Webhook\PostmarkController::class);
+    Route::post('/mailgun/webhook', Api\Webhook\MailgunController::class);
 });
 
 # auth

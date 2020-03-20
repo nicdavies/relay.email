@@ -7,7 +7,7 @@ use App\Jobs\InboundEmailJob;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 
-class PostmarkController extends Controller
+class MailgunController extends Controller
 {
     /**
      * @param Request $request
@@ -15,7 +15,7 @@ class PostmarkController extends Controller
      */
     public function __invoke(Request $request) : JsonResponse
     {
-        // Fire off a job to handle this payload so we don't keep postmark waiting
+        // Fire off a job to handle this payload so we don't keep mailgun waiting
         InboundEmailJob::dispatch();
 
         return response()->json([
