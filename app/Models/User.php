@@ -158,6 +158,18 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @return Relations\HasMany
+     */
+    public function referredUsers() : Relations\HasMany
+    {
+        return $this->hasMany(
+            Referral::class,
+            'referred_by_user_id',
+            'id'
+        );
+    }
+
+    /**
      * @param Builder $builder
      * @param $referralCode
      * @return Builder
@@ -193,14 +205,7 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @return string
-     */
-    public function getRouteKeyName() : string
-    {
-        return 'uuid';
-    }
-
-    /**
+     * //todo - this won't work, the $token var is not a STRING...
      * @param string $token
      * @return void
      */
@@ -215,5 +220,13 @@ class User extends Authenticatable implements HasMedia
     public function sendEmailVerificationNotification() : void
     {
         $this->notify(new VerifyEmailNotification());
+    }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName() : string
+    {
+        return 'uuid';
     }
 }

@@ -4,28 +4,27 @@ namespace App\Http\Controllers\Api\Referral;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Referral\ReferralResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ListController extends Controller
 {
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return AnonymousResourceCollection
      */
-    public function __invoke(Request $request) : JsonResponse
+    public function __invoke(Request $request)
     {
         /** @var User $user */
         $user = $request->user();
 
-        $referrals = $user->referrals();
+        $referredUsers = $user
+            ->referredUsers()
+            ->orderByDesc('created_at')
+            ->paginate(20)
+        ;
 
-        return response()->json([
-            'data' => [
-                'total' => $referrals->count(),
-                'referrals' => ReferralResource::collection($referrals->paginate(20)),
-            ],
-        ]);
+        return ReferralResource::collection($referredUsers);
     }
 }

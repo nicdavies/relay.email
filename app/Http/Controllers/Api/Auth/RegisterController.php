@@ -26,7 +26,7 @@ class RegisterController extends Controller
             'email'             => ['required', 'email', 'unique:users,email', new EmailNotRelayRule],
             'password'          => ['required', 'string', 'min:6', 'max:100'],
             'confirm_password'  => ['required', 'string', 'same:password'],
-            'referral_code'     => ['sometimes', 'nullable', 'string', 'exists:users,referral_code'],
+            'referral_code'     => ['sometimes', 'nullable', 'string'],
         ]);
 
         /** @var User $user */
