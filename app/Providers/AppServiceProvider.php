@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Mailgun\Mailgun;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot() : void
     {
+        $this->app->bind(Mailgun::class, function ($app) {
+            return Mailgun::create(config('mailgun.key'), 'https://api.eu.mailgun.net');
+        });
     }
 }
