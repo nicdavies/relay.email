@@ -28,6 +28,9 @@ class UserResource extends JsonResource
             'is_onboarded' => $this->isOnboarded,
             'is_verified' => $this->isVerified,
 
+            'is_suspended' => $this->isSuspended,
+            'suspension_reason' => $this->suspension_reason ? $this->suspension_reason->description : null,
+
             'subscription' => new SubscriptionResource($this),
 
             'created_at' => $this->created_at->toIso8601String(),

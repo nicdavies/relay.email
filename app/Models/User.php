@@ -5,9 +5,11 @@ namespace App\Models;
 use App\Support\Traits\Uuid;
 use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
+use BenSampo\Enum\Traits\CastsEnums;
 use App\Traits\NotificationSettings;
 use Illuminate\Auth\MustVerifyEmail;
 use Spatie\MediaLibrary\Models\Media;
+use App\Support\Enums\SuspensionType;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -23,6 +25,7 @@ class User extends Authenticatable implements HasMedia
     use Uuid;
     use Billable;
     use Notifiable;
+    use CastsEnums;
     use HasApiTokens;
     use HasMediaTrait;
     use MustVerifyEmail;
@@ -42,6 +45,8 @@ class User extends Authenticatable implements HasMedia
         'card_brand',
         'card_last_four',
         'last_action_at',
+        'suspended_at',
+        'suspension_reason',
 //        'is_admin',
 //        'created_at',
 //        'updated_at',
@@ -64,6 +69,10 @@ class User extends Authenticatable implements HasMedia
         'custom_domain_verified_at' => 'datetime',
         'notification_settings' => 'array',
         'is_admin' => 'boolean',
+    ];
+
+    protected $enumCasts = [
+        'suspension_reason' => SuspensionType::class,
     ];
 
     /**
@@ -106,6 +115,14 @@ class User extends Authenticatable implements HasMedia
             config('app.url'),
             $this->referral_code,
         );
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsSuspendedAttribute() : bool
+    {
+        return $this->suspended_at !== null;
     }
 
     /**
