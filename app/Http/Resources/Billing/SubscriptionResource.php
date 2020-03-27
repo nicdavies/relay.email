@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Billing;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -13,6 +14,8 @@ class SubscriptionResource extends JsonResource
      */
     public function toArray($request) : array
     {
+        $currentDate = Carbon::now();
+        $endDate     = $this->trial_ends_at;
         $hasSubscription = $this->subscribed();
 
         return [
@@ -22,6 +25,9 @@ class SubscriptionResource extends JsonResource
             'has_payment_method' => $this->hasPaymentMethod(),
             'has_grace_period' => $hasSubscription ? $this->subscription()->onGracePeriod() : false,
             'has_ended' => $hasSubscription ? $this->subscription()->ended() : false,
+
+            'trial_ends_at' => $this->trial_ends_at,
+            'trial_ends_at_days' => $this->trial_ends_at ? Carbon::parse($currentDate)->diffInDays($endDate) : null,
 
             'card' => [
                 'brand' => $this->card_brand,

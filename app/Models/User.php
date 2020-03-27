@@ -12,6 +12,7 @@ use Spatie\MediaLibrary\Models\Media;
 use App\Support\Enums\SuspensionType;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\Relations;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -24,6 +25,7 @@ class User extends Authenticatable implements HasMedia
 {
     use Uuid;
     use Billable;
+    use Sluggable;
     use Notifiable;
     use CastsEnums;
     use HasApiTokens;
@@ -34,6 +36,7 @@ class User extends Authenticatable implements HasMedia
     protected $fillable = [
 //        'id',
 //        'uuid',
+        'slug',
         'name',
         'email',
         'password',
@@ -111,7 +114,7 @@ class User extends Authenticatable implements HasMedia
     public function getReferralLinkAttribute() : string
     {
         return sprintf(
-            '%s/auth/register?code=%s',
+            '%s/auth/register?invite=%s',
             config('app.url'),
             $this->referral_code,
         );
@@ -210,11 +213,17 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @return string
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
      */
-    public function getRouteKeyName() : string
+    public function sluggable() : array
     {
-        return 'uuid';
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
     }
 
     /**
@@ -232,5 +241,13 @@ class User extends Authenticatable implements HasMedia
     public function sendEmailVerificationNotification() : void
     {
         $this->notify(new VerifyEmailNotification());
+    }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName() : string
+    {
+        return 'uuid';
     }
 }

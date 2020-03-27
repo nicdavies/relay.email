@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Exception\ClientException;
-use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -17,10 +16,6 @@ class LoginController extends Controller
      */
     public function __invoke(Request $request)
     {
-        Log::error(config('app.url'));
-        Log::error(env('APP_CLIENT_ID'));
-        Log::error(env('APP_CLIENT_SECRET'));
-
         try {
             $client = new Client();
             $endpoint = config('app.url');
@@ -48,7 +43,6 @@ class LoginController extends Controller
 
             return $oauthBody;
         } catch (ClientException $e) {
-            Log::error($e);
             $body = json_decode($e->getResponse()->getBody()->getContents(), true);
             return response()->json($body, 401);
         }
