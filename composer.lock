@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fac440c15ccc5dfd34e82af29d321224",
+    "content-hash": "14514691fa559ffc8429dabab8a56e43",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2096,6 +2096,72 @@
                 "psysh"
             ],
             "time": "2020-02-05T15:00:44+00:00"
+        },
+        {
+            "name": "laravolt/avatar",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravolt/avatar.git",
+                "reference": "9c095aee31e780de85c76a05f19fde3a3d98edac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravolt/avatar/zipball/9c095aee31e780de85c76a05f19fde3a3d98edac",
+                "reference": "9c095aee31e780de85c76a05f19fde3a3d98edac",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/cache": "~5.6 | 6.* | 7.*",
+                "illuminate/support": "~5.6 | 6.* | 7.*",
+                "intervention/image": "^2.5",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.1",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "~7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravolt\\Avatar\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Avatar": "Laravolt\\Avatar\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravolt\\Avatar\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bayu Hendra Winata",
+                    "email": "uyab.exe@gmail.com",
+                    "homepage": "http://id-laravel.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Turn name, email, and any other string into initial-based avatar or gravatar.",
+            "homepage": "https://github.com/laravolt/avatar",
+            "keywords": [
+                "avatar",
+                "gravatar",
+                "laravel",
+                "laravolt"
+            ],
+            "time": "2020-03-04T03:11:24+00:00"
         },
         {
             "name": "lcobucci/jwt",

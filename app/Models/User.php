@@ -8,6 +8,7 @@ use Laravel\Passport\HasApiTokens;
 use BenSampo\Enum\Traits\CastsEnums;
 use App\Traits\NotificationSettings;
 use Illuminate\Auth\MustVerifyEmail;
+use Laravolt\Avatar\Avatar;
 use Spatie\MediaLibrary\Models\Media;
 use App\Support\Enums\SuspensionType;
 use Illuminate\Notifications\Notifiable;
@@ -89,7 +90,8 @@ class User extends Authenticatable implements HasMedia
             return $avatar->getFullUrl();
         }
 
-        return '/img/avatar.jpg';
+        $avatar = new Avatar([]);
+        return $avatar->create($this->name)->toBase64();
     }
 
     /**

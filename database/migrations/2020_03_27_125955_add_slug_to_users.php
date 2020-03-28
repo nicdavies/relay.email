@@ -14,7 +14,9 @@ class AddSlugToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('slug')->nullable();
+            if (! Schema::hasColumn('users', 'slug')) {
+                $table->string('slug')->nullable();
+            }
         });
 
         \Illuminate\Support\Facades\Artisan::call('db:seed', [
