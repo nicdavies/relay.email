@@ -30,8 +30,7 @@ class CreateController extends Controller
         /** @var User $user */
         $user = $request->user();
 
-        $this->assert($user->subscribed(), 'Premium plan required, consider upgrading!');
-//        $this->assert($user->aliases()->count() >= 3, 'Premium plan required for more aliases, consider upgrading!');
+        $this->assert(!(!$user->subscribed() && $user->aliases()->count() >= 3), 'Premium plan required for more aliases, consider upgrading!');
 
         $this->validate($request, [
             'name' => ['required', 'string', 'min:2', 'max:20'],
@@ -55,8 +54,6 @@ class CreateController extends Controller
             ], 400);
         }
 
-        // Set the message history limit based on the user's subscription
-        $messageLimit = $user->subscribed() ? 999 : 50;
         $domain = null;
 
         if (! empty($request->get('custom_domain'))) {
@@ -79,7 +76,6 @@ class CreateController extends Controller
                 'name' => $request->get('name'),
                 'alias' => $alias,
                 'message_action' => $request->get('action'),
-                'message_limit' => $messageLimit,
                 'message_forward_to' => $request->get('forward_to'),
                 'custom_domain_id' => $domain,
             ])

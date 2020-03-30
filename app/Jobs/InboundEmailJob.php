@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\User;
 use App\Models\Alias;
 use App\Models\Message;
 use App\Support\Helpers\Str;
@@ -13,8 +12,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Support\Enums\MessageActionType;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\Message\NewMessageNotification;
 
 class InboundEmailJob implements ShouldQueue
 {
@@ -106,14 +103,6 @@ class InboundEmailJob implements ShouldQueue
                     ->toMediaCollection('attachments')
                 ;
             });
-        }
-
-        /** @var User $user */
-        $user = $alias->user;
-
-        // Only send a notification if the message is not to be hidden!
-        if (! $hidden) {
-            Notification::send($user, new NewMessageNotification($message));
         }
     }
 
