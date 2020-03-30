@@ -152,7 +152,7 @@ class User extends Authenticatable implements HasMedia
             Alias::class,
             'user_id',
             'alias_id',
-            );
+        );
     }
 
     /**
