@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use Laravolt\Avatar\Avatar;
 use App\Support\Traits\Uuid;
 use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
 use BenSampo\Enum\Traits\CastsEnums;
 use App\Traits\NotificationSettings;
 use Illuminate\Auth\MustVerifyEmail;
-use Laravolt\Avatar\Avatar;
 use Spatie\MediaLibrary\Models\Media;
 use App\Support\Enums\SuspensionType;
 use Illuminate\Notifications\Notifiable;
@@ -187,6 +187,15 @@ class User extends Authenticatable implements HasMedia
     public function scopeWhereReferralCode(Builder $builder, $referralCode) : Builder
     {
         return $builder->where('referral_code', $referralCode);
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeWhereNotSuspended(Builder $builder) : Builder
+    {
+        return $builder->whereNull('suspended_at');
     }
 
     /**
