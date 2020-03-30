@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Helpers\Str;
 use Laravolt\Avatar\Avatar;
 use App\Support\Traits\Uuid;
 use Laravel\Cashier\Billable;
@@ -117,7 +118,7 @@ class User extends Authenticatable implements HasMedia
     {
         return sprintf(
             '%s/auth/register?invite=%s',
-            config('app.url'),
+            Str::frontendUrl(),
             $this->referral_code,
         );
     }
