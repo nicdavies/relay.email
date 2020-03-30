@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Api\Account\Confirm;
 
 use App\Models\User;
+use App\Notifications\User\WelcomeNotification;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResource;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Encryption\DecryptException;
 
 class ConfirmController extends Controller
 {
     /**
      * @param Request $request
+     * @param string $token
      * @return UserResource|JsonResponse
-     * @throws ValidationException
      */
     public function __invoke(Request $request, string $token)
     {
@@ -45,6 +45,7 @@ class ConfirmController extends Controller
         }
 
         $user->markEmailAsVerified();
+        $user->notify(new WelcomeNotification());
 
         return new UserResource($user->fresh());
     }
