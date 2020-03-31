@@ -35,7 +35,7 @@ class ForwardMail extends Mailable implements ShouldQueue
             ->subject($this->message->subject)
             ->replyTo($this->message->from_email)
             ->view('emails.forward')
-            ->text($this->message->body_plain)
+            ->text('emails.forward_plain')
             ->with([
                 'email' => $this->message,
             ])
