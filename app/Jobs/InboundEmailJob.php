@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Mail\ForwardMail;
 use App\Models\Alias;
 use App\Models\Message;
 use App\Support\Helpers\Str;
@@ -12,6 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Support\Enums\MessageActionType;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Facades\Mail;
 
 class InboundEmailJob implements ShouldQueue
 {
@@ -22,6 +24,9 @@ class InboundEmailJob implements ShouldQueue
 
     /** @var Request $request */
     private $request;
+
+    /** @var Message|null $message */
+    private $message;
 
     /**
      * Execute the job.
@@ -94,36 +99,38 @@ class InboundEmailJob implements ShouldQueue
         ;
 
         // If there's attachments, we want to save them and attach to this message
-        if (count($this->request->input('attachment-count ', 0)) > 0) {
-            $attachments = json_decode($this->request->input('content-id-map', []), true);
-
-            collect($attachments)->each(function ($value, $key) use ($message) {
-                $message
-                    ->addMediaFromUrl($value)
-                    ->toMediaCollection('attachments')
-                ;
-            });
-        }
+//        if (count($this->request->input('attachment-count ', 0)) > 0) {
+//            $attachments = json_decode($this->request->input('content-id-map', []), true);
+//
+//            collect($attachments)->each(function ($value, $key) use ($message) {
+//                $message
+//                    ->addMediaFromUrl($value)
+//                    ->toMediaCollection('attachments')
+//                ;
+//            });
+//        }
     }
 
     /**
      * @param Alias $alias
+     * @param Message $message
      * @param bool $hidden
      * @return void
      */
-    private function forward(Alias $alias, bool $hidden = false) : void
+    private function forward(Alias $alias, Message $message, bool $hidden = false) : void
     {
-        // todo - implement me!
+        Mail::to($alias->message_forward_to)->send(new ForwardMail($message));
     }
 
     /**
      * @param Alias $alias
+     * @param Message $message
      * @param bool $hidden
      * @return void
      */
-    private function forwardAndSave(Alias $alias, bool $hidden = false) : void
+    private function forwardAndSave(Alias $alias, Message $message, bool $hidden = false) : void
     {
         $this->save($alias);
-        $this->forward($alias);
+        $this->forward($alias, $message);
     }
 }
