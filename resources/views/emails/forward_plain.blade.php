@@ -1,1 +1,1 @@
-{!! $email->body_plain !!}
+{{ $email->body_plain }}
