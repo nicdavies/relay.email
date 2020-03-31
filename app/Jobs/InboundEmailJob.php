@@ -98,6 +98,8 @@ class InboundEmailJob implements ShouldQueue
             ])
         ;
 
+        $this->message = $message;
+
         // If there's attachments, we want to save them and attach to this message
 //        if (count($this->request->input('attachment-count ', 0)) > 0) {
 //            $attachments = json_decode($this->request->input('content-id-map', []), true);
@@ -113,24 +115,22 @@ class InboundEmailJob implements ShouldQueue
 
     /**
      * @param Alias $alias
-     * @param Message $message
      * @param bool $hidden
      * @return void
      */
-    private function forward(Alias $alias, Message $message, bool $hidden = false) : void
+    private function forward(Alias $alias, bool $hidden = false) : void
     {
-        Mail::to($alias->message_forward_to)->send(new ForwardMail($message));
+        Mail::to($alias->message_forward_to)->send(new ForwardMail($this->message));
     }
 
     /**
      * @param Alias $alias
-     * @param Message $message
      * @param bool $hidden
      * @return void
      */
-    private function forwardAndSave(Alias $alias, Message $message, bool $hidden = false) : void
+    private function forwardAndSave(Alias $alias, bool $hidden = false) : void
     {
         $this->save($alias);
-        $this->forward($alias, $message);
+        $this->forward($alias);
     }
 }
