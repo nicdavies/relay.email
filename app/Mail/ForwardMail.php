@@ -30,9 +30,15 @@ class ForwardMail extends Mailable implements ShouldQueue
      */
     public function build() : self
     {
+        $subject = sprintf(
+            '%s - fwrd from %s',
+            $this->message->subject,
+            config('app.name')
+        );
+
         $mail = $this
             ->to($this->message->alias->message_forward_to)
-            ->subject($this->message->subject)
+            ->subject($subject)
             ->replyTo($this->message->from_email, $this->message->from_name)
         ;
 
