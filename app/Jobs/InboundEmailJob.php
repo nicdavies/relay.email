@@ -79,13 +79,15 @@ class InboundEmailJob implements ShouldQueue
      */
     private function save(Alias $alias, bool $hidden = false) : void
     {
+        $fromName = preg_replace('/[^@\s]*@[^@\s\.]*\.[^@\s\.,!?]*/', '', $this->request->input('from'));
+
         /** @var Message $message */
         $message = $alias
             ->messages()
             ->create([
                 'message_id' => $this->request->input('Message-Id'),
                 'subject' => $this->request->input('subject'),
-                'from_name' => $this->request->input('from'),
+                'from_name' => $fromName,
                 'from_email' => $this->request->input('sender'),
                 'body_html' => $this->request->input('body-html'),
                 'body_plain' => $this->request->input('body-plain'),
