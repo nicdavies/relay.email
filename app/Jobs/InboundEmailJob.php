@@ -14,6 +14,7 @@ use App\Support\Enums\MessageActionType;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Mail;
+use Log;
 
 class InboundEmailJob implements ShouldQueue
 {
@@ -122,6 +123,7 @@ class InboundEmailJob implements ShouldQueue
      */
     private function forward(Alias $alias, bool $hidden = false) : void
     {
+        Log::error($alias->message_forward_to);
         Mail::to($alias->message_forward_to)->send(new ForwardMail($this->message));
     }
 
