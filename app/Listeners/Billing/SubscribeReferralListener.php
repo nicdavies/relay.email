@@ -2,11 +2,11 @@
 
 namespace App\Listeners\Billing;
 
+use App\Notifications\User\ReferralSubscribedNotification;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Events\Billing\SubscribeEvent;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\User\ReferralSubscribedNotification;
 
 class SubscribeReferralListener
 {
@@ -18,11 +18,12 @@ class SubscribeReferralListener
      */
     public function handle(SubscribeEvent $event) : void
     {
+        /** @var User $user */
         $user = $event->user;
         $this->user = $user;
 
         // If the user wasn't referred, we don't need to do anything!
-        if (! $user->wasReferred) {
+        if (! $user->was_referred) {
             return;
         }
 

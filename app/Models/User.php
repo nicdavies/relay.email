@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Support\Helpers\Str;
 use Laravolt\Avatar\Avatar;
 use App\Support\Traits\Uuid;
+use App\Support\Helpers\Str;
 use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
 use BenSampo\Enum\Traits\CastsEnums;
@@ -126,6 +126,14 @@ class User extends Authenticatable implements HasMedia
     /**
      * @return bool
      */
+    public function getWasReferredAttribute() : bool
+    {
+        return $this->referredByUser()->first() instanceof Referral;
+    }
+
+    /**
+     * @return bool
+     */
     public function getIsSuspendedAttribute() : bool
     {
         return $this->suspended_at !== null;
@@ -176,6 +184,30 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(
             CustomDomain::class,
             'user_id',
+            'id'
+        );
+    }
+
+    /**
+     * @return Relations\HasMany
+     */
+    public function referredUsers() : Relations\HasMany
+    {
+        return $this->hasMany(
+            Referral::class,
+            'user_id',
+            'id'
+        );
+    }
+
+    /**
+     * @return Relations\BelongsTo
+     */
+    public function referredByUser() : Relations\BelongsTo
+    {
+        return $this->belongsTo(
+            Referral::class,
+            'referred_user_id',
             'id'
         );
     }

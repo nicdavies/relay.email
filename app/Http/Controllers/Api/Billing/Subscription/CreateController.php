@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Billing\Subscription;
 
+use App\Events\Billing\SubscribeEvent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -37,6 +38,8 @@ class CreateController extends Controller
                 ->newSubscription('default', 'premium_monthly')
                 ->create()
             ;
+
+            event(new SubscribeEvent($user));
         }
 
         return new SubscriptionResource($user);

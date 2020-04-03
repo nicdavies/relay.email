@@ -18,6 +18,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Events\RegisterEvent::class => [
             Listeners\Register\CreateDefaultAlias::class,
+            Listeners\Register\CreateReferral::class,
         ],
 
         Events\Billing\SubscribeEvent::class => [
