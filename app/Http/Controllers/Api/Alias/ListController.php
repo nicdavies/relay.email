@@ -22,8 +22,13 @@ class ListController extends Controller
         $aliases = $user
             ->aliases()
             ->orderByDesc('created_at')
-            ->get()
         ;
+
+        if ((bool)$request->get('pinned', false)) {
+            $aliases = $aliases->wherePinned();
+        }
+
+        $aliases = $aliases->get();
 
         return AliasResource::collection($aliases);
     }

@@ -29,9 +29,14 @@ class Alias extends Model
         'forward_to_confirmed_at',
         'forward_to_confirmation_token',
         'custom_domain_id',
+        'is_pinned',
 //        'created_at',
 //        'updated_at',
 //        'deleted_at',
+    ];
+
+    protected $casts = [
+        'is_pinned' => 'boolean',
     ];
 
     protected $enumCasts = [
@@ -201,6 +206,15 @@ class Alias extends Model
             'custom_domain_id',
             'id'
         );
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeWherePinned(Builder $query) : Builder
+    {
+        return $query->where('is_pinned', true);
     }
 
     /**

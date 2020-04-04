@@ -17,6 +17,7 @@ class AliasResource extends JsonResource
             'uuid' => $this->uuid,
             'name' => $this->name,
             'alias' => $this->alias,
+            'is_pinned' => $this->is_pinned,
         ];
     }
 }
