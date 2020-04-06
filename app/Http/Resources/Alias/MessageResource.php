@@ -27,7 +27,7 @@ class MessageResource extends JsonResource
             'properties' => $this->properties,
             'intro_line' => $this->intro_line,
 
-            'is_read' => $this->isRead,
+            'is_read' => $this->is_read,
             'read_at' => $this->read_at ? $this->read_at->toIso8601String() : null,
 
             'body' => [

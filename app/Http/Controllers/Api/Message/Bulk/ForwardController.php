@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api\Message\Bulk;
 
-use App\Models\Message;
 use App\Models\User;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;

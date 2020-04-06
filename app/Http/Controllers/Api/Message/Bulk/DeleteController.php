@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\Message\Bulk;
 
-use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Message;
 use Illuminate\Http\Request;
