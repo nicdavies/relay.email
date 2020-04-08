@@ -1,1 +1,1 @@
-{!! $message->body_html !!}
+<iframe srcdoc="{!! $message->body_html !!}>"></iframe>
