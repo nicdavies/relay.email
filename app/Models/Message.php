@@ -37,6 +37,7 @@ class Message extends Model implements HasMedia
         'is_hidden',
         'read_at',
         'intro_line',
+        'preview_token',
 //        'created_at',
 //        'updated_at',
 //        'deleted_at',
@@ -54,6 +55,14 @@ class Message extends Model implements HasMedia
         'updated_at',
         'deleted_at',
     ];
+
+    /**
+     * @return string
+     */
+    public function getHasPreviewTokenAttribute() : string
+    {
+        return $this->preview_token !== null;
+    }
 
     /**
      * @return bool

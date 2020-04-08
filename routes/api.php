@@ -21,6 +21,9 @@ Route::group([], function () {
     Route::get('/auth/reset/{passwordReset}', Api\Auth\Reset\ReadController::class);
     Route::post('/auth/reset/{passwordReset}', Api\Auth\Reset\UpdateController::class);
 
+    # alias message render
+    Route::get('/aliases/{alias}/messages/{message}/render', Api\Alias\Message\Render\ReadController::class);
+
     # stripe webhook
     Route::post('/stripe/webhook', '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook');
 

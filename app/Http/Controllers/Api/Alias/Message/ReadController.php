@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Alias\Message;
 use Carbon\Carbon;
 use App\Models\Alias;
 use App\Models\Message;
+use App\Support\Helpers\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Alias\MessageResource;
@@ -30,6 +31,10 @@ class ReadController extends Controller
                 'read_at' => Carbon::now(),
             ]);
         }
+
+        $message->update([
+            'preview_token' => Str::nanoId(),
+        ]);
 
         return new MessageResource($message->fresh());
     }

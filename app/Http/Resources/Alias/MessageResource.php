@@ -30,12 +30,12 @@ class MessageResource extends JsonResource
             'is_read' => $this->is_read,
             'read_at' => $this->read_at ? $this->read_at->toIso8601String() : null,
 
+            'has_preview_token' => $this->has_preview_token,
+            'preview_token' => $this->preview_token,
+
             'body' => [
                 'has_html' => $this->hasHtmlMessage,
-                'html' => $this->body_html,
-
                 'has_plain' => $this->hasPlainTextMessage,
-                'plain' => $this->body_plain,
             ],
 
             'spam' => [
