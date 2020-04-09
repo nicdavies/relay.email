@@ -12,6 +12,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.5",
         "hidehalo/nanoid-php": "^1.1",
+        "htmlmin/htmlmin": "^7.0",
         "kriswallsmith/buzz": "^1.1",
         "laravel/cashier": "^10.5",
         "laravel/framework": "^7.0",

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Alias\Message\Render;
 
 use App\Models\Alias;
 use App\Models\Message;
+use HTMLMin\HTMLMin\Facades\HTMLMin;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -44,7 +45,7 @@ class ReadController extends Controller
 
         if ($message->has_html_message) {
             return view('message.html', [
-                'message' => $message,
+                'message' => HTMLMin::html($message->body_html),
             ]);
         }
 
