@@ -27,7 +27,7 @@ class SubscriptionResource extends JsonResource
             'has_ended' => $hasSubscription ? $this->subscription()->ended() : false,
 
             'trial_ends_at' => $this->trial_ends_at,
-            'trial_ends_at_days' => $this->trial_ends_at ? Carbon::parse($currentDate)->diffInDays($endDate) : null,
+            'trial_ends_at_days' => $this->trial_ends_at ? Carbon::parse($currentDate)->diffInDays($endDate) : 0,
 
             'card' => [
                 'brand' => $this->card_brand,
