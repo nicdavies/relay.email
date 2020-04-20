@@ -37,8 +37,7 @@ class SeenController extends Controller
         /** @var array $messages */
         $messages = $request->get('messages');
 
-        /** @var Collection $models */
-        $models = Message::whereIn('uuid', $messages)
+        Message::whereIn('uuid', $messages)
             ->whereIn('alias_id', $aliasIds)
             ->update([
                 'read_at' => Carbon::now(),
