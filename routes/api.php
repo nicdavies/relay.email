@@ -29,6 +29,9 @@ Route::group([], function () {
 
     # webhook
     Route::post('/mailgun/webhook', Api\Webhook\MailgunController::class);
+
+    # exposed email
+    Route::post('/email/is-exposed', Api\Exposed\CheckController::class);
 });
 
 # auth
