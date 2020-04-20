@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Api\Alias\Message\Render;
 
 use App\Models\Alias;
 use App\Models\Message;
-use HTMLMin\HTMLMin\Facades\HTMLMin;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use HTMLMin\HTMLMin\Facades\HTMLMin;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Auth\Access\AuthorizationException;
 
 class ReadController extends Controller
 {
@@ -19,13 +18,9 @@ class ReadController extends Controller
      * @param Alias $alias
      * @param Message $message
      * @return Factory|JsonResponse|View
-     * @throws AuthorizationException
      */
     public function __invoke(Request $request, Alias $alias, Message $message)
     {
-//        $this->authorize('owns-alias', $alias);
-//        $this->authorize('owns-message', $message);
-
         /** @var string|null $previewToken */
         $previewToken = $request->get('token');
 
@@ -42,6 +37,11 @@ class ReadController extends Controller
                 'message' => 'Invalid preview token!',
             ], 403);
         }
+
+        // We'll just need to reset the token so it can't be re-used
+        $message->update([
+            'preview_token' => null,
+        ]);
 
         if ($message->has_html_message) {
             return view('message.html', [
