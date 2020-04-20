@@ -24,7 +24,7 @@ class CreateController extends Controller
     {
         /** @var User $user */
         $user = $request->user();
-        $this->authorize($user->subscribed(), 'Premium plan required, consider upgrading!');
+//        $this->authorize(!$user->subscribed(), 'Premium plan required, consider upgrading!');
 
         $this->validate($request, [
             'domain' => ['required', 'string', new DomainRule],
