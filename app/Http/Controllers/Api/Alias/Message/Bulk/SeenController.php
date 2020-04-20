@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\Alias\Message\Bulk;
 
+use Carbon\Carbon;
 use App\Models\Alias;
 use App\Models\Message;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -33,8 +33,7 @@ class SeenController extends Controller
         /** @var array $messages */
         $messages = $request->get('messages');
 
-        /** @var Collection $models */
-        $models = Message::whereIn('uuid', $messages)
+        Message::whereIn('uuid', $messages)
             ->where('alias_id', $alias->id)
             ->update([
                 'read_at' => Carbon::now(),
